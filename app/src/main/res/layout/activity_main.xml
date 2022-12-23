@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="328dp"
-        android:layout_height="36dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,7 +33,10 @@
             android:layout_width="162dp"
             android:layout_height="match_parent"
             android:backgroundTint="@color/custom_red"
-            android:text="@string/favorit_button_name"
+            android:text="@string/favorite_button_name"
+            app:icon="@drawable/ic_heart_empty"
+            app:iconGravity="textEnd"
+            app:iconSize="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="1"
