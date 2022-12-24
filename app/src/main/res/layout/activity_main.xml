@@ -4,45 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/custom_white"
+    android:background="@color/main_background_white"
     tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="328dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" >
-
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingHorizontal="@dimen/button_container_horizontal_margin"
+        android:layout_marginVertical="@dimen/button_container_vertical_margin"
+        >
 
         <Button
             style="@style/StyleNavButton"
-            android:layout_width="162dp"
-            android:layout_height="match_parent"
-            android:backgroundTint="@color/custom_blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/blue_nav_button"
             android:text="@string/category_button_name"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginHorizontal="@dimen/half_margin_button_horizontal"
+            android:layout_weight="1" />
 
         <Button
             style="@style/StyleNavButton"
-            android:layout_width="162dp"
-            android:layout_height="match_parent"
-            android:backgroundTint="@color/custom_red"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/favorite_button_name"
             app:icon="@drawable/ic_heart_empty"
             app:iconGravity="textEnd"
             app:iconSize="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:backgroundTint="@color/red_nav_button"
+            android:layout_marginHorizontal="@dimen/half_margin_button_horizontal"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    
 </androidx.constraintlayout.widget.ConstraintLayout>
