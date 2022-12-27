@@ -9,6 +9,8 @@
     <TextView
         android:id="@+id/tvListCategories"
         android:layout_width="match_parent"
+        android:text="@string/list_category_fragment"
+        android:gravity="center"
         android:layout_height="match_parent" />
 
 </FrameLayout>
