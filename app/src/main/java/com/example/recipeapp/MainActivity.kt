@@ -38,20 +38,19 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun showCategories() {
+    private fun showCategories() {
         supportFragmentManager.commit {
             setReorderingAllowed(true)
             replace<CategoriesListFragment>(R.id.frgMainFragmentContainer)
-            setReorderingAllowed(true)
             addToBackStack(null)
         }
 
     }
 
-    fun showFavorites() {
+    private fun showFavorites() {
         supportFragmentManager.commit {
-            replace<FavoritesFragment>(R.id.frgMainFragmentContainer)
             setReorderingAllowed(true)
+            replace<FavoritesFragment>(R.id.frgMainFragmentContainer)
             addToBackStack(null)
         }
 
