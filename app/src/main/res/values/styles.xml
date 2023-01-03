@@ -22,11 +22,11 @@
         <item name="android:textColor">@color/text_menu_header_purple_color</item>
     </style>
 
-    <style name="StyleCategoryCardHeader" parent="StyleMenuHeader12">
+    <style name="StyleCardCategoryHeader" parent="StyleMenuHeader12">
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="StyleCategoryCardDescription" parent="TextAppearance.AppCompat">
+    <style name="StyleCardCategoryDescription" parent="TextAppearance.AppCompat">
         <item name="android:textSize">12sp</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
         <item name="android:textColor">@color/category_description_grey_color</item>

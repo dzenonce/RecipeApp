@@ -21,7 +21,7 @@
 
         <TextView
             android:id="@+id/tvCardCategoryHeader"
-            style="@style/StyleCategoryCardHeader"
+            style="@style/StyleCardCategoryHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/category_card_header_margin"
@@ -29,7 +29,7 @@
 
         <TextView
             android:id="@+id/tvCardCategoryDescription"
-            style="@style/StyleCategoryCardDescription"
+            style="@style/StyleCardCategoryDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/category_card_description_margin"
