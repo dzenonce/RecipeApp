@@ -1,5 +1,7 @@
 package com.example.recipeapp
 
+import Category
+import STUB
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -30,7 +32,13 @@ class CategoriesListFragment : Fragment() {
     }
 
     private fun initRecycler() {
+        val categoryListAdapter = CategoriesListAdapter(
+            dataSet = STUB.getCategories(),
+            fragment = this
+        )
+
         val recyclerView: RecyclerView = binding.rvCategories
+        recyclerView.adapter = categoryListAdapter
     }
 
 }
