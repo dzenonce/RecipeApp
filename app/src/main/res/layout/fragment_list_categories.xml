@@ -22,18 +22,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            style="@style/StyleMenuHeader12"
+            style="@style/StyleMenuHeader20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/screen_title_start_margin"
-            android:layout_marginBottom="@dimen/screen_title_bottom_margin"
             android:background="@drawable/shape_radius_variant_favorite_header"
-            android:paddingHorizontal="@dimen/screen_title_horizontal_margin"
-            android:paddingVertical="@dimen/screen_title_vertical_margin"
-            android:text="@string/menu_category_header"
+            android:text="@string/title_categories"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -42,8 +37,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginHorizontal="@dimen/rv_category_card_half_horizontal_margin"
-        android:layout_marginVertical="@dimen/rv_category_card_half_vertical_margin"
+        android:layout_marginHorizontal="@dimen/category_card_half_margin"
+        android:layout_marginVertical="@dimen/category_card_half_margin"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
         tools:itemCount="6"
