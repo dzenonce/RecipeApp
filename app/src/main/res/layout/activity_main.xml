@@ -11,9 +11,9 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/container_vertical_margin"
+        android:layout_marginVertical="@dimen/container_half_margin"
         android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/container_horizontal_margin"
+        android:paddingHorizontal="@dimen/container_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
