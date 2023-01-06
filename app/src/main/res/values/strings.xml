@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">RecipeApp</string>
-    <string name="category_button_name">Категории</string>
-    <string name="favorite_button_name">Избранное</string>
+    <string name="title_categories">Категории</string>
+    <string name="title_favorite">Избранное</string>
     <string name="list_category_fragment">Fragment List Category</string>
     <string name="favorite_fragment">Fragment Favorite</string>
-    <string name="menu_category_header">Категории</string>
 </resources>
