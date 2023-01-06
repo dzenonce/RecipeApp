@@ -4,6 +4,8 @@
     <dimen name="container_vertical_margin">8dp</dimen>
     <dimen name="main_horizontal_margin">4dp</dimen>
     <dimen name="half_horizontal_margin">2dp</dimen>
-    <dimen name="fragment_bottom_margin">60dp</dimen>
     <dimen name="screen_header_size">224dp</dimen>
+    <dimen name="fragment_bottom_margin">60dp</dimen>
+    <dimen name="category_card_radius">8dp</dimen>
+    <dimen name="category_card_half_margin">8dp</dimen>
 </resources>
