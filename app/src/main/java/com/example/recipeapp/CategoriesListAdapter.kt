@@ -23,7 +23,6 @@ class CategoriesListAdapter(
         var categoryName: TextView
         var categoryDescription: TextView
 
-
         init {
             categoryItem = view.findViewById(R.id.cvCategoryItem)
             categoryImage = view.findViewById(R.id.ivCategoryImage)
@@ -43,9 +42,11 @@ class CategoriesListAdapter(
         viewHolder.categoryName.text = dataSet[position].title
 
         try {
-            val inputStream: InputStream? = fragment.context?.assets?.open(dataSet[position].imageUrl)
+            val inputStream: InputStream? =
+                fragment.context?.assets?.open(dataSet[position].imageUrl)
             val drawable = Drawable.createFromStream(inputStream, null)
             viewHolder.categoryImage.setImageDrawable(drawable)
+            viewHolder.categoryImage.contentDescription = "Изображение" + dataSet[position].title
         } catch (e: Error) {
             Log.e("Stack Trace", e.stackTraceToString())
         }
