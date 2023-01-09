@@ -46,8 +46,6 @@ class CategoriesListAdapter(
                 fragment.context?.assets?.open(dataSet[position].imageUrl)
             val drawable = Drawable.createFromStream(inputStream, null)
             viewHolder.categoryImage.setImageDrawable(drawable)
-            viewHolder.categoryImage.contentDescription = dataSet[position].title
-
         } catch (e: Error) {
             Log.e("Stack Trace", e.stackTraceToString())
         }
