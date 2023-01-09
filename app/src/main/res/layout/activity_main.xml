@@ -7,13 +7,25 @@
     android:background="@color/main_background_white_color"
     tools:context=".MainActivity">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/frgMainFragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/container_half_margin"
+        app:layout_constraintBottom_toTopOf="@id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.fragment.app.FragmentContainerView>
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/container_vertical_margin"
+        android:layout_marginVertical="@dimen/container_half_margin"
         android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/container_horizontal_margin"
+        android:paddingHorizontal="@dimen/container_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -23,7 +35,7 @@
             style="@style/StyleNavButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/half_horizontal_margin"
+            android:layout_marginHorizontal="@dimen/main_margin_half"
             android:layout_weight="1"
             android:backgroundTint="@color/nav_button_blue_color"
             android:text="@string/title_categories" />
@@ -33,7 +45,7 @@
             style="@style/StyleNavButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/half_horizontal_margin"
+            android:layout_marginHorizontal="@dimen/main_margin_half"
             android:layout_weight="1"
             android:backgroundTint="@color/nav_button_red_color"
             android:text="@string/title_favorite"
@@ -42,18 +54,5 @@
             app:iconSize="24dp" />
 
     </LinearLayout>
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/frgMainFragmentContainer"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/fragment_bottom_margin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </androidx.fragment.app.FragmentContainerView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
