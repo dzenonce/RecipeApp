@@ -12,21 +12,19 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import java.io.InputStream
 
-interface OnItemClickListener {
-
-    fun onItemClick() {}
-}
-
-var itemClickListener: OnItemClickListener? = null
-
-fun setOnItemClickListener(listener: OnItemClickListener?) {
-    itemClickListener = listener
-}
-
 class CategoriesListAdapter(
     private val dataSet: List<Category>,
     private val fragment: CategoriesListFragment,
-) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>(), OnItemClickListener {
+) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
+
+    interface OnItemClickListener {
+        fun onItemClick()
+    }
+
+    var itemClickListener: OnItemClickListener? = null
+    fun setOnItemClickListener(listener: OnItemClickListener?) {
+        itemClickListener = listener
+    }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var categoryItem: CardView
@@ -57,11 +55,20 @@ class CategoriesListAdapter(
                 fragment.context?.assets?.open(dataSet[position].imageUrl)
             val drawable = Drawable.createFromStream(inputStream, null)
             viewHolder.categoryImage.setImageDrawable(drawable)
+
+            val contentDescriptionImage =
+                fragment.context?.getString(R.string.content_description_image)
+            viewHolder.categoryImage.contentDescription =
+                contentDescriptionImage + viewHolder.categoryName
         } catch (e: Error) {
             Log.e("Stack Trace", e.stackTraceToString())
         }
 
         viewHolder.categoryDescription.text = dataSet[position].description
+
+        viewHolder.categoryItem.setOnClickListener {
+            itemClickListener?.onItemClick()
+        }
 
     }
 
