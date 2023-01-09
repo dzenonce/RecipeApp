@@ -13,15 +13,15 @@ import androidx.recyclerview.widget.RecyclerView
 import java.io.InputStream
 
 class CategoriesListAdapter(
-    private val dataSet: List<Category>,
+    val dataSet: List<Category>,
     private val fragment: CategoriesListFragment,
 ) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClick()
+        fun onItemClick(categoryId: Int)
     }
 
-    var itemClickListener: OnItemClickListener? = null
+    private var itemClickListener: OnItemClickListener? = null
     fun setOnItemClickListener(listener: OnItemClickListener?) {
         itemClickListener = listener
     }
@@ -67,7 +67,7 @@ class CategoriesListAdapter(
         viewHolder.categoryDescription.text = dataSet[position].description
 
         viewHolder.categoryItem.setOnClickListener {
-            itemClickListener?.onItemClick()
+            itemClickListener?.onItemClick(dataSet[position].id)
         }
 
     }
