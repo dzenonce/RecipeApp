@@ -35,7 +35,7 @@
             style="@style/StyleNavButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/half_main_margin"
+            android:layout_marginHorizontal="@dimen/main_margin_half"
             android:layout_weight="1"
             android:backgroundTint="@color/nav_button_blue_color"
             android:text="@string/title_categories" />
@@ -45,7 +45,7 @@
             style="@style/StyleNavButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/half_main_margin"
+            android:layout_marginHorizontal="@dimen/main_margin_half"
             android:layout_weight="1"
             android:backgroundTint="@color/nav_button_red_color"
             android:text="@string/title_favorite"
