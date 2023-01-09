@@ -4,5 +4,6 @@
     <string name="title_favorite">Избранное</string>
     <string name="list_category_fragment">Fragment List Category</string>
     <string name="favorite_fragment">Fragment Favorite</string>
+    <string name="title_image_category">Изображение категории</string>
     <string name="recipe_list_fragment">Recipe list fragment</string>
 </resources>
