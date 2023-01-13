@@ -1,8 +1,7 @@
-package com.example.recipeapp
+package com.example.recipeapp.fragment
 
 import STUB
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recipeapp.ARG_CATEGORY_ID
+import com.example.recipeapp.ARG_CATEGORY_IMAGE_URL
+import com.example.recipeapp.ARG_CATEGORY_NAME
+import com.example.recipeapp.R
+import com.example.recipeapp.adapter.CategoriesListAdapter
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
 
 class CategoriesListFragment : Fragment() {
@@ -46,9 +50,10 @@ class CategoriesListFragment : Fragment() {
         categoryListAdapter.setOnItemClickListener(
             object : CategoriesListAdapter.OnItemClickListener {
                 override fun onItemClick(categoryId: Int) {
-                    val bundle = getBundle(
-                        categoryListAdapter = categoryListAdapter,
-                        categoryId = categoryId
+                    val bundle = bundleOf(
+                        ARG_CATEGORY_ID to categoryId,
+                        ARG_CATEGORY_NAME to categoryListAdapter.dataSet[categoryId].title,
+                        ARG_CATEGORY_IMAGE_URL to categoryListAdapter.dataSet[categoryId].imageUrl,
                     )
                     openRecipesByCategoryId(bundle)
                 }
@@ -63,19 +68,4 @@ class CategoriesListFragment : Fragment() {
             addToBackStack(null)
         }
     }
-
-    private fun getBundle(categoryListAdapter: CategoriesListAdapter, categoryId: Int): Bundle {
-        val categoryName: String = categoryListAdapter.dataSet[categoryId].title
-        val categoryImageUrl: String = categoryListAdapter.dataSet[categoryId].imageUrl
-        Log.d("!!!", "Выбраны рецепты: $categoryName")
-        return bundleOf(
-            ARG_CATEGORY_ID to categoryId,
-            ARG_CATEGORY_NAME to categoryName,
-            ARG_CATEGORY_IMAGE_URL to categoryImageUrl,
-        )
-    }
 }
-
-const val ARG_CATEGORY_ID: String = "category_id"
-const val ARG_CATEGORY_NAME: String = "category_name"
-const val ARG_CATEGORY_IMAGE_URL: String = "category_image_url"

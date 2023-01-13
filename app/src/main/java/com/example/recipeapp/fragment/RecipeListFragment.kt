@@ -1,4 +1,4 @@
-package com.example.recipeapp
+package com.example.recipeapp.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -6,6 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.recipeapp.ARG_CATEGORY_ID
+import com.example.recipeapp.ARG_CATEGORY_IMAGE_URL
+import com.example.recipeapp.ARG_CATEGORY_NAME
+import com.example.recipeapp.R
 
 class RecipeListFragment : Fragment() {
 
@@ -23,9 +27,9 @@ class RecipeListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        categoryId = requireArguments().getInt(ARG_CATEGORY_ID)
-        categoryName = requireArguments().getString(ARG_CATEGORY_NAME)
-        categoryImageUrl = requireArguments().getString(ARG_CATEGORY_IMAGE_URL)
+        categoryId = arguments?.getInt(ARG_CATEGORY_ID)
+        categoryName = arguments?.getString(ARG_CATEGORY_NAME)
+        categoryImageUrl = arguments?.getString(ARG_CATEGORY_IMAGE_URL)
 
         Log.d("!!!", "RecipeFragment \ncategoryId: $categoryId, \ncategoryName: $categoryName, \ncategoryImageUrl: $categoryImageUrl")
     }
