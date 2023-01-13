@@ -27,9 +27,11 @@ class RecipeListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        categoryId = arguments?.getInt(ARG_CATEGORY_ID)
-        categoryName = arguments?.getString(ARG_CATEGORY_NAME)
-        categoryImageUrl = arguments?.getString(ARG_CATEGORY_IMAGE_URL)
+        arguments?.let {
+            categoryId = it.getInt(ARG_CATEGORY_ID)
+            categoryName = it.getString(ARG_CATEGORY_NAME)
+            categoryImageUrl = it.getString(ARG_CATEGORY_IMAGE_URL)
+        }
 
         Log.d("!!!", "RecipeFragment \ncategoryId: $categoryId, \ncategoryName: $categoryName, \ncategoryImageUrl: $categoryImageUrl")
     }
