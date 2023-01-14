@@ -3,13 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_background_white_color"
-    tools:context=".fragment.FavoritesFragment">
+    tools:context=".fragment.RecipeFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="@string/fragment_favorite" />
+        android:text="@string/fragment_recipe" />
 
 </FrameLayout>
