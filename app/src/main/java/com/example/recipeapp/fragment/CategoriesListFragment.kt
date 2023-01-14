@@ -51,11 +51,11 @@ class CategoriesListFragment : Fragment() {
         categoryListAdapter.setOnItemClickListener(
             object : CategoriesListAdapter.OnItemClickListener {
                 override fun onItemClick(categoryId: Int) {
-                    val category = categories[categoryId]
+                    val category = categories.find { it.id == categoryId }
                     val bundle = bundleOf(
-                        ARG_CATEGORY_ID to category.id,
-                        ARG_CATEGORY_NAME to category.title,
-                        ARG_CATEGORY_IMAGE_URL to category.imageUrl,
+                        ARG_CATEGORY_ID to category?.id,
+                        ARG_CATEGORY_NAME to category?.title,
+                        ARG_CATEGORY_IMAGE_URL to category?.imageUrl,
                     )
                     openRecipesByCategoryId(bundle)
                 }
