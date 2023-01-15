@@ -16,12 +16,12 @@ import com.example.recipeapp.ARG_CATEGORY_IMAGE_URL
 import com.example.recipeapp.ARG_CATEGORY_NAME
 import com.example.recipeapp.R
 import com.example.recipeapp.adapter.RecipeListAdapter
-import com.example.recipeapp.databinding.FragmentRecipeListBinding
+import com.example.recipeapp.databinding.FragmentRecipesListBinding
 import java.io.InputStream
 
-class RecipeListFragment : Fragment() {
+class RecipesListFragment : Fragment() {
 
-    private var _binding: FragmentRecipeListBinding? = null
+    private var _binding: FragmentRecipesListBinding? = null
     private val binding
         get() = _binding ?: throw IllegalStateException("RecipeListFragment must not be null")
 
@@ -33,7 +33,7 @@ class RecipeListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentRecipeListBinding.inflate(inflater)
+        _binding = FragmentRecipesListBinding.inflate(inflater)
         return binding.root
     }
 
@@ -58,11 +58,11 @@ class RecipeListFragment : Fragment() {
         try {
             val inputStream: InputStream? = this.context?.assets?.open(categoryImageUrl.toString())
             val drawable: Drawable? = Drawable.createFromStream(inputStream, null)
-            binding.ivRecipeListImage.setImageDrawable(drawable)
+            binding.ivRecipesListImage.setImageDrawable(drawable)
         } catch (e: Error) {
-            Log.e("Stack Trace", e.stackTraceToString())
+            Log.e("assets error", e.stackTraceToString())
         }
-        binding.tvRecipeListHeaderName.text = categoryName
+        binding.tvRecipesListHeaderName.text = categoryName
     }
 
     private fun initRecycler() {

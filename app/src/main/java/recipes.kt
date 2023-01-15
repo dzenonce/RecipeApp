@@ -1,3 +1,5 @@
+import com.example.recipeapp.model.*
+
 object STUB {
 
     private val categories: List<Category> = listOf(

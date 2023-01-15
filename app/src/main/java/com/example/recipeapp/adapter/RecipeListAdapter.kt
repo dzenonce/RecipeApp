@@ -1,6 +1,6 @@
 package com.example.recipeapp.adapter
 
-import Recipe
+import com.example.recipeapp.model.Recipe
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,12 +11,12 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
-import com.example.recipeapp.fragment.RecipeListFragment
+import com.example.recipeapp.fragment.RecipesListFragment
 import java.io.InputStream
 
 class RecipeListAdapter(
     private val dataSet: List<Recipe>,
-    private val fragment: RecipeListFragment
+    private val fragment: RecipesListFragment
 ) : RecyclerView.Adapter<RecipeListAdapter.ViewHolder>() {
 
     interface OnRecipeClickListener {
@@ -56,7 +56,7 @@ class RecipeListAdapter(
             val drawable: Drawable? = Drawable.createFromStream(inputStream, null)
             viewHolder.recipeImage.setImageDrawable(drawable)
         } catch (e: Error) {
-            Log.e("!!!", e.stackTraceToString())
+            Log.e("assets error", e.stackTraceToString())
         }
         viewHolder.recipeImage.contentDescription =
             fragment.context?.getString(R.string.content_description_image) + dataSet[position].title

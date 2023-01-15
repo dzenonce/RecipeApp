@@ -6,7 +6,7 @@
     <string name="title_burger_category">Бургеры</string>
     <string name="fragment_list_category">Fragment List Category</string>
     <string name="fragment_favorite">Fragment Favorite</string>
-    <string name="fragment_recipe_list">Recipe list fragment</string>
+    <string name="fragment_recipes_list">Recipes list fragment</string>
     <string name="fragment_recipe">Recipe fragment</string>
     <string name="content_description_image">Изображение</string>
 </resources>
