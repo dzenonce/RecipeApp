@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="container_margin">16dp</dimen>
-    <dimen name="container_half_margin">8dp</dimen>
-    <dimen name="main_margin">4dp</dimen>
-    <dimen name="main_margin_half">2dp</dimen>
-    <dimen name="screen_header_size">224dp</dimen>
-    <dimen name="card_category_size">130dp</dimen>
+    <dimen name="margin_container">16dp</dimen>
+    <dimen name="margin_container_half">8dp</dimen>
+    <dimen name="margin_main">4dp</dimen>
+    <dimen name="margin_main_half">2dp</dimen>
+    <dimen name="size_screen_header">224dp</dimen>
+    <dimen name="size_card_category_image">130dp</dimen>
+    <dimen name="size_recipes_list_header">256dp</dimen>
+    <dimen name="size_recipe_image">100dp</dimen>
 </resources>
