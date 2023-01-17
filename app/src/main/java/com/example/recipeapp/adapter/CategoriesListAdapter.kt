@@ -58,13 +58,13 @@ class CategoriesListAdapter(
             val drawable = Drawable.createFromStream(inputStream, null)
             viewHolder.categoryImage.setImageDrawable(drawable)
 
-            val contentDescriptionImage =
-                fragment.context?.getString(R.string.content_description_image)
-            viewHolder.categoryImage.contentDescription =
-                contentDescriptionImage + viewHolder.categoryName
         } catch (e: Error) {
-            Log.e("Stack Trace", e.stackTraceToString())
+            Log.e("assets error", e.stackTraceToString())
         }
+        val contentDescriptionImage =
+            fragment.context?.getString(R.string.content_description_image)
+        viewHolder.categoryImage.contentDescription =
+            contentDescriptionImage + viewHolder.categoryName
 
         viewHolder.categoryDescription.text = dataSet[position].description
 
