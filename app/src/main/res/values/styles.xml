@@ -19,11 +19,12 @@
         <item name="android:textSize">20sp</item>
         <item name="android:fontFamily">@font/montserratalternates_semibold</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">@color/text_menu_header_purple_color</item>
+        <item name="android:textColor">@color/purple_color</item>
         <item name="android:layout_marginStart">16dp</item>
         <item name="android:layout_marginBottom">16dp</item>
         <item name="android:paddingHorizontal">10dp</item>
         <item name="android:paddingVertical">10dp</item>
+        <item name="android:maxWidth">@dimen/size_header_screen_max</item>
         <item name="android:background">@drawable/shape_radius_variant_menu_header</item>
     </style>
 
@@ -31,7 +32,7 @@
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">@font/montserratalternates_semibold</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">@color/text_menu_header_purple_color</item>
+        <item name="android:textColor">@color/purple_color</item>
         <item name="android:layout_marginStart">8dp</item>
         <item name="android:layout_marginVertical">8dp</item>
     </style>
@@ -39,17 +40,57 @@
     <style name="StyleCardDescription12" parent="TextAppearance.AppCompat">
         <item name="android:textSize">12sp</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
-        <item name="android:textColor">@color/category_description_grey_color</item>
+        <item name="android:textColor">@color/nature_grey_color</item>
         <item name="android:layout_marginHorizontal">8dp</item>
         <item name="android:layout_marginBottom">8dp</item>
     </style>
 
-    <style name="CardStyle16">
+    <style name="StyleCard16">
         <item name="android:clickable">true</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
         <item name="cardCornerRadius">@dimen/margin_container_half</item>
         <item name="android:layout_marginHorizontal">@dimen/margin_container_half</item>
         <item name="android:layout_marginTop">@dimen/margin_container</item>
+    </style>
+
+    <style name="StyleLikeButton">
+        <item name="android:background">@null</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:layout_marginTop">@dimen/margin_container</item>
+        <item name="android:layout_marginEnd">@dimen/margin_container</item>
+    </style>
+
+    <style name="StyleRecipeScreenHeader20">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">@font/montserratalternates_semibold</item>
+        <item name="android:textColor">@color/dark_burgundy_color</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="StylePortionText16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+        <item name="android:textColor">@color/light_grey_color</item>
+    </style>
+
+    <style name="StyleIngredient14">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:color">@color/nature_grey_color</item>
+    </style>
+
+    <style name="StyleMethod14" parent="StyleIngredient14">
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="StyleRecipeContainer">
+        <item name="android:layout_marginHorizontal">@dimen/margin_edge</item>
+        <item name="android:layout_marginVertical">@dimen/margin_container_half</item>
+    </style>
+
+    <style name="StyleRecipeAndMethodHeader20" parent="StyleMenuHeader20">
+        <item name="android:maxWidth">@dimen/size_header_screen_recipe_and_method_max</item>
     </style>
 
 </resources>
