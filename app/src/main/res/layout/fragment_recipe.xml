@@ -24,6 +24,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"
                 tools:src="@drawable/burger" />
 
             <TextView
@@ -40,6 +41,7 @@
                 style="@style/StyleLikeButton"
                 android:layout_width="@dimen/size_image_button"
                 android:layout_height="@dimen/size_image_button"
+                android:contentDescription="@string/content_description_favorite_button"
                 android:src="@drawable/ic_heart_empty"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -73,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_radius_variant_menu"
                 android:nestedScrollingEnabled="false"
+                android:paddingHorizontal="@dimen/margin_edge"
                 android:paddingTop="@dimen/margin_main"
                 android:paddingBottom="@dimen/margin_container_half"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -100,6 +103,7 @@
                 android:layout_marginTop="@dimen/margin_container"
                 android:background="@drawable/shape_radius_variant_menu"
                 android:nestedScrollingEnabled="false"
+                android:paddingHorizontal="@dimen/margin_edge"
                 android:paddingVertical="@dimen/margin_main"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_method" />

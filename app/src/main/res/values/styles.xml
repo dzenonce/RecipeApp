@@ -85,7 +85,6 @@
     </style>
 
     <style name="StyleRecipeContainer">
-        <item name="android:layout_marginHorizontal">@dimen/margin_edge</item>
         <item name="android:layout_marginVertical">@dimen/margin_container_half</item>
     </style>
 
