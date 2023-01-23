@@ -2,10 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="main_background_white_color">#F4FAFF</color>
-    <color name="nav_button_red_color">#E13E3E</color>
-    <color name="nav_button_blue_color">#525DC0</color>
-    <color name="status_and_nav_bar_white_color">#F4FAFF</color>
-    <color name="text_menu_header_purple_color">#5F3678</color>
-    <color name="category_description_grey_color">#666666</color>
+    <color name="white_blue_color">#F4FAFF</color>
+    <color name="red_color">#E13E3E</color>
+    <color name="blue_color">#525DC0</color>
+    <color name="purple_color">#5F3678</color>
+    <color name="nature_grey_color">#666666</color>
+    <color name="light_grey_color">#626466</color>
+    <color name="dark_burgundy_color">#422952</color>
 </resources>

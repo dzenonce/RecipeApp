@@ -279,5 +279,5 @@ object STUB {
     fun getRecipeByRecipeId(recipeId: Int) =
         burgerRecipes.find {
             it.id == recipeId
-        }
+        } ?: burgerRecipes[0]
 }
