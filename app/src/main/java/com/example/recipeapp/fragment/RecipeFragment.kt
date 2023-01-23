@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -72,6 +73,27 @@ class RecipeFragment : Fragment() {
         )
         val recyclerViewMethod: RecyclerView = binding.rvMethod
         recyclerViewMethod.adapter = methodAdapter
+
+        binding.sbPortionCountSeekBar.setOnSeekBarChangeListener(
+            object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(
+                    seekBar: SeekBar?,
+                    progress: Int,
+                    fromUser: Boolean
+                ) {
+                    ingredientsAdapter.updateIngredients(progress)
+                    binding.tvPortionCountText.text = progress.toString()
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+                }
+
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {
+
+                }
+            }
+        )
     }
 
     @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
@@ -88,7 +110,7 @@ class RecipeFragment : Fragment() {
             }
 
             tvIngredientRecipeHeader.text = recipe.title
-            tvPortionCountText.text = "${context?.getString(R.string.title_portion_count)} 3"
+            tvPortionText.text = "${context?.getString(R.string.title_portion_count)} "
 
             rvIngredients.addItemDecorationWithoutLastItem()
             rvMethod.addItemDecorationWithoutLastItem()

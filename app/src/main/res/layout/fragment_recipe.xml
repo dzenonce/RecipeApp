@@ -61,13 +61,37 @@
                 android:layout_height="wrap_content"
                 android:text="@string/title_ingredients" />
 
-            <TextView
-                android:id="@+id/tvPortionCountText"
-                style="@style/StylePortionText16"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/margin_edge_half"
-                tools:text="Порции: 3" />
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/tvPortionText"
+                    style="@style/StylePortionText16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/margin_edge_half"
+                    tools:text="Порции: " />
+
+                <TextView
+                    android:id="@+id/tvPortionCountText"
+                    style="@style/StylePortionText16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/margin_edge_half"
+                    tools:text="3" />
+
+            </LinearLayout>
+
+        <SeekBar
+            android:id="@+id/sbPortionCountSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_container"
+            android:min="1"
+            android:max="5"
+            tools:progress="3"
+            />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvIngredients"
