@@ -63,7 +63,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/tvPortionText"
@@ -83,15 +83,18 @@
 
             </LinearLayout>
 
-        <SeekBar
-            android:id="@+id/sbPortionCountSeekBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_container"
-            android:min="1"
-            android:max="5"
-            tools:progress="3"
-            />
+            <SeekBar
+                android:id="@+id/sbPortionCountSeekBar"
+                style="@style/StyleSeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_container"
+                android:background="@android:color/transparent"
+                android:max="5"
+                android:min="1"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                android:progress="3" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvIngredients"
