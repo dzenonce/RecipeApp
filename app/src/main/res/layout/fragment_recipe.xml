@@ -61,27 +61,21 @@
                 android:layout_height="wrap_content"
                 android:text="@string/title_ingredients" />
 
-            <LinearLayout
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvPortionText"
+                style="@style/StylePortionText16"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tvPortionText"
-                    style="@style/StylePortionText16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/margin_edge_half"
-                    tools:text="Порции: " />
-
-                <TextView
-                    android:id="@+id/tvPortionCountText"
-                    style="@style/StylePortionText16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/margin_edge_half"
-                    tools:text="3" />
-
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_edge_half"
+                android:layout_marginStart="@dimen/margin_container"
+                tools:text="Порции: 3" />
 
             <SeekBar
                 android:id="@+id/sbPortionCountSeekBar"
@@ -92,8 +86,6 @@
                 android:background="@android:color/transparent"
                 android:max="5"
                 android:min="1"
-                android:paddingStart="0dp"
-                android:paddingEnd="0dp"
                 android:progress="1"
                 tools:progress="3" />
 
@@ -101,6 +93,7 @@
                 android:id="@+id/rvIngredients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_container"
                 android:background="@drawable/shape_radius_variant_menu"
                 android:nestedScrollingEnabled="false"
                 android:paddingHorizontal="@dimen/margin_edge"
