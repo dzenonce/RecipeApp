@@ -42,9 +42,9 @@
                 android:layout_width="@dimen/size_image_button"
                 android:layout_height="@dimen/size_image_button"
                 android:contentDescription="@string/content_description_favorite_button"
-                android:src="@drawable/ic_heart_empty"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_heart" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -95,7 +95,7 @@
                 android:paddingStart="0dp"
                 android:paddingEnd="0dp"
                 android:progress="1"
-                tools:progress="3"/>
+                tools:progress="3" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvIngredients"
