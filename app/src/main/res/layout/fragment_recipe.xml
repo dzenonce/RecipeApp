@@ -42,9 +42,9 @@
                 android:layout_width="@dimen/size_image_button"
                 android:layout_height="@dimen/size_image_button"
                 android:contentDescription="@string/content_description_favorite_button"
-                android:src="@drawable/ic_heart_empty"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_heart" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -61,42 +61,39 @@
                 android:layout_height="wrap_content"
                 android:text="@string/title_ingredients" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tvPortionText"
-                    style="@style/StylePortionText16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/margin_edge_half"
-                    tools:text="Порции: " />
-
-                <TextView
-                    android:id="@+id/tvPortionCountText"
-                    style="@style/StylePortionText16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/margin_edge_half"
-                    tools:text="3" />
-
-            </LinearLayout>
-
-        <SeekBar
-            android:id="@+id/sbPortionCountSeekBar"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_container"
-            android:min="1"
-            android:max="5"
-            tools:progress="3"
-            />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvPortionText"
+                style="@style/StylePortionText16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_edge_half"
+                android:layout_marginStart="@dimen/margin_container"
+                tools:text="Порции: 3" />
+
+            <SeekBar
+                android:id="@+id/sbPortionCountSeekBar"
+                style="@style/StyleSeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_container"
+                android:background="@android:color/transparent"
+                android:max="5"
+                android:min="1"
+                android:progress="1"
+                tools:progress="3" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvIngredients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_container"
                 android:background="@drawable/shape_radius_variant_menu"
                 android:nestedScrollingEnabled="false"
                 android:paddingHorizontal="@dimen/margin_edge"

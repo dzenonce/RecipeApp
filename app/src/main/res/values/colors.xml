@@ -9,4 +9,5 @@
     <color name="nature_grey_color">#666666</color>
     <color name="light_grey_color">#626466</color>
     <color name="dark_burgundy_color">#422952</color>
+    <color name="light_state_blue_color">#A1A9F9</color>
 </resources>

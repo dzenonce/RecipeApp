@@ -1,6 +1,5 @@
 package com.example.recipeapp.adapter
 
-import com.example.recipeapp.model.Recipe
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +11,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
 import com.example.recipeapp.fragment.RecipesListFragment
+import com.example.recipeapp.model.Recipe
 import java.io.InputStream
 
 class RecipeListAdapter(

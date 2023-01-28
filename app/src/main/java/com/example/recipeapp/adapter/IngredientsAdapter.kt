@@ -13,7 +13,7 @@ class IngredientsAdapter(
     private val dataSet: List<Ingredient>,
 ) : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
 
-    private var quantity = 1
+    private var quantity = 3
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ingredientName: TextView
@@ -35,12 +35,7 @@ class IngredientsAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.ingredientName.text = dataSet[position].description
-        val recipeIngredientQuantity = dataSet[position].quantity
-        val currentIngredientQuantityInDouble = recipeIngredientQuantity.toDouble() * quantity
-        val currentIngredientQuantity =
-            if ((currentIngredientQuantityInDouble % 1) == 0.0)
-                currentIngredientQuantityInDouble.toInt().toString()
-            else String.format("%.1f", currentIngredientQuantityInDouble)
+        val currentIngredientQuantity = getCurrentIngredientQuantity(position)
         viewHolder.ingredientCountAndMeasure.text =
             "$currentIngredientQuantity ${dataSet[position].unitOfMeasure}"
     }
@@ -52,5 +47,18 @@ class IngredientsAdapter(
         quantity = progress
         notifyDataSetChanged()
     }
+
+    private fun getCurrentIngredientQuantity(position: Int): String {
+        val recipeIngredientQuantity = dataSet[position].quantity
+        val currentIngredientQuantityInDouble = recipeIngredientQuantity.toDouble() * quantity
+        currentIngredientQuantityInDouble.apply {
+            return if (this % 1 == 0.0)
+                this.toInt().toString()
+            else String.format("%.1f", this)
+        }
+    }
+
+
 }
+
 
