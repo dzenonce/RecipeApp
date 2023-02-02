@@ -152,7 +152,7 @@ class RecipeFragment : Fragment() {
         }
     }
 
-    fun getFavorites(): MutableSet<String>? {
+    private fun getFavorites(): MutableSet<String>? {
         val sharedPrefs = activity?.getSharedPreferences(
             com.example.recipeapp.PREFERENCE_FILE_KEY,
             Context.MODE_PRIVATE,

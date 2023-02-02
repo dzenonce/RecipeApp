@@ -17,7 +17,7 @@ import com.example.recipeapp.ARG_CATEGORY_IMAGE_URL
 import com.example.recipeapp.ARG_CATEGORY_NAME
 import com.example.recipeapp.ARG_RECIPE
 import com.example.recipeapp.R
-import com.example.recipeapp.adapter.RecipeListAdapter
+import com.example.recipeapp.adapter.RecipesListAdapter
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
 import java.io.InputStream
 
@@ -69,7 +69,7 @@ class RecipesListFragment : Fragment() {
 
     private fun initRecycler() {
         val recipeList = STUB.getRecipesByCategoryId(categoryId)
-        val recipeListAdapter = RecipeListAdapter(
+        val recipeListAdapter = RecipesListAdapter(
             dataSet = recipeList,
             fragment = this
         )
@@ -77,9 +77,8 @@ class RecipesListFragment : Fragment() {
         recyclerView.adapter = recipeListAdapter
 
         recipeListAdapter.setOnRecipeClickListener(
-            object : RecipeListAdapter.OnRecipeClickListener {
+            object : RecipesListAdapter.OnRecipeClickListener {
                 override fun onRecipeClick(recipeId: Int) {
-                    Log.d("!!!", "Передан RecipeId $recipeId")
                     val recipe = STUB.getRecipeByRecipeId(recipeId)
                     val bundle = bundleOf()
                     bundle.putParcelable(ARG_RECIPE, recipe)

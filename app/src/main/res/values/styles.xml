@@ -15,7 +15,7 @@
         <item name="cornerRadius">8dp</item>
     </style>
 
-    <style name="StyleMenuHeader20" >
+    <style name="StyleMenuHeader20">
         <item name="android:textSize">20sp</item>
         <item name="android:fontFamily">@font/montserratalternates_semibold</item>
         <item name="android:textAllCaps">true</item>

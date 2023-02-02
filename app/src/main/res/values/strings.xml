@@ -14,4 +14,5 @@
     <string name="fragment_recipe">Recipe fragment</string>
     <string name="content_description_image">Изображение</string>
     <string name="content_description_favorite_button">Кнопка добавить в избранное</string>
+    <string name="content_description_favorite_header_image">Изображение избранного</string>
 </resources>
