@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/tvMethod"
-        style="@style/StyleMethod14"
+        style="@style/StyleMethodText14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="1. В глубокой миске смешайте говяжий фарш, лук, чеснок, соль и перец. Разделите фарш на 4 равные части и сформируйте котлеты." />
