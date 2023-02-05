@@ -137,7 +137,7 @@ class RecipeFragment : Fragment() {
         }
     }
 
-    private fun getFavorites(): MutableSet<String> {
+    private fun getFavorites(): HashSet<String> {
         val sharedPreference = activity?.getSharedPreferences(
             com.example.recipeapp.PREFERENCE_FILE_KEY,
             Context.MODE_PRIVATE,
