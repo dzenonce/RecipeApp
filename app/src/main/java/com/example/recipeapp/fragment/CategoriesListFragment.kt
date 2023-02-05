@@ -19,18 +19,13 @@ import com.example.recipeapp.databinding.FragmentListCategoriesBinding
 
 class CategoriesListFragment : Fragment() {
 
-    private var _binding: FragmentListCategoriesBinding? = null
-    private val binding
-        get() = _binding
-            ?: throw IllegalStateException("Fragment CategoryListBinding must not be null")
+    private val binding: FragmentListCategoriesBinding
+            by lazy { FragmentListCategoriesBinding.inflate(layoutInflater) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        _binding = FragmentListCategoriesBinding.inflate(layoutInflater)
-
         return binding.root
     }
 
