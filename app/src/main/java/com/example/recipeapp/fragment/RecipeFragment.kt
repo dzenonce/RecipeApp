@@ -25,43 +25,37 @@ import java.io.InputStream
 
 fun RecyclerView.addItemDecorationWithoutLastItem() {
     if (layoutManager !is LinearLayoutManager) return
-
     addItemDecoration(DividerItemDecorator(context))
 }
 
 class RecipeFragment : Fragment() {
 
-    private var _binding: FragmentRecipeBinding? = null
-    private val binding
-        get() = _binding ?: throw IllegalStateException("Recipe Fragment Binding must not be null")
+    private val binding: FragmentRecipeBinding
+            by lazy { FragmentRecipeBinding.inflate(layoutInflater) }
 
-    private var _recipe: Recipe? = null
-    private val recipe
-        get() = _recipe
-            ?: throw IllegalStateException("Recipe list in RecipeFragment must not be null")
+    private val recipe: Recipe by lazy { initRecipe() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentRecipeBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        arguments?.let {
-            _recipe =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-                    it.getParcelable(
-                        ARG_RECIPE,
-                        Recipe::class.java
-                    )
-                else it.getParcelable(ARG_RECIPE)
-        }
         initUI()
         initRecycler()
     }
+
+    private fun initRecipe() =
+        arguments?.let {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+                it.getParcelable(
+                    ARG_RECIPE,
+                    Recipe::class.java
+                )
+            else it.getParcelable(ARG_RECIPE)
+        } ?: throw IllegalStateException("Recipe list in RecipeFragment must not be null")
 
     private fun initRecycler() {
         val ingredientsAdapter = IngredientsAdapter(
@@ -76,27 +70,21 @@ class RecipeFragment : Fragment() {
         val recyclerViewMethod: RecyclerView = binding.rvMethod
         recyclerViewMethod.adapter = methodAdapter
 
-        binding.sbPortionCountSeekBar
-            .setOnSeekBarChangeListener(
-                object : SeekBar.OnSeekBarChangeListener {
-                    @SuppressLint("SetTextI18n")
-                    override fun onProgressChanged(
-                        seekBar: SeekBar?, progress: Int, fromUser: Boolean
-                    ) {
-                        ingredientsAdapter.updateIngredients(progress)
-                        binding.tvPortionText.text =
-                            "${context?.getString(R.string.title_portion_count)} $progress"
-                    }
-
-                    override fun onStartTrackingTouch(seekBar: SeekBar?) {
-
-                    }
-
-                    override fun onStopTrackingTouch(seekBar: SeekBar?) {
-
-                    }
+        binding.sbPortionCountSeekBar.setOnSeekBarChangeListener(
+            object : SeekBar.OnSeekBarChangeListener {
+                @SuppressLint("SetTextI18n")
+                override fun onProgressChanged(
+                    seekBar: SeekBar?, progress: Int, fromUser: Boolean
+                ) {
+                    ingredientsAdapter.updateIngredients(progress)
+                    binding.tvPortionText.text =
+                        "${context?.getString(R.string.title_portion_count)} $progress"
                 }
-            )
+
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+            }
+        )
     }
 
     @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
@@ -112,12 +100,9 @@ class RecipeFragment : Fragment() {
                 Log.e("assets error", e.stackTraceToString())
             }
 
-            when (
-                getFavorites()?.contains(recipe.id.toString())
-            ) {
-                true -> setColoredFavoriteIcon()
-                else -> setUncoloredFavoriteIcon()
-            }
+            if (getFavorites().contains(recipe.id.toString())) setColoredFavoriteIcon()
+            else setUncoloredFavoriteIcon()
+
             ibIngredientLikeButton.setOnClickListener {
                 checkRecipeInFavoriteAndChangeState(getFavorites())
             }
@@ -152,37 +137,27 @@ class RecipeFragment : Fragment() {
         }
     }
 
-    private fun getFavorites(): MutableSet<String>? {
-        val sharedPrefs = activity?.getSharedPreferences(
+    private fun getFavorites(): HashSet<String> {
+        val sharedPreference = activity?.getSharedPreferences(
             com.example.recipeapp.PREFERENCE_FILE_KEY,
             Context.MODE_PRIVATE,
         )
-        return setOf(
-            sharedPrefs?.getStringSet(
-                PREFERENCE_RECIPE_IDS_SET_KEY,
-                mutableSetOf(),
-            )
-        ).first()
+        val favoriteSet = sharedPreference?.getStringSet(
+            PREFERENCE_RECIPE_IDS_SET_KEY,
+            null,
+        ) ?: mutableSetOf()
+        return HashSet(favoriteSet)
     }
 
-    private fun checkRecipeInFavoriteAndChangeState(
-        collectionRecipeIds: MutableSet<String>?,
-    ) {
-        when (
-            collectionRecipeIds?.contains(recipe.id.toString())
-        ) {
-            false -> {
-                collectionRecipeIds.add(recipe.id.toString())
-                saveFavorites(collectionRecipeIds)
-                setColoredFavoriteIcon()
-            }
-
-            else -> {
-                val favoriteIdsMinusElement = collectionRecipeIds?.minus(recipe.id.toString())
-                saveFavorites(favoriteIdsMinusElement)
-                setUncoloredFavoriteIcon()
-            }
+    private fun checkRecipeInFavoriteAndChangeState(collectionRecipeIds: MutableSet<String>) {
+        if (collectionRecipeIds.contains(recipe.id.toString())) {
+            val favoriteIdsMinusElement = collectionRecipeIds.minus(recipe.id.toString())
+            saveFavorites(favoriteIdsMinusElement)
+            setUncoloredFavoriteIcon()
+        } else {
+            collectionRecipeIds.add(recipe.id.toString())
+            saveFavorites(collectionRecipeIds)
+            setColoredFavoriteIcon()
         }
     }
-
 }

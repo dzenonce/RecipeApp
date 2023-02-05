@@ -19,26 +19,23 @@ import com.example.recipeapp.databinding.FragmentFavoritesBinding
 
 class FavoritesFragment : Fragment() {
 
-    private var _binding: FragmentFavoritesBinding? = null
-    private val binding
-        get() = _binding
-            ?: throw IllegalStateException("Favorite fragment binding must not be null")
+    private val binding: FragmentFavoritesBinding
+            by lazy { FragmentFavoritesBinding.inflate(layoutInflater) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentFavoritesBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recipeIds = getFavorites()?.map { idInString ->
+        val recipeIds = getFavorites().map { idInString ->
             idInString.toInt()
-        }?.toSet()
-        if (recipeIds?.isEmpty() == false) {
+        }.toSet()
+        if (recipeIds.isNotEmpty()) {
             binding.tvRecipeFavoriteIsEmptyText.visibility = View.GONE
             initRecycler(recipeIds)
         }
@@ -65,17 +62,17 @@ class FavoritesFragment : Fragment() {
         )
     }
 
-    private fun getFavorites(): MutableSet<String>? {
+    private fun getFavorites(): HashSet<String> {
         val sharedPrefs = activity?.getSharedPreferences(
             com.example.recipeapp.PREFERENCE_FILE_KEY,
             Context.MODE_PRIVATE,
         )
-        return setOf(
-            sharedPrefs?.getStringSet(
-                PREFERENCE_RECIPE_IDS_SET_KEY,
-                mutableSetOf(),
-            )
-        ).first()
+        val favoritesSet = sharedPrefs?.getStringSet(
+            PREFERENCE_RECIPE_IDS_SET_KEY,
+            null,
+        ) ?: mutableSetOf()
+
+        return HashSet(favoritesSet)
     }
 
     private fun openRecipeByRecipeId(bundle: Bundle) {

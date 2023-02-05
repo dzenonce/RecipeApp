@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cvCategoryItem"
-    style="@style/StyleCard16"
+    style="@style/StyleCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -14,21 +14,21 @@
         <ImageView
             android:id="@+id/ivCategoryImage"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_card_category_image"
+            android:layout_height="@dimen/size_image_130"
             android:scaleType="centerCrop"
             tools:ignore="ContentDescription"
             tools:src="@drawable/burger" />
 
         <TextView
             android:id="@+id/tvCategoryName"
-            style="@style/StyleCardHeader14"
+            style="@style/StyleCardHeaderText14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Бургеры" />
 
         <TextView
             android:id="@+id/tvCategoryDescription"
-            style="@style/StyleCardDescription12"
+            style="@style/StyleCardDescriptionText12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Рецепты всех популярных видов бургеров" />

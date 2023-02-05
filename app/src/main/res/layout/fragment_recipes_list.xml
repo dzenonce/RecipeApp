@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/ivRecipesListImage"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_header_recipes_list"
+            android:layout_height="@dimen/size_header_256"
             android:contentDescription="@string/title_image_category"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +25,7 @@
 
         <TextView
             android:id="@+id/tvRecipesListHeaderName"
-            style="@style/StyleMenuHeader20"
+            style="@style/StyleMenuHeaderText20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -38,7 +38,7 @@
         android:id="@+id/rvRecipes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="@dimen/margin_container_half"
+        android:layout_marginHorizontal="@dimen/margin_normal_8"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="8"
         tools:listitem="@layout/item_recipe"
