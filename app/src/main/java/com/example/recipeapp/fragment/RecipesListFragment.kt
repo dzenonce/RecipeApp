@@ -23,8 +23,9 @@ import java.io.InputStream
 
 class RecipesListFragment : Fragment() {
 
-    private val binding: FragmentRecipesListBinding
-            by lazy { FragmentRecipesListBinding.inflate(layoutInflater) }
+    private val binding: FragmentRecipesListBinding by lazy {
+        FragmentRecipesListBinding.inflate(layoutInflater)
+    }
 
     private var categoryId: Int? = null
     private var categoryName: String? = null
@@ -69,7 +70,6 @@ class RecipesListFragment : Fragment() {
         val recipeList = STUB.getRecipesByCategoryId(categoryId)
         val recipeListAdapter = RecipesListAdapter(
             dataSet = recipeList,
-            fragment = this
         )
         val recyclerView: RecyclerView = binding.rvRecipes
         recyclerView.adapter = recipeListAdapter
@@ -77,10 +77,7 @@ class RecipesListFragment : Fragment() {
         recipeListAdapter.setOnRecipeClickListener(
             object : RecipesListAdapter.OnRecipeClickListener {
                 override fun onRecipeClick(recipeId: Int) {
-                    val recipe = STUB.getRecipeByRecipeId(recipeId)
-                    val bundle = bundleOf()
-                    bundle.putParcelable(ARG_RECIPE, recipe)
-                    openRecipeByRecipeId(bundle)
+                    openRecipeByRecipeId(getBundle(recipeId))
                 }
             }
         )
@@ -93,5 +90,10 @@ class RecipesListFragment : Fragment() {
             addToBackStack(null)
         }
     }
+
+    private fun getBundle(recipeId: Int) =
+        STUB.getRecipeByRecipeId(recipeId).let { recipe ->
+            bundleOf().apply { this.putParcelable(ARG_RECIPE, recipe) }
+        }
 
 }
