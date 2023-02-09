@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white_blue_color"
     android:orientation="vertical"
-    tools:context=".fragment.FavoritesFragment">
+    tools:context=".ui.recipes.favorites.FavoritesFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -40,12 +40,13 @@
         <TextView
             android:id="@+id/tvRecipeFavoriteIsEmptyText"
             style="@style/StyleMontserratAllCapsFalseGrey14"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal_16"
             android:layout_marginEnd="@dimen/margin_normal_16"
             android:text="@string/title_favorites_recipe_empty"
             android:visibility="visible"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

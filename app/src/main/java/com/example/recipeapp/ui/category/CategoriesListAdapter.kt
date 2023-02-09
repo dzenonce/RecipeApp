@@ -1,4 +1,4 @@
-package com.example.recipeapp.adapter
+package com.example.recipeapp.ui.category
 
 import android.graphics.drawable.Drawable
 import android.util.Log
