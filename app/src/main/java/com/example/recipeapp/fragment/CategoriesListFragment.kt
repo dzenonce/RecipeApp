@@ -16,11 +16,13 @@ import com.example.recipeapp.ARG_CATEGORY_NAME
 import com.example.recipeapp.R
 import com.example.recipeapp.adapter.CategoriesListAdapter
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
+import com.example.recipeapp.model.Category
 
 class CategoriesListFragment : Fragment() {
 
-    private val binding: FragmentListCategoriesBinding
-            by lazy { FragmentListCategoriesBinding.inflate(layoutInflater) }
+    private val binding: FragmentListCategoriesBinding by lazy {
+        FragmentListCategoriesBinding.inflate(layoutInflater)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +40,6 @@ class CategoriesListFragment : Fragment() {
         val categories = STUB.getCategories()
         val categoryListAdapter = CategoriesListAdapter(
             dataSet = categories,
-            fragment = this
         )
         val recyclerView: RecyclerView = binding.rvCategories
         recyclerView.adapter = categoryListAdapter
@@ -46,13 +47,12 @@ class CategoriesListFragment : Fragment() {
         categoryListAdapter.setOnItemClickListener(
             object : CategoriesListAdapter.OnItemClickListener {
                 override fun onItemClick(categoryId: Int) {
-                    val category = categories.find { it.id == categoryId }
-                    val bundle = bundleOf(
-                        ARG_CATEGORY_ID to category?.id,
-                        ARG_CATEGORY_NAME to category?.title,
-                        ARG_CATEGORY_IMAGE_URL to category?.imageUrl,
+                    openRecipesByCategoryId(
+                        getBundle(
+                            categories = categories,
+                            categoryId = categoryId,
+                        )
                     )
-                    openRecipesByCategoryId(bundle)
                 }
             }
         )
@@ -65,4 +65,14 @@ class CategoriesListFragment : Fragment() {
             addToBackStack(null)
         }
     }
+
+    private fun getBundle(categories: List<Category>, categoryId: Int) =
+        categories.find { it.id == categoryId }.let { category ->
+            bundleOf(
+                ARG_CATEGORY_ID to category?.id,
+                ARG_CATEGORY_NAME to category?.title,
+                ARG_CATEGORY_IMAGE_URL to category?.imageUrl,
+            )
+        }
+
 }

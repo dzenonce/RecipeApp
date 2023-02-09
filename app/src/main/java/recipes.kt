@@ -1,4 +1,6 @@
-import com.example.recipeapp.model.*
+import com.example.recipeapp.model.Category
+import com.example.recipeapp.model.Ingredient
+import com.example.recipeapp.model.Recipe
 
 object STUB {
 
@@ -277,7 +279,10 @@ object STUB {
         }
 
     fun getRecipeByRecipeId(recipeId: Int) =
-        burgerRecipes.find {
-            it.id == recipeId
-        } ?: burgerRecipes[0]
+        burgerRecipes.find { it.id == recipeId } ?: burgerRecipes[0]
+
+    fun getRecipesByIds(recipesIds: Set<Int>): List<Recipe> {
+        return burgerRecipes.filter { recipesIds.contains(it.id) }
+    }
+
 }

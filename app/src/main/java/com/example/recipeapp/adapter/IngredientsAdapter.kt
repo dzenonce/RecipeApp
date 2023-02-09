@@ -34,10 +34,12 @@ class IngredientsAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.ingredientName.text = dataSet[position].description
-        val currentIngredientQuantity = getCurrentIngredientQuantity(position)
-        viewHolder.ingredientCountAndMeasure.text =
-            "$currentIngredientQuantity ${dataSet[position].unitOfMeasure}"
+        with(viewHolder) {
+            ingredientName.text = dataSet[position].description
+            val currentIngredientQuantity = getCurrentIngredientQuantity(position)
+            ingredientCountAndMeasure.text =
+                "$currentIngredientQuantity ${dataSet[position].unitOfMeasure}"
+        }
     }
 
     override fun getItemCount() = dataSet.size
@@ -48,16 +50,12 @@ class IngredientsAdapter(
         notifyDataSetChanged()
     }
 
-    private fun getCurrentIngredientQuantity(position: Int): String {
-        val recipeIngredientQuantity = dataSet[position].quantity
-        val currentIngredientQuantityInDouble = recipeIngredientQuantity.toDouble() * quantity
-        currentIngredientQuantityInDouble.apply {
-            return if (this % 1 == 0.0)
-                this.toInt().toString()
-            else String.format("%.1f", this)
+    private fun getCurrentIngredientQuantity(position: Int) =
+        dataSet[position].quantity.toDouble().let {
+            val currentQuantity = it * quantity
+            if (currentQuantity % 1 == 0.0) currentQuantity.toInt().toString()
+            else String.format("%.1f", currentQuantity)
         }
-    }
-
 
 }
 
