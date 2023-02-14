@@ -1,4 +1,4 @@
-package com.example.recipeapp.fragment
+package com.example.recipeapp.ui.recipes.recipe
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -13,14 +13,13 @@ import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recipeapp.ARG_RECIPE
-import com.example.recipeapp.PREFERENCE_RECIPE_IDS_SET_KEY
+import com.example.recipeapp.ui.ARG_RECIPE
+import com.example.recipeapp.ui.PREFERENCE_RECIPE_IDS_SET_KEY
 import com.example.recipeapp.R
-import com.example.recipeapp.adapter.IngredientsAdapter
-import com.example.recipeapp.adapter.MethodAdapter
 import com.example.recipeapp.databinding.FragmentRecipeBinding
-import com.example.recipeapp.model.DividerItemDecorator
+import com.example.recipeapp.ui.decorator.DividerItemDecorator
 import com.example.recipeapp.model.Recipe
+import com.example.recipeapp.ui.PREFERENCE_FILE_KEY
 import java.io.InputStream
 
 fun RecyclerView.addItemDecorationWithoutLastItem() {
@@ -125,7 +124,7 @@ class RecipeFragment : Fragment() {
 
     private fun saveFavorites(collectionRecipeIds: Set<String>?) {
         val sharedPrefs = activity?.getSharedPreferences(
-            com.example.recipeapp.PREFERENCE_FILE_KEY,
+            PREFERENCE_FILE_KEY,
             Context.MODE_PRIVATE,
         ) ?: return
         with(sharedPrefs.edit()) {
@@ -140,7 +139,7 @@ class RecipeFragment : Fragment() {
 
     private fun getFavorites(): HashSet<String> {
         val sharedPreference = activity?.getSharedPreferences(
-            com.example.recipeapp.PREFERENCE_FILE_KEY,
+            PREFERENCE_FILE_KEY,
             Context.MODE_PRIVATE,
         )
         val favoriteSet = sharedPreference?.getStringSet(

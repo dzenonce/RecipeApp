@@ -1,6 +1,6 @@
-package com.example.recipeapp.fragment
+package com.example.recipeapp.ui.category
 
-import STUB
+import com.example.recipeapp.data.STUB
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recipeapp.ARG_CATEGORY_ID
-import com.example.recipeapp.ARG_CATEGORY_IMAGE_URL
-import com.example.recipeapp.ARG_CATEGORY_NAME
+import com.example.recipeapp.ui.ARG_CATEGORY_ID
+import com.example.recipeapp.ui.ARG_CATEGORY_IMAGE_URL
+import com.example.recipeapp.ui.ARG_CATEGORY_NAME
 import com.example.recipeapp.R
-import com.example.recipeapp.adapter.CategoriesListAdapter
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
 import com.example.recipeapp.model.Category
+import com.example.recipeapp.ui.recipes.recipesList.RecipesListFragment
 
 class CategoriesListFragment : Fragment() {
 

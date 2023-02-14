@@ -1,6 +1,6 @@
-package com.example.recipeapp.fragment
+package com.example.recipeapp.ui.recipes.recipesList
 
-import STUB
+import com.example.recipeapp.data.STUB
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
@@ -12,13 +12,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recipeapp.ARG_CATEGORY_ID
-import com.example.recipeapp.ARG_CATEGORY_IMAGE_URL
-import com.example.recipeapp.ARG_CATEGORY_NAME
-import com.example.recipeapp.ARG_RECIPE
+import com.example.recipeapp.ui.ARG_CATEGORY_ID
+import com.example.recipeapp.ui.ARG_CATEGORY_IMAGE_URL
+import com.example.recipeapp.ui.ARG_CATEGORY_NAME
+import com.example.recipeapp.ui.ARG_RECIPE
 import com.example.recipeapp.R
-import com.example.recipeapp.adapter.RecipesListAdapter
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
+import com.example.recipeapp.ui.recipes.recipe.RecipeFragment
 import java.io.InputStream
 
 class RecipesListFragment : Fragment() {

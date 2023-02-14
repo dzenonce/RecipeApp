@@ -1,6 +1,6 @@
-package com.example.recipeapp.fragment
+package com.example.recipeapp.ui.recipes.favorites
 
-import STUB
+import com.example.recipeapp.data.STUB
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,11 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recipeapp.ARG_RECIPE
-import com.example.recipeapp.PREFERENCE_RECIPE_IDS_SET_KEY
+import com.example.recipeapp.ui.ARG_RECIPE
+import com.example.recipeapp.ui.PREFERENCE_RECIPE_IDS_SET_KEY
 import com.example.recipeapp.R
-import com.example.recipeapp.adapter.FavoriteRecipesListAdapter
 import com.example.recipeapp.databinding.FragmentFavoritesBinding
+import com.example.recipeapp.ui.PREFERENCE_FILE_KEY
+import com.example.recipeapp.ui.recipes.recipe.RecipeFragment
 
 class FavoritesFragment : Fragment() {
 
@@ -62,7 +63,7 @@ class FavoritesFragment : Fragment() {
 
     private fun getFavorites(): HashSet<String> {
         val sharedPrefs = activity?.getSharedPreferences(
-            com.example.recipeapp.PREFERENCE_FILE_KEY,
+            PREFERENCE_FILE_KEY,
             Context.MODE_PRIVATE,
         )
         val favoritesSet = sharedPrefs?.getStringSet(
