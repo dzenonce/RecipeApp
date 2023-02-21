@@ -19,6 +19,7 @@ import com.example.recipeapp.ui.ARG_RECIPE
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
 import com.example.recipeapp.ui.recipes.recipe.RecipeFragment
+import com.example.recipeapp.ui.recipes.recipe.RecipeViewModel
 import java.io.InputStream
 
 class RecipesListFragment : Fragment() {
@@ -50,7 +51,6 @@ class RecipesListFragment : Fragment() {
             "!!!",
             "RecipeFragment \ncategoryId: $categoryId, \ncategoryName: $categoryName, \ncategoryImageUrl: $categoryImageUrl"
         )
-
         initRecipeListScreenHeader()
         initRecycler()
     }
@@ -77,6 +77,7 @@ class RecipesListFragment : Fragment() {
         recipeListAdapter.setOnRecipeClickListener(
             object : RecipesListAdapter.OnRecipeClickListener {
                 override fun onRecipeClick(recipeId: Int) {
+                    RecipeViewModel(requireActivity().application).loadRecipe(recipeId)
                     openRecipeByRecipeId(getBundle(recipeId))
                 }
             }
