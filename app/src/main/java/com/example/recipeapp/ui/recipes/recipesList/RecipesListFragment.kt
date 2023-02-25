@@ -1,6 +1,5 @@
 package com.example.recipeapp.ui.recipes.recipesList
 
-import com.example.recipeapp.data.STUB
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
@@ -11,13 +10,15 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recipeapp.R
+import com.example.recipeapp.data.STUB
+import com.example.recipeapp.databinding.FragmentRecipesListBinding
 import com.example.recipeapp.ui.ARG_CATEGORY_ID
 import com.example.recipeapp.ui.ARG_CATEGORY_IMAGE_URL
 import com.example.recipeapp.ui.ARG_CATEGORY_NAME
-import com.example.recipeapp.ui.ARG_RECIPE
-import com.example.recipeapp.R
-import com.example.recipeapp.databinding.FragmentRecipesListBinding
+import com.example.recipeapp.ui.ARG_RECIPE_ID
 import com.example.recipeapp.ui.recipes.recipe.RecipeFragment
 import com.example.recipeapp.ui.recipes.recipe.RecipeViewModel
 import java.io.InputStream
@@ -27,6 +28,7 @@ class RecipesListFragment : Fragment() {
     private val binding: FragmentRecipesListBinding by lazy {
         FragmentRecipesListBinding.inflate(layoutInflater)
     }
+    private val recipeViewModel: RecipeViewModel by viewModels()
 
     private var categoryId: Int? = null
     private var categoryName: String? = null
@@ -49,7 +51,7 @@ class RecipesListFragment : Fragment() {
         }
         Log.d(
             "!!!",
-            "RecipeFragment \ncategoryId: $categoryId, \ncategoryName: $categoryName, \ncategoryImageUrl: $categoryImageUrl"
+            "RecipesListFragment \ncategoryId: $categoryId, \ncategoryName: $categoryName, \ncategoryImageUrl: $categoryImageUrl"
         )
         initRecipeListScreenHeader()
         initRecycler()
@@ -77,8 +79,12 @@ class RecipesListFragment : Fragment() {
         recipeListAdapter.setOnRecipeClickListener(
             object : RecipesListAdapter.OnRecipeClickListener {
                 override fun onRecipeClick(recipeId: Int) {
-                    RecipeViewModel(requireActivity().application).loadRecipe(recipeId)
-                    openRecipeByRecipeId(getBundle(recipeId))
+                    recipeViewModel.loadRecipe(recipeId)
+                    recipeViewModel.uiState.observe(viewLifecycleOwner) { recipeState ->
+                        openRecipeByRecipeId(
+                            getBundle(recipeState.recipe?.id ?: 0)
+                        )
+                    }
                 }
             }
         )
@@ -92,9 +98,6 @@ class RecipesListFragment : Fragment() {
         }
     }
 
-    private fun getBundle(recipeId: Int) =
-        STUB.getRecipeByRecipeId(recipeId).let { recipe ->
-            bundleOf().apply { this.putParcelable(ARG_RECIPE, recipe) }
-        }
+    private fun getBundle(recipeId: Int) = bundleOf(ARG_RECIPE_ID to recipeId)
 
 }
