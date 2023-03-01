@@ -37,46 +37,11 @@ class RecipeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUI()
-        initRecycler()
     }
 
     private fun initRecipe() =
         arguments?.getInt(ARG_RECIPE_ID)
             ?: throw IllegalStateException("Recipe list in RecipeFragment must not be null")
-
-    private fun initRecycler() {
-        recipeViewModel.loadRecipe(recipeId)
-        recipeViewModel.uiState.observe(viewLifecycleOwner) { recipeState ->
-            val ingredientsAdapter = IngredientsAdapter(
-                dataSet = recipeState.recipe?.ingredients ?: listOf(),
-            )
-            val recyclerViewIngredients: RecyclerView = binding.rvIngredients
-            recyclerViewIngredients.adapter = ingredientsAdapter
-
-            val methodAdapter = MethodAdapter(
-                dataSet = recipeState.recipe?.method ?: listOf(),
-            )
-            val recyclerViewMethod: RecyclerView = binding.rvMethod
-            recyclerViewMethod.adapter = methodAdapter
-
-            binding.sbPortionCountSeekBar.setOnSeekBarChangeListener(
-                object : SeekBar.OnSeekBarChangeListener {
-                    @SuppressLint("SetTextI18n")
-                    override fun onProgressChanged(
-                        seekBar: SeekBar?, progress: Int, fromUser: Boolean
-                    ) {
-                        ingredientsAdapter.updateIngredients(progress)
-                        binding.tvPortionText.text =
-                            "${context?.getString(R.string.title_portion_count)} $progress"
-                    }
-
-                    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-                    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-                }
-            )
-        }
-
-    }
 
     @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
     private fun initUI() {
@@ -98,9 +63,41 @@ class RecipeFragment : Fragment() {
 
                 rvIngredients.addItemDecorationWithoutLastItem()
                 rvMethod.addItemDecorationWithoutLastItem()
+
+                initRecycler(recipeState)
             }
         }
         recipeViewModel.loadRecipe(recipeId)
+    }
+
+    private fun initRecycler(recipeState: RecipeUiState) {
+        val ingredientsAdapter = IngredientsAdapter(
+            dataSet = recipeState.recipe?.ingredients ?: listOf(),
+        )
+        val recyclerViewIngredients: RecyclerView = binding.rvIngredients
+        recyclerViewIngredients.adapter = ingredientsAdapter
+
+        val methodAdapter = MethodAdapter(
+            dataSet = recipeState.recipe?.method ?: listOf(),
+        )
+        val recyclerViewMethod: RecyclerView = binding.rvMethod
+        recyclerViewMethod.adapter = methodAdapter
+
+        binding.sbPortionCountSeekBar.setOnSeekBarChangeListener(
+            object : SeekBar.OnSeekBarChangeListener {
+                @SuppressLint("SetTextI18n")
+                override fun onProgressChanged(
+                    seekBar: SeekBar?, progress: Int, fromUser: Boolean
+                ) {
+                    ingredientsAdapter.updateIngredients(progress)
+                    binding.tvPortionText.text =
+                        "${context?.getString(R.string.title_portion_count)} $progress"
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+            }
+        )
     }
 
     private fun setFavoriteIconState(isFavorite: Boolean) =
