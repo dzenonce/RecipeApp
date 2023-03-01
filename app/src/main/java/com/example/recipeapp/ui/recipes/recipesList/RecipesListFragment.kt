@@ -28,7 +28,6 @@ class RecipesListFragment : Fragment() {
     private val binding: FragmentRecipesListBinding by lazy {
         FragmentRecipesListBinding.inflate(layoutInflater)
     }
-    private val recipeViewModel: RecipeViewModel by viewModels()
 
     private var categoryId: Int? = null
     private var categoryName: String? = null
@@ -79,12 +78,7 @@ class RecipesListFragment : Fragment() {
         recipeListAdapter.setOnRecipeClickListener(
             object : RecipesListAdapter.OnRecipeClickListener {
                 override fun onRecipeClick(recipeId: Int) {
-                    recipeViewModel.loadRecipe(recipeId)
-                    recipeViewModel.uiState.observe(viewLifecycleOwner) { recipeState ->
-                        openRecipeByRecipeId(
-                            getBundle(recipeState.recipe?.id ?: 0)
-                        )
-                    }
+                    openRecipeByRecipeId(getBundle(recipeId))
                 }
             }
         )
