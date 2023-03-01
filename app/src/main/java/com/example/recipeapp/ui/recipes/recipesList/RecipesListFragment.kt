@@ -1,6 +1,5 @@
 package com.example.recipeapp.ui.recipes.recipesList
 
-import com.example.recipeapp.data.STUB
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
@@ -12,12 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recipeapp.R
+import com.example.recipeapp.data.STUB
+import com.example.recipeapp.databinding.FragmentRecipesListBinding
 import com.example.recipeapp.ui.ARG_CATEGORY_ID
 import com.example.recipeapp.ui.ARG_CATEGORY_IMAGE_URL
 import com.example.recipeapp.ui.ARG_CATEGORY_NAME
-import com.example.recipeapp.ui.ARG_RECIPE
-import com.example.recipeapp.R
-import com.example.recipeapp.databinding.FragmentRecipesListBinding
+import com.example.recipeapp.ui.ARG_RECIPE_ID
 import com.example.recipeapp.ui.recipes.recipe.RecipeFragment
 import java.io.InputStream
 
@@ -48,9 +48,8 @@ class RecipesListFragment : Fragment() {
         }
         Log.d(
             "!!!",
-            "RecipeFragment \ncategoryId: $categoryId, \ncategoryName: $categoryName, \ncategoryImageUrl: $categoryImageUrl"
+            "RecipesListFragment \ncategoryId: $categoryId, \ncategoryName: $categoryName, \ncategoryImageUrl: $categoryImageUrl"
         )
-
         initRecipeListScreenHeader()
         initRecycler()
     }
@@ -91,9 +90,6 @@ class RecipesListFragment : Fragment() {
         }
     }
 
-    private fun getBundle(recipeId: Int) =
-        STUB.getRecipeByRecipeId(recipeId).let { recipe ->
-            bundleOf().apply { this.putParcelable(ARG_RECIPE, recipe) }
-        }
+    private fun getBundle(recipeId: Int) = bundleOf(ARG_RECIPE_ID to recipeId)
 
 }
