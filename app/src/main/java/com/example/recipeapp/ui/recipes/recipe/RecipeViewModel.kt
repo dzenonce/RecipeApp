@@ -2,6 +2,8 @@ package com.example.recipeapp.ui.recipes.recipe
 
 import android.app.Application
 import android.content.Context
+import android.graphics.drawable.Drawable
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,11 +11,13 @@ import com.example.recipeapp.data.STUB
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.ui.PREFERENCE_FILE_KEY
 import com.example.recipeapp.ui.PREFERENCE_RECIPE_IDS_SET_KEY
+import java.io.InputStream
 
 data class RecipeUiState(
     var isFavorite: Boolean = false,
     var recipe: Recipe? = null,
     var portionsCount: Int? = 1,
+    var recipeImage: Drawable? = null,
 )
 
 class RecipeViewModel(
@@ -27,11 +31,14 @@ class RecipeViewModel(
 
     // TODO load from network
     fun loadRecipe(recipeId: Int) {
+        val recipe = STUB.getRecipeByRecipeId(recipeId)
+
         _uiState.value =
             RecipeUiState(
                 isFavorite = getFavorites().contains(recipeId.toString()),
-                recipe = STUB.getRecipeByRecipeId(recipeId),
+                recipe = recipe,
                 portionsCount = RecipeUiState().portionsCount ?: 1,
+                recipeImage = loadRecipeImage(recipe.imageUrl)
             )
     }
 
@@ -75,5 +82,15 @@ class RecipeViewModel(
             apply()
         }
     }
+
+    private fun loadRecipeImage(imageUrl: String): Drawable? =
+        try {
+            val inputStream: InputStream? =
+                application.assets?.open(imageUrl)
+            Drawable.createFromStream(inputStream, null)
+        } catch (e: Error) {
+            Log.e("assets error", e.stackTraceToString())
+            null
+        }
 
 }
