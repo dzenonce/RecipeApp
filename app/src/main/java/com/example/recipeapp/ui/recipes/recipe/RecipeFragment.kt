@@ -57,7 +57,7 @@ class RecipeFragment : Fragment() {
                     setFavoriteIconState(recipeState.isFavorite)
                 }
 
-                tvIngredientRecipeHeader.text = recipeViewModel.uiState.value?.recipe?.title
+                tvIngredientRecipeHeader.text = recipeState.recipe?.title
                 tvPortionText.text =
                     "${context?.getString(R.string.title_portion_count)} ${sbPortionCountSeekBar.progress}"
 
