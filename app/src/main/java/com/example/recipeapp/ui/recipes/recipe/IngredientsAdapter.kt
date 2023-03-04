@@ -45,8 +45,8 @@ class IngredientsAdapter(
     override fun getItemCount() = dataSet.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateIngredients(progress: Int) {
-        quantity = progress
+    fun updateIngredients(portionCount: Int) {
+        quantity = portionCount
         notifyDataSetChanged()
     }
 

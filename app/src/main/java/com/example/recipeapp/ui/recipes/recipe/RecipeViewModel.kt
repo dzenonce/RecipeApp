@@ -16,7 +16,7 @@ import java.io.InputStream
 data class RecipeUiState(
     var isFavorite: Boolean = false,
     var recipe: Recipe? = null,
-    var portionsCount: Int? = 1,
+    var portionsCount: Int = 1,
     var recipeImage: Drawable? = null,
 )
 
@@ -37,7 +37,7 @@ class RecipeViewModel(
             RecipeUiState(
                 isFavorite = getFavorites().contains(recipeId.toString()),
                 recipe = recipe,
-                portionsCount = RecipeUiState().portionsCount ?: 1,
+                portionsCount = RecipeUiState().portionsCount,
                 recipeImage = loadRecipeImage(recipe.imageUrl)
             )
     }
@@ -54,6 +54,10 @@ class RecipeViewModel(
                 getFavorites().plus(uiState.value?.recipe?.id.toString())
             )
         }
+    }
+
+    fun updatePortionsCount(progress: Int) {
+        _uiState.value?.portionsCount = progress
     }
 
     private fun getFavorites(): HashSet<String> {
