@@ -9,7 +9,7 @@ import com.example.recipeapp.R
 
 
 class MethodAdapter(
-    var dataSet: List<String>,
+    var dataSet: List<String> = listOf(),
 ) : RecyclerView.Adapter<MethodAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
