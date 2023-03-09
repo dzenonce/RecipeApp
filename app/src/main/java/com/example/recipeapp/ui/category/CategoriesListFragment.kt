@@ -12,10 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
-import com.example.recipeapp.model.Category
 import com.example.recipeapp.ui.ARG_CATEGORY_ID
-import com.example.recipeapp.ui.ARG_CATEGORY_IMAGE_URL
-import com.example.recipeapp.ui.ARG_CATEGORY_NAME
+import com.example.recipeapp.ui.SCREEN_CATEGORIES
 import com.example.recipeapp.ui.recipes.recipesList.RecipesListFragment
 
 class CategoriesListFragment : Fragment() {
@@ -41,20 +39,24 @@ class CategoriesListFragment : Fragment() {
 
     private fun initUi() {
         categoriesViewModel.uiState.observe(viewLifecycleOwner) { categoriesListState ->
+            with(binding) {
+                // TODO contentDescription
+                ivCategoriesScreenHeader.setImageDrawable(categoriesListState.screenHeaderImage)
 
-            val recyclerView: RecyclerView = binding.rvCategories
-            categoryListAdapter.dataSet = categoriesListState.categoriesList
-            recyclerView.adapter = categoryListAdapter
+                val recyclerView: RecyclerView = rvCategories
+                categoryListAdapter.dataSet = categoriesListState.categoriesList
+                recyclerView.adapter = categoryListAdapter
 
-            categoryListAdapter.setOnItemClickListener(
-                object : CategoriesListAdapter.OnItemClickListener {
-                    override fun onItemClick(categoryId: Int) {
-                        openRecipesByCategoryId(getBundle(categoryId))
+                categoryListAdapter.setOnItemClickListener(
+                    object : CategoriesListAdapter.OnItemClickListener {
+                        override fun onItemClick(categoryId: Int) {
+                            openRecipesByCategoryId(getBundle(categoryId))
+                        }
                     }
-                }
-            )
+                )
+            }
         }
-        categoriesViewModel.loadCategories()
+        categoriesViewModel.loadCategories(SCREEN_CATEGORIES)
     }
 
     private fun openRecipesByCategoryId(bundle: Bundle) {

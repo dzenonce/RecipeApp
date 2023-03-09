@@ -3,6 +3,8 @@ package com.example.recipeapp.data
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Ingredient
 import com.example.recipeapp.model.Recipe
+import com.example.recipeapp.ui.SCREEN_CATEGORIES
+import com.example.recipeapp.ui.SCREEN_FAVORITES
 
 object STUB {
 
@@ -11,42 +13,42 @@ object STUB {
             id = 0,
             title = "Бургеры",
             description = "Рецепты всех популярных видов бургеров",
-            imageUrl = "image_category/burger.png",
+            imageUrl = "recipes/category/categoryImages/burger.png",
         ),
 
         Category(
             id = 1,
             title = "Десерты",
             description = "Самые вкусные рецепты десертов специально для вас",
-            imageUrl = "image_category/dessert.png",
+            imageUrl = "recipes/category/categoryImages/dessert.png",
         ),
 
         Category(
             id = 2,
             title = "Пицца",
             description = "Пицца на любой вкус и цвет. Лучшая подборка для тебя",
-            imageUrl = "image_category/pizza.png",
+            imageUrl = "recipes/category/categoryImages/pizza.png",
         ),
 
         Category(
             id = 3,
             title = "Рыба",
             description = "Печеная, жареная, сушеная, любая рыба на твой вкус",
-            imageUrl = "image_category/fish.png",
+            imageUrl = "recipes/category/categoryImages/fish.png",
         ),
 
         Category(
             id = 4,
             title = "Супы",
             description = "От классики до экзотики: мир в одной тарелке",
-            imageUrl = "image_category/soup.png",
+            imageUrl = "recipes/category/categoryImages/soup.png",
         ),
 
         Category(
             id = 5,
             title = "Салаты",
             description = "Хрустящий калейдоскоп под соусом вдохновения",
-            imageUrl = "image_category/salad.png",
+            imageUrl = "recipes/category/categoryImages/salad.png",
         ),
     )
 
@@ -77,7 +79,7 @@ object STUB {
                 "Смажьте верхнюю часть булочки майонезом, кетчупом и горчицей.",
                 "Положите верхнюю часть булочки на остальные ингредиенты и подавайте."
             ),
-            imageUrl = "image_recipes/burger/burger-hamburger.png"
+            imageUrl = "imageRecipes/burger/burger-hamburger.png"
         ),
         Recipe(
             id = 1,
@@ -105,7 +107,7 @@ object STUB {
                 "Смажьте верхнюю часть булочки майонезом, кетчупом и горчицей.",
                 "Положите верхнюю часть булочки на остальные ингредиенты и подавайте."
             ),
-            imageUrl = "image_recipes/burger/burger-cheeseburger.png"
+            imageUrl = "imageRecipes/burger/burger-cheeseburger.png"
         ),
         Recipe(
             id = 2,
@@ -133,7 +135,7 @@ object STUB {
                 "Смажьте верхнюю часть булочки майонезом, кетчупом и горчицей.",
                 "Положите верхнюю часть булочки на остальные ингредиенты и подавайте."
             ),
-            imageUrl = "image_recipes/burger/burger-mushrooms.png"
+            imageUrl = "imageRecipes/burger/burger-mushrooms.png"
         ),
         Recipe(
             id = 3,
@@ -161,7 +163,7 @@ object STUB {
                 "Смажьте верхнюю часть булочки майонезом, кетчупом и горчицей.",
                 "Положите верхнюю часть булочки на остальные ингредиенты и подавайте."
             ),
-            imageUrl = "image_recipes/burger/burger-avocado.png"
+            imageUrl = "imageRecipes/burger/burger-avocado.png"
         ),
         Recipe(
             id = 4,
@@ -186,7 +188,7 @@ object STUB {
                 "Смажьте верхнюю часть булочки майонезом, кетчупом и горчицей.",
                 "Положите верхнюю часть булочки на остальные ингредиенты и подавайте."
             ),
-            imageUrl = "image_recipes/burger/burger-fish.png"
+            imageUrl = "imageRecipes/burger/burger-fish.png"
         ),
         Recipe(
             id = 5,
@@ -214,7 +216,7 @@ object STUB {
                 "Смажьте верхнюю часть булочки майонезом, кетчупом и горчицей.",
                 "Положите верхнюю часть булочки на остальные ингредиенты и подавайте."
             ),
-            imageUrl = "image_recipes/burger/burger-bacon.png"
+            imageUrl = "imageRecipes/burger/burger-bacon.png"
         ),
         Recipe(
             id = 6,
@@ -241,7 +243,7 @@ object STUB {
                 "Смажьте верхнюю часть булочки томатным соусом и горчицей.",
                 "Положите верхнюю часть булочки на остальные ингредиенты и подавайте."
             ),
-            imageUrl = "image_recipes/burger/burger-vegan.png"
+            imageUrl = "imageRecipes/burger/burger-vegan.png"
         ),
         Recipe(
             id = 7,
@@ -268,7 +270,7 @@ object STUB {
                 "Смажьте верхнюю часть булочки майонезом, кетчупом и соусом табаско.",
                 "Положите верхнюю часть булочки на остальные ингредиенты и подавайте."
             ),
-            imageUrl = "image_recipes/burger/burger-chili.png"
+            imageUrl = "imageRecipes/burger/burger-chili.png"
         )
     )
 
@@ -287,5 +289,13 @@ object STUB {
         burgerRecipes.find { it.id == recipeId } ?: burgerRecipes[0]
 
     fun getRecipesByIds(recipesIds: Set<Int>) = burgerRecipes.filter { recipesIds.contains(it.id) }
+
+    fun getScreenHeaderImageUrl(screenName: String) =
+        when (screenName) {
+            SCREEN_CATEGORIES -> "recipes/category/screenHeader/bcg_categories.png"
+            SCREEN_FAVORITES -> "recipes/favorites/screenHeader/bcg_favorites.png"
+            else -> ""
+        }
+
 
 }
