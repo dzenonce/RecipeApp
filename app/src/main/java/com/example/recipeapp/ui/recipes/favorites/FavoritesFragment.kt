@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentFavoritesBinding
 import com.example.recipeapp.ui.ARG_RECIPE_ID
-import com.example.recipeapp.ui.SCREEN_FAVORITES
 import com.example.recipeapp.ui.recipes.recipe.RecipeFragment
 
 class FavoritesFragment : Fragment() {
@@ -39,29 +38,27 @@ class FavoritesFragment : Fragment() {
 
     private fun initUi() {
         favoritesViewModel.uiState.observe(viewLifecycleOwner) { favoritesUiState ->
-            with(binding) {
-                ivFavoriteScreenHeader.setImageDrawable(favoritesUiState.favoritesScreenImage)
-
-                val recipesList = favoritesUiState.favoritesRecipesList
-                if (recipesList.isNotEmpty()) {
+            val recipesList = favoritesUiState.favoritesRecipesList
+            if (recipesList.isNotEmpty()) {
+                with(binding) {
                     tvRecipeFavoriteIsEmptyText.visibility = View.GONE
                     rvFavoriteRecipe.visibility = View.VISIBLE
-
-                    favoriteRecipesListAdapter.dataSet = recipesList
-                    val recyclerView: RecyclerView = binding.rvFavoriteRecipe
-                    recyclerView.adapter = favoriteRecipesListAdapter
-
-                    favoriteRecipesListAdapter.setOnRecipeClickListener(
-                        object : FavoriteRecipesListAdapter.OnRecipeClickListener {
-                            override fun onRecipeClick(recipeId: Int) {
-                                openRecipeByRecipeId(getBundle(recipeId))
-                            }
-                        }
-                    )
                 }
+
+                favoriteRecipesListAdapter.dataSet = recipesList
+                val recyclerView: RecyclerView = binding.rvFavoriteRecipe
+                recyclerView.adapter = favoriteRecipesListAdapter
+
+                favoriteRecipesListAdapter.setOnRecipeClickListener(
+                    object : FavoriteRecipesListAdapter.OnRecipeClickListener {
+                        override fun onRecipeClick(recipeId: Int) {
+                            openRecipeByRecipeId(getBundle(recipeId))
+                        }
+                    }
+                )
             }
         }
-        favoritesViewModel.loadFavorites(SCREEN_FAVORITES)
+        favoritesViewModel.loadFavorites()
     }
 
     private fun openRecipeByRecipeId(bundle: Bundle) {
