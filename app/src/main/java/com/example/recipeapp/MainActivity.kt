@@ -2,12 +2,8 @@ package com.example.recipeapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.add
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
-import com.example.recipeapp.ui.category.CategoriesListFragment
+import androidx.navigation.findNavController
 import com.example.recipeapp.databinding.ActivityMainBinding
-import com.example.recipeapp.ui.recipes.favorites.FavoritesFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,47 +11,24 @@ class MainActivity : AppCompatActivity() {
     private val binding
         get() = _binding ?: throw IllegalStateException("ActivityMainBinding must not be null")
 
+    private val navController by lazy {
+        this.findNavController(R.id.navHostFragmentContainer)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                add<CategoriesListFragment>(R.id.frgMainFragmentContainer)
-            }
-        }
-
         with(binding) {
-
-            btnCategoryButton.setOnClickListener {
-                showCategories()
-            }
-
-            btnFavoriteButton.setOnClickListener {
-                showFavorites()
-            }
+            btnCategoryButton.setOnClickListener { showCategories() }
+            btnFavoriteButton.setOnClickListener { showFavorites() }
         }
 
     }
 
-    private fun showCategories() {
-        supportFragmentManager.commit {
-            setReorderingAllowed(true)
-            replace<CategoriesListFragment>(R.id.frgMainFragmentContainer)
-            addToBackStack(null)
-        }
-
-    }
-
-    private fun showFavorites() {
-        supportFragmentManager.commit {
-            setReorderingAllowed(true)
-            replace<FavoritesFragment>(R.id.frgMainFragmentContainer)
-            addToBackStack(null)
-        }
-
-    }
+    private fun showCategories() = navController.navigate(R.id.categoriesListFragment)
+    private fun showFavorites() = navController.navigate(R.id.favoritesFragment)
 
 }
+
