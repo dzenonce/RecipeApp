@@ -42,13 +42,14 @@ android {
 }
 
 dependencies {
-    val fragment_version = "1.6.2"
-    val nav_version = "2.7.7"
+    val fragmentVersion = "1.6.2"
+    val navVersion = "2.7.7"
 
-    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
-    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
-    implementation("androidx.fragment:fragment:$fragment_version")
-    implementation("androidx.fragment:fragment-ktx:$fragment_version")
+//    implementation("androidx.navigation.safeargs.kotlin:androidx.navigation.safeargs.kotlin.gradle.plugin:$navVersion")
+    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
+    implementation("androidx.fragment:fragment:$fragmentVersion")
+    implementation("androidx.fragment:fragment-ktx:$fragmentVersion")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")

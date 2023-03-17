@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--suppress NavigationFile -->
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -25,12 +26,19 @@
         <action
             android:id="@+id/action_favoritesFragment_to_recipeFragment"
             app:destination="@id/recipeFragment" />
+        <action
+            android:id="@+id/action_favoritesFragment_to_recipeFragment2"
+            app:destination="@id/recipeFragment" />
     </fragment>
     <fragment
         android:id="@+id/recipeFragment"
         android:name="com.example.recipeapp.ui.recipes.recipe.RecipeFragment"
         android:label="fragment_recipe"
-        tools:layout="@layout/fragment_recipe"/>
+        tools:layout="@layout/fragment_recipe" >
+        <argument
+            android:name="recipeId"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/recipesListFragment"
         android:name="com.example.recipeapp.ui.recipes.recipesList.RecipesListFragment"
@@ -38,6 +46,9 @@
         tools:layout="@layout/fragment_recipes_list">
         <action
             android:id="@+id/action_recipesListFragment_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+        <action
+            android:id="@+id/action_recipesListFragment_to_recipeFragment2"
             app:destination="@id/recipeFragment" />
     </fragment>
 </navigation>
