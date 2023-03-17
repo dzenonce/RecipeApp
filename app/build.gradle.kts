@@ -43,6 +43,10 @@ android {
 
 dependencies {
     val fragment_version = "1.6.2"
+    val nav_version = "2.7.7"
+
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
     implementation("androidx.fragment:fragment:$fragment_version")
     implementation("androidx.fragment:fragment-ktx:$fragment_version")
     implementation("androidx.core:core-ktx:1.12.0")
