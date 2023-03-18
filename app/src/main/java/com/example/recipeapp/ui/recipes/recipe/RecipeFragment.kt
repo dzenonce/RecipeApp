@@ -9,6 +9,7 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
@@ -21,7 +22,8 @@ class RecipeFragment : Fragment() {
     private val binding: FragmentRecipeBinding by lazy {
         FragmentRecipeBinding.inflate(layoutInflater)
     }
-    private val recipeId: Int by lazy { initRecipe() }
+
+    private val recipeFragmentArgs: RecipeFragmentArgs by navArgs()
     private val recipeViewModel: RecipeViewModel by viewModels()
 
     private val ingredientsAdapter = IngredientsAdapter()
@@ -35,15 +37,11 @@ class RecipeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initUI()
+        initUI(recipeFragmentArgs.recipeId)
     }
 
-    private fun initRecipe() =
-        arguments?.getInt(ARG_RECIPE_ID)
-            ?: throw IllegalStateException("Recipe list in RecipeFragment must not be null")
-
     @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
-    private fun initUI() {
+    private fun initUI(recipeId: Int) {
         recipeViewModel.uiState.observe(viewLifecycleOwner) { recipeState ->
             with(binding) {
                 ivIngredientRecipeImage.setImageDrawable(recipeState.recipeImage)
