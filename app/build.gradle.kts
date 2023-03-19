@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
-//    id("androidx.navigation.safeargs.kotlin") version "2.7.7" apply false
+    id("androidx.navigation.safeargs.kotlin") version "2.7.7"
 }
 
 android {
@@ -39,7 +39,6 @@ android {
     buildFeatures {
         viewBinding = true
     }
-    buildToolsVersion = "34.0.0"
 
 }
 

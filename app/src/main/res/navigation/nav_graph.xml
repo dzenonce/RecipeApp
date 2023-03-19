@@ -32,6 +32,9 @@
             app:destination="@id/recipeFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_favoritesFragment_to_categoriesListFragment"
+            app:destination="@id/categoriesListFragment" />
     </fragment>
     <fragment
         android:id="@+id/recipeFragment"
@@ -41,6 +44,15 @@
         <argument
             android:name="recipeId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_recipeFragment_to_categoriesListFragment"
+            app:destination="@id/categoriesListFragment" />
+        <action
+            android:id="@+id/action_recipeFragment_to_recipesListFragment"
+            app:destination="@id/recipesListFragment" />
+        <action
+            android:id="@+id/action_recipeFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
     </fragment>
     <fragment
         android:id="@+id/recipesListFragment"
@@ -57,5 +69,8 @@
             app:destination="@id/recipeFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_recipesListFragment_to_categoriesListFragment"
+            app:destination="@id/categoriesListFragment" />
     </fragment>
 </navigation>
