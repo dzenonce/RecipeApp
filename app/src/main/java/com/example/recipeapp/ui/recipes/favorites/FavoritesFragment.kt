@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
@@ -52,7 +53,10 @@ class FavoritesFragment : Fragment() {
                 favoriteRecipesListAdapter.setOnRecipeClickListener(
                     object : FavoriteRecipesListAdapter.OnRecipeClickListener {
                         override fun onRecipeClick(recipeId: Int) {
-                            openRecipeByRecipeId(getBundle(recipeId))
+                            navController.navigate(
+                                FavoritesFragmentDirections
+                                    .actionFavoritesFragmentToRecipeFragment(recipeId)
+                            )
                         }
                     }
                 )
@@ -60,13 +64,5 @@ class FavoritesFragment : Fragment() {
         }
         favoritesViewModel.loadFavorites()
     }
-
-    private fun openRecipeByRecipeId(bundle: Bundle) =
-        navController.navigate(
-            resId = R.id.recipeFragment,
-            args = bundle,
-        )
-
-    private fun getBundle(recipeId: Int) = bundleOf(ARG_RECIPE_ID to recipeId)
 
 }
