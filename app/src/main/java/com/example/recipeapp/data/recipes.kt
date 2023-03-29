@@ -274,7 +274,7 @@ object STUB {
 
     fun getCategories() = categories
 
-    fun getCategoryInfoByCategoryId(categoryId: Int) =
+    fun getCategoryByCategoryId(categoryId: Int) =
         categories.find { it.id == categoryId }
 
     fun getRecipesByCategoryId(categoryId: Int?) =
