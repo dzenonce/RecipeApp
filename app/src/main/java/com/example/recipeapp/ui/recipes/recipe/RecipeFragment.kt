@@ -16,6 +16,7 @@ import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import com.example.recipeapp.ui.ARG_RECIPE_ID
 import com.example.recipeapp.ui.recipes.recipe.decorator.DividerItemDecorator
+import com.google.gson.Gson
 
 class RecipeFragment : Fragment() {
 
