@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import com.example.recipeapp.ui.recipes.recipe.decorator.DividerItemDecorator
@@ -43,7 +44,12 @@ class RecipeFragment : Fragment() {
     private fun initUI(recipeId: Int) {
         recipeViewModel.uiState.observe(viewLifecycleOwner) { recipeState ->
             with(binding) {
-                ivIngredientRecipeImage.setImageDrawable(recipeState.recipeImage)
+                Glide.with(this@RecipeFragment)
+                    .load(recipeState.recipeImageUrl)
+                    .error(R.drawable.img_error)
+                    .placeholder(R.drawable.img_placeholder)
+                    .into(ivIngredientRecipeImage)
+
                 ivIngredientRecipeImage.contentDescription =
                     "${context?.getString(R.string.content_description_image)} ${recipeState.recipe?.title}"
 
@@ -60,11 +66,11 @@ class RecipeFragment : Fragment() {
                 rvIngredients.addItemDecorationWithoutLastItem()
                 rvMethod.addItemDecorationWithoutLastItem()
 
-                ingredientsAdapter.dataSet = recipeState.recipe?.ingredients ?: listOf()
+                ingredientsAdapter.dataSet = recipeState.recipe?.ingredients ?: emptyList()
                 val recyclerViewIngredients: RecyclerView = binding.rvIngredients
                 recyclerViewIngredients.adapter = ingredientsAdapter
 
-                methodAdapter.dataSet = recipeState.recipe?.method ?: listOf()
+                methodAdapter.dataSet = recipeState.recipe?.method ?: emptyList()
                 val recyclerViewMethod: RecyclerView = binding.rvMethod
                 recyclerViewMethod.adapter = methodAdapter
 
