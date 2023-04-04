@@ -8,31 +8,32 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.util.concurrent.Callable
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class RecipeRepository{
-
-    private val threadPool: ExecutorService = Executors.newFixedThreadPool(10)
+class RecipeRepository {
 
     private val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     private val okHttpCli = OkHttpClient.Builder()
         .addNetworkInterceptor(interceptor)
         .build()
-
     private val retrofit = Retrofit.Builder()
         .baseUrl("$API_RECIPE_URL/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpCli)
         .build()
-    private val service: RecipeApiService = retrofit.create(RecipeApiService::class.java)
+
+    private val recipeDataSource: RecipeDataSource = RecipeDataSource(retrofit.create())
+
+    private val threadPool: ExecutorService = Executors.newFixedThreadPool(10)
 
     fun loadCategories(): List<Category> =
         try {
             threadPool.submit(
                 Callable {
-                    service.getCategories().execute().body()
+                    recipeDataSource.getCategories()
                 }
             ).get() ?: emptyList()
         } catch (e: Error) {
@@ -44,7 +45,7 @@ class RecipeRepository{
         try {
             threadPool.submit(
                 Callable {
-                    service.getRecipesListByCategoryId(categoryId).execute().body() ?: emptyList()
+                    recipeDataSource.getRecipesListByCategoryId(categoryId)
                 }
             ).get() ?: emptyList()
         } catch (e: Error) {
@@ -56,7 +57,7 @@ class RecipeRepository{
         try {
             threadPool.submit(
                 Callable {
-                    service.getRecipesListByIds(ids).execute().body() ?: emptyList()
+                    recipeDataSource.getRecipesByIds(ids)
                 }
             ).get() ?: emptyList()
         } catch (e: Error) {
@@ -68,7 +69,7 @@ class RecipeRepository{
         try {
             threadPool.submit(
                 Callable {
-                    service.getRecipeByRecipeId(recipeId).execute().body()
+                    recipeDataSource.getRecipeByRecipeId(recipeId)
                 }
             ).get()
         } catch (e: Error) {
@@ -80,7 +81,7 @@ class RecipeRepository{
         try {
             threadPool.submit(
                 Callable {
-                    service.getCategoryByCategoryId(categoryId).execute().body()
+                    recipeDataSource.getCategoryByCategoryId(categoryId)
                 }
             ).get()
         } catch (e: Error) {
