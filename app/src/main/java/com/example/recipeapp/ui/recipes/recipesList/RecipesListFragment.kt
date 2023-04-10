@@ -1,8 +1,6 @@
 package com.example.recipeapp.ui.recipes.recipesList
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +9,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
-import java.io.InputStream
+import com.example.recipeapp.ui.API_RECIPE_IMAGE_URL
 
 class RecipesListFragment : Fragment() {
 
@@ -40,10 +39,16 @@ class RecipesListFragment : Fragment() {
     }
 
     private fun initUi() {
-        val category = recipesListFragmentArgs.category ?: throw IllegalArgumentException()
+        val category = recipesListFragmentArgs.category
+            ?: throw IllegalArgumentException("Category in RecipesListFragment must not be null")
 
         with(binding) {
-            ivRecipesListImage.setImageDrawable(loadCategoryImage(category.imageUrl))
+            Glide.with(this@RecipesListFragment)
+                .load("$API_RECIPE_IMAGE_URL/${category.imageUrl}")
+                .error(R.drawable.img_error)
+                .placeholder(R.drawable.img_placeholder)
+                .into(ivRecipesListImage)
+
             ivRecipesListImage.contentDescription =
                 "${context?.getString(R.string.content_description_image)}" +
                         " ${category.title}"
@@ -68,14 +73,4 @@ class RecipesListFragment : Fragment() {
         }
         recipesUiState.loadRecipesList(category.id)
     }
-
-    private fun loadCategoryImage(categoryImageUrl: String) =
-        try {
-            val inputStream: InputStream? = context?.assets?.open(categoryImageUrl)
-            Drawable.createFromStream(inputStream, null)
-        } catch (e: Error) {
-            Log.e("assets error", e.stackTraceToString())
-            null
-        }
-
 }
