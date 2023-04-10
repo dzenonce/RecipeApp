@@ -54,6 +54,7 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:$glideVersion")
     implementation("com.github.bumptech.glide:glide:$glideVersion")
     implementation("com.squareup.okhttp3:logging-interceptor:$interceptorVersion")
+    implementation("com.github.bumptech.glide:glide:$glideVersion")
     implementation("com.squareup.retrofit2:converter-gson:$retrofitGsonConverterVersion")
     implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.google.code.gson:gson:$gsonVersion")
