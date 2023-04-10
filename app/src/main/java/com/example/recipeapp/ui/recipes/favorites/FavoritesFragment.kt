@@ -4,15 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentFavoritesBinding
-import com.example.recipeapp.ui.ARG_RECIPE_ID
 
 class FavoritesFragment : Fragment() {
 

@@ -4,13 +4,17 @@ import android.app.Application
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.recipeapp.data.STUB
+import androidx.lifecycle.viewModelScope
+import com.example.recipeapp.data.RecipeRepository
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.ui.PREFERENCE_FILE_KEY
 import com.example.recipeapp.ui.PREFERENCE_RECIPE_IDS_SET_KEY
+import com.example.recipeapp.ui.TOAST_TEXT_ERROR_LOADING
+import kotlinx.coroutines.launch
 import java.io.InputStream
 
 data class RecipeUiState(
@@ -29,17 +33,25 @@ class RecipeViewModel(
     private val _uiState = MutableLiveData<RecipeUiState>()
     val uiState: LiveData<RecipeUiState> = _uiState
 
-    // TODO load from network
-    fun loadRecipe(recipeId: Int) {
-        val recipe = STUB.getRecipeByRecipeId(recipeId)
+    private val recipeRepository = RecipeRepository()
 
-        _uiState.value =
-            RecipeUiState(
-                isFavorite = getFavorites().contains(recipeId.toString()),
-                recipe = recipe,
-                portionsCount = RecipeUiState().portionsCount,
-                recipeImage = loadRecipeImage(recipe.imageUrl)
-            )
+    fun loadRecipe(recipeId: Int) {
+        viewModelScope.launch {
+            val recipe = recipeRepository.loadRecipeByRecipeId(recipeId)
+            if (recipe != null)
+                _uiState.value =
+                    RecipeUiState(
+                        isFavorite = getFavorites().contains(recipeId.toString()),
+                        recipe = recipe,
+                        portionsCount = RecipeUiState().portionsCount,
+                        recipeImage = loadRecipeImage(recipe.imageUrl)
+                    )
+            else Toast.makeText(
+                application.applicationContext,
+                TOAST_TEXT_ERROR_LOADING,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     fun onFavoritesClicked() {
@@ -87,14 +99,20 @@ class RecipeViewModel(
         }
     }
 
-    private fun loadRecipeImage(imageUrl: String): Drawable? =
+    private fun loadRecipeImage(imageUrl: String = ""): Drawable? {
         try {
-            val inputStream: InputStream? =
-                application.assets?.open(imageUrl)
-            Drawable.createFromStream(inputStream, null)
+            val assertEquals = application.assets.list("")?.contains(imageUrl)
+            if (assertEquals != null) {
+                if (assertEquals) {
+                    val inputStream: InputStream? =
+                        application.assets?.open(imageUrl)
+                    return Drawable.createFromStream(inputStream, null)
+                }
+            }
         } catch (e: Error) {
             Log.e("assets error", e.stackTraceToString())
-            null
         }
-
+        return null
+    }
 }
+
