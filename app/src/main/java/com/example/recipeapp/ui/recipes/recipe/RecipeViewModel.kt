@@ -8,11 +8,13 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.data.RecipeRepository
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.ui.PREFERENCE_FILE_KEY
 import com.example.recipeapp.ui.PREFERENCE_RECIPE_IDS_SET_KEY
 import com.example.recipeapp.ui.TOAST_TEXT_ERROR_LOADING
+import kotlinx.coroutines.launch
 import java.io.InputStream
 
 data class RecipeUiState(
@@ -34,20 +36,22 @@ class RecipeViewModel(
     private val recipeRepository = RecipeRepository()
 
     fun loadRecipe(recipeId: Int) {
-        val recipe = recipeRepository.loadRecipeByRecipeId(recipeId)
-        if (recipe != null)
-            _uiState.value =
-                RecipeUiState(
-                    isFavorite = getFavorites().contains(recipeId.toString()),
-                    recipe = recipe,
-                    portionsCount = RecipeUiState().portionsCount,
-                    recipeImage = loadRecipeImage(recipe.imageUrl)
-                )
-        else Toast.makeText(
-            application.applicationContext,
-            TOAST_TEXT_ERROR_LOADING,
-            Toast.LENGTH_SHORT
-        ).show()
+        viewModelScope.launch {
+            val recipe = recipeRepository.loadRecipeByRecipeId(recipeId)
+            if (recipe != null)
+                _uiState.value =
+                    RecipeUiState(
+                        isFavorite = getFavorites().contains(recipeId.toString()),
+                        recipe = recipe,
+                        portionsCount = RecipeUiState().portionsCount,
+                        recipeImage = loadRecipeImage(recipe.imageUrl)
+                    )
+            else Toast.makeText(
+                application.applicationContext,
+                TOAST_TEXT_ERROR_LOADING,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     fun onFavoritesClicked() {
