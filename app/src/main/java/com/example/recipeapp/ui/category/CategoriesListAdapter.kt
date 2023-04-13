@@ -1,7 +1,5 @@
 package com.example.recipeapp.ui.category
 
-import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.recipeapp.R
 import com.example.recipeapp.model.Category
-import java.io.InputStream
+import com.example.recipeapp.ui.API_RECIPE_IMAGE_URL
 
 class CategoriesListAdapter(
     var dataSet: List<Category> = listOf(),
@@ -48,21 +47,16 @@ class CategoriesListAdapter(
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         with(viewHolder) {
-            categoryName.text = dataSet[position].title
-            try {
-                val inputStream: InputStream =
-                    itemView.context.assets.open(dataSet[position].imageUrl)
-                val drawable = Drawable.createFromStream(inputStream, null)
-                categoryImage.setImageDrawable(drawable)
+            Glide.with(categoryImage)
+                .load("$API_RECIPE_IMAGE_URL/${dataSet[position].imageUrl}")
+                .error(R.drawable.img_error)
+                .placeholder(R.drawable.img_placeholder)
+                .into(categoryImage)
 
-            } catch (e: Error) {
-                Log.e("assets error", e.stackTraceToString())
-            }
-            val contentDescriptionImage =
-                itemView.context.getString(R.string.content_description_image)
             categoryImage.contentDescription =
-                contentDescriptionImage + viewHolder.categoryName
+                itemView.context.getString(R.string.content_description_image) + viewHolder.categoryName
 
+            categoryName.text = dataSet[position].title
             categoryDescription.text = dataSet[position].description
 
             categoryItem.setOnClickListener {
