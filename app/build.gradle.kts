@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
     id("androidx.navigation.safeargs.kotlin") version "2.7.7"
-    id("com.google.devtools.ksp")
+    id("com.google.devtools.ksp") version "1.9.10-1.0.13"
 }
 
 android {
@@ -55,7 +55,6 @@ dependencies {
 
     implementation ("androidx.room:room-runtime:$roomVersion")
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
-    implementation("com.google.devtools.ksp:symbol-processing-api:1.9.10-1.0.13")
     ksp("androidx.room:room-compiler:$roomVersion")
 
     implementation("com.github.bumptech.glide:glide:$glideVersion")
