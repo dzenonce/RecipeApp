@@ -22,9 +22,7 @@ class FavoritesViewModel(
     application = Application()
 ) {
 
-    private val recipeRepository = RecipeRepository(
-        context = application.applicationContext
-    )
+    private val recipeRepository = RecipeRepository()
 
     private var _uiState = MutableLiveData<FavoritesUiState>()
     val uiState: LiveData<FavoritesUiState> = _uiState
