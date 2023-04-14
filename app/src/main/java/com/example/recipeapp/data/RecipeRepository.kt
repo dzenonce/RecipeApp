@@ -16,26 +16,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
 class RecipeRepository(
-    val context: Context? = null
+    val context: Context
 ) {
-
-    private val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-    private val okHttpCli = OkHttpClient.Builder()
-        .addNetworkInterceptor(interceptor)
-        .build()
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("$API_RECIPE_URL/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .client(okHttpCli)
-        .build()
-    private val recipeDataSource: RecipeDataSource = RecipeDataSource(retrofit.create())
-
-    private val recipeDatabase = Room.databaseBuilder(
-        context = context!!,
-        RecipeDatabase::class.java,
-        DATABASE_NAME
-    ).build()
-    private val categoriesDao = recipeDatabase.categoriesDao()
 
     suspend fun getCategoriesFromCache(): List<Category> =
         withContext(Dispatchers.IO) {
@@ -71,5 +53,23 @@ class RecipeRepository(
         withContext(Dispatchers.IO) {
             recipeDataSource.getCategoryByCategoryId(categoryId)
         }
+
+    private val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+    private val okHttpCli = OkHttpClient.Builder()
+        .addNetworkInterceptor(interceptor)
+        .build()
+    private val retrofit = Retrofit.Builder()
+        .baseUrl("$API_RECIPE_URL/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .client(okHttpCli)
+        .build()
+    private val recipeDataSource: RecipeDataSource = RecipeDataSource(retrofit.create())
+
+    private val recipeDatabase = Room.databaseBuilder(
+        context = context,
+        RecipeDatabase::class.java,
+        DATABASE_NAME
+    ).build()
+    private val categoriesDao = recipeDatabase.categoriesDao()
 
 }
