@@ -1,6 +1,8 @@
 package com.example.recipeapp.ui.category
 
 import android.app.Application
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +12,7 @@ import com.example.recipeapp.data.RecipeRepository
 import com.example.recipeapp.data.room.RecipeDatabase
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.ui.DATABASE_NAME
+import com.example.recipeapp.ui.TOAST_TEXT_ERROR_LOADING
 import kotlinx.coroutines.launch
 
 data class CategoriesUiState(
@@ -19,7 +22,7 @@ data class CategoriesUiState(
 class CategoriesViewModel(
     private val application: Application,
 ) : AndroidViewModel(
-    application = Application()
+    application = application
 ) {
 
     private var _uiState = MutableLiveData<CategoriesUiState>()
@@ -27,18 +30,32 @@ class CategoriesViewModel(
 
     fun loadCategories() {
         viewModelScope.launch {
-            var categories: List<Category> =
-                recipeRepository.getCategoriesFromCache() ?: emptyList()
+            var categories = recipeRepository.getCategoriesFromCache() ?: emptyList()
             if (categories.isEmpty()) {
-                categories = recipeRepository.loadCategories() ?: emptyList()
+                categories =
+                    try {
+                        recipeRepository.loadCategories() ?: emptyList()
+                    } catch (e: Exception) {
+                        Log.e("internet error", e.stackTraceToString())
+                        emptyList()
+                    }
             }
-            _uiState.value =
-                CategoriesUiState(
-                    categoriesList = categories
+            if (categories.isEmpty())
+                Toast.makeText(
+                    application.applicationContext,
+                    TOAST_TEXT_ERROR_LOADING,
+                    Toast.LENGTH_SHORT
+                ).show()
+            else {
+                _uiState.value =
+                    CategoriesUiState(
+                        categoriesList = categories
+                    )
+
+                recipeRepository.loadCategoryToCache(
+                    categories = categories
                 )
-            recipeRepository.loadCategoryToCache(
-                categories = categories
-            )
+            }
         }
     }
 

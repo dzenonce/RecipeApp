@@ -2,6 +2,7 @@ package com.example.recipeapp.ui.recipes.recipe
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -25,7 +26,7 @@ data class RecipeUiState(
 class RecipeViewModel(
     private val application: Application,
 ) : AndroidViewModel(
-    application = Application()
+    application = application
 ) {
 
     private val _uiState = MutableLiveData<RecipeUiState>()
@@ -35,7 +36,15 @@ class RecipeViewModel(
 
     fun loadRecipe(recipeId: Int) {
         viewModelScope.launch {
-            val recipe = recipeRepository.loadRecipeByRecipeId(recipeId)
+            val recipe =
+                try {
+                    Log.e("!!!", "Try recipe load...")
+                    recipeRepository.loadRecipeByRecipeId(recipeId)
+                } catch (e: Error) {
+                    Log.e("internet error", e.stackTraceToString())
+                    null
+                }
+
             if (recipe != null)
                 _uiState.value =
                     RecipeUiState(
@@ -78,7 +87,7 @@ class RecipeViewModel(
         val favoriteSet = sharedPreference?.getStringSet(
             PREFERENCE_RECIPE_IDS_SET_KEY,
             null,
-        ) ?: mutableSetOf()
+        ) ?: emptySet()
         return HashSet(favoriteSet)
     }
 
