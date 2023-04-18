@@ -29,15 +29,6 @@ class CategoriesViewModel(
     private var _uiState = MutableLiveData<CategoriesUiState>()
     val uiState: LiveData<CategoriesUiState> = _uiState
 
-    private val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-        Log.e("internet error", throwable.stackTraceToString())
-        Toast.makeText(
-            application.applicationContext,
-            TOAST_TEXT_ERROR_LOADING,
-            Toast.LENGTH_SHORT
-        ).show()
-    }
-
     fun loadCategories() {
         viewModelScope.launch(exceptionHandler) {
             var categories = recipeRepository.getCategoriesFromCache() ?: emptyList()
@@ -50,6 +41,15 @@ class CategoriesViewModel(
                 categories = categories
             )
         }
+    }
+
+    private val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+        Log.e("internet error", throwable.stackTraceToString())
+        Toast.makeText(
+            application.applicationContext,
+            TOAST_TEXT_ERROR_LOADING,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private val recipeDatabase = Room.databaseBuilder(
