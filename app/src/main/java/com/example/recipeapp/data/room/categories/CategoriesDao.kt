@@ -1,4 +1,4 @@
-package com.example.recipeapp.data.room
+package com.example.recipeapp.data.room.categories
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -13,5 +13,4 @@ interface CategoriesDao {
 
         @Insert(onConflict = OnConflictStrategy.REPLACE)
         fun addCategory(categories: List<Category>)
-
 }
