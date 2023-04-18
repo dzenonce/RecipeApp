@@ -30,12 +30,6 @@ class CategoriesListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUi()
-        with(binding) {
-            srlCategoriesRefresh.setOnRefreshListener {
-                initUi()
-                srlCategoriesRefresh.isRefreshing = false
-            }
-        }
     }
 
     private fun initUi() {
