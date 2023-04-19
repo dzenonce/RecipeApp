@@ -40,7 +40,7 @@ class RecipeFragment : Fragment() {
         initUI(recipeFragmentArgs.recipeId)
     }
 
-    @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
+    @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables", "NotifyDataSetChanged")
     private fun initUI(recipeId: Int) {
         recipeViewModel.uiState.observe(viewLifecycleOwner) { recipeState ->
             with(binding) {
