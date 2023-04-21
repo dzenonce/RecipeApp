@@ -4,13 +4,14 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.recipeapp.model.Recipe
+import com.example.recipeapp.model.RecipesList
 
 @Dao
 interface RecipesDao {
-    @Query("SELECT * FROM recipe")
-    suspend fun getRecipesListByCategoryId(): List<Recipe>
+
+    @Query("SELECT * FROM recipeslist WHERE category_id = :categoryId")
+    suspend fun getRecipesList(categoryId: Int): RecipesList
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addRecipesByCategoryId(recipes: List<Recipe>)
+    suspend fun addRecipesByCategoryId(recipesListByCategory: RecipesList)
 }
