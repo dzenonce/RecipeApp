@@ -13,6 +13,7 @@ import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.ui.PREFERENCE_FILE_KEY
 import com.example.recipeapp.ui.PREFERENCE_RECIPE_IDS_SET_KEY
 import com.example.recipeapp.ui.TOAST_TEXT_ERROR_LOADING
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 data class FavoritesUiState(
@@ -32,26 +33,21 @@ class FavoritesViewModel(
 
     fun loadFavorites() {
         val recipesIds = getFavoritesIds().map { it.toInt() }.toSet()
-        viewModelScope.launch {
-            val favoriteRecipesList =
-                try {
-                    recipeRepository.loadRecipesByIds(recipesIds.joinToString(","))
-                } catch (e: Exception) {
-                    Log.e("!!!", e.stackTraceToString())
-                    null
+        viewModelScope.launch(exceptionHandler) {
+            recipeRepository.loadRecipesByIds(recipesIds.joinToString(","))
+                ?.let { favoriteRecipesList ->
+                    _uiState.value = FavoritesUiState(favoritesRecipesList = favoriteRecipesList)
                 }
-            if (favoriteRecipesList != null) {
-                _uiState.value =
-                    FavoritesUiState(
-                        favoritesRecipesList = favoriteRecipesList
-                    )
-            } else
-                Toast.makeText(
-                    application.applicationContext,
-                    TOAST_TEXT_ERROR_LOADING,
-                    Toast.LENGTH_SHORT
-                ).show()
         }
+    }
+
+    private val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+        Log.e("internet error", throwable.stackTraceToString())
+        Toast.makeText(
+            application.applicationContext,
+            TOAST_TEXT_ERROR_LOADING,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun getFavoritesIds(): HashSet<String> {

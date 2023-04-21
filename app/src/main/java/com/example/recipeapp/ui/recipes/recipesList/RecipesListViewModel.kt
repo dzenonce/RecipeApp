@@ -62,7 +62,7 @@ class RecipesListViewModel(
         Toast.makeText(
             application.applicationContext,
             TOAST_TEXT_ERROR_LOADING,
-            Toast.LENGTH_SHORT,
+            Toast.LENGTH_SHORT
         ).show()
     }
 
