@@ -20,7 +20,6 @@ import kotlinx.coroutines.launch
 data class RecipeUiState(
     var isFavorite: Boolean = false,
     var recipe: Recipe? = null,
-    var portionsCount: Int = 1,
     var recipeImageUrl: String = "",
 )
 
@@ -48,7 +47,6 @@ class RecipeViewModel(
                 RecipeUiState(
                     isFavorite = recipe?.isFavorite ?: false,
                     recipe = recipe,
-                    portionsCount = RecipeUiState().portionsCount,
                     recipeImageUrl = "$API_RECIPE_IMAGE_URL/${recipe?.imageUrl}"
                 )
         }
@@ -73,9 +71,5 @@ class RecipeViewModel(
                 recipeRepository.recipesCache.addRecipeToFavorite(recipeId)
             }
         }
-    }
-
-    fun updatePortionsCount(progress: Int) {
-        _uiState.value?.portionsCount = progress
     }
 }
