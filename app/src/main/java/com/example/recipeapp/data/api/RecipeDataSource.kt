@@ -1,4 +1,4 @@
-package com.example.recipeapp.data
+package com.example.recipeapp.data.api
 
 import com.example.recipeapp.data.retrofit.IRecipeApiService
 import com.example.recipeapp.model.Category

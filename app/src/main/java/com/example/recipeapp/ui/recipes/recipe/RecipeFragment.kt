@@ -55,7 +55,7 @@ class RecipeFragment : Fragment() {
 
                 setFavoriteIconState(recipeState.isFavorite)
                 ibIngredientFavoriteButton.setOnClickListener {
-                    recipeViewModel.onFavoritesClicked()
+                    recipeViewModel.onFavoritesClicked(recipeId)
                     setFavoriteIconState(recipeState.isFavorite)
                 }
 
