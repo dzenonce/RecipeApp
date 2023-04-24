@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.recipeapp.R
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.ui.API_RECIPE_IMAGE_URL
@@ -49,6 +50,7 @@ open class RecipesListAdapter(
                 .load("$API_RECIPE_IMAGE_URL/${dataSet[position].imageUrl}")
                 .error(R.drawable.img_error)
                 .placeholder(R.drawable.img_placeholder)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(recipeImage)
 
             recipeImage.contentDescription =

@@ -53,9 +53,10 @@ dependencies {
     val interceptorVersion = "4.12.0"
     val roomVersion = "2.6.1"
 
+    ksp("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
     implementation ("androidx.room:room-runtime:$roomVersion")
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
-    ksp("androidx.room:room-compiler:$roomVersion")
 
     implementation("com.github.bumptech.glide:glide:$glideVersion")
     implementation("com.squareup.okhttp3:logging-interceptor:$interceptorVersion")
