@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.recipeapp.R
 import com.example.recipeapp.model.Recipe
-import com.example.recipeapp.ui.API_RECIPE_IMAGE_URL
+import com.example.recipeapp.API_RECIPE_IMAGE_URL
 
 open class RecipesListAdapter(
     var dataSet: List<Recipe> = listOf(),

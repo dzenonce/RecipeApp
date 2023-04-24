@@ -1,59 +1,52 @@
 package com.example.recipeapp.data
 
-import com.example.recipeapp.data.api.RecipeDataSource
-import com.example.recipeapp.data.room.RecipeDatabase
-import com.example.recipeapp.data.room.RecipesCache
+import com.example.recipeapp.data.api.RecipeApiService
+import com.example.recipeapp.data.room.RecipesRoomStorage
+import com.example.recipeapp.data.room.categories.CategoriesDao
+import com.example.recipeapp.data.room.recipes.recipes.favorites.FavoritesDao
+import com.example.recipeapp.data.room.recipes.recipesList.RecipesDao
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
-import com.example.recipeapp.ui.API_RECIPE_URL
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 class RecipeRepository(
-    val recipeDatabase: RecipeDatabase? = null,
+    private val categoriesDao: CategoriesDao,
+    private val recipesDao: RecipesDao,
+    private val favoritesDao: FavoritesDao,
+    private val ioDispatcher: CoroutineDispatcher,
+    private val recipeDataSource: RecipeApiService,
 ) {
 
-    val recipesCache = RecipesCache(recipeDatabase)
+    val recipesCache = RecipesRoomStorage(
+        categoriesDao = categoriesDao,
+        recipesDao = recipesDao,
+        favoritesDao = favoritesDao,
+    )
 
     suspend fun loadCategories(): List<Category>? =
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             recipeDataSource.getCategories()
         }
 
     suspend fun loadRecipesListByCategoryId(categoryId: Int): List<Recipe>? =
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             recipeDataSource.getRecipesListByCategoryId(categoryId)
         }
 
     suspend fun loadRecipesByIds(ids: String): List<Recipe>? =
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             recipeDataSource.getRecipesByIds(ids)
         }
 
     suspend fun loadRecipeByRecipeId(recipeId: Int): Recipe? =
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             recipeDataSource.getRecipeByRecipeId(recipeId)
         }
 
     suspend fun loadCategoryByCategoryId(categoryId: Int): Category? =
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             recipeDataSource.getCategoryByCategoryId(categoryId)
         }
-
-    private val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-    private val okHttpClient = OkHttpClient.Builder()
-        .addNetworkInterceptor(interceptor)
-        .build()
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("$API_RECIPE_URL/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .client(okHttpClient)
-        .build()
-    private val recipeDataSource: RecipeDataSource = RecipeDataSource(retrofit.create())
 
 }
