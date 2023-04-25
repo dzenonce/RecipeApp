@@ -1,8 +1,9 @@
-package com.example.recipeapp
+package com.example.recipeapp.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
