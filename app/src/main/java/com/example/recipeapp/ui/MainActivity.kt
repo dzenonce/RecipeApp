@@ -6,6 +6,7 @@ import androidx.navigation.findNavController
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ActivityMainBinding
 
+
 class MainActivity : AppCompatActivity() {
 
     private val binding: ActivityMainBinding by lazy {
@@ -29,5 +30,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 }
