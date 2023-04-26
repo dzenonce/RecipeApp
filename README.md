@@ -4,7 +4,7 @@
 <img src="https://stage.androidsprint.ru/files/AfGoYLU.png" height="450"> <img src="https://stage.androidsprint.ru/files/a3kBAEi.png" height="450"> <img src="https://stage.androidsprint.ru/files/yQPivlr.png" height="450">
 
 ***Стек кратко:***
-Clean Architecture, MVVM, ViewModel, Coroutine, OkHttp, Retrofit, Room, Di, Fragment, Glide, RecyclerView
+MVVM, ViewModel, Coroutine, OkHttp, Retrofit, Room, Di, Fragment, Glide, RecyclerView
 
 ***Стек подробнее:***
 - Архитектура
