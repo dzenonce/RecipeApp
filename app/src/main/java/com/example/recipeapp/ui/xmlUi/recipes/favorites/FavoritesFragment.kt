@@ -1,4 +1,4 @@
-package com.example.recipeapp.ui.recipes.favorites
+package com.example.recipeapp.ui.xmlUi.recipes.favorites
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -18,9 +18,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
 
     buildTypes {
@@ -48,15 +45,11 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.3"
     }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-
 }
 
 dependencies {
+    implementation("androidx.compose.ui:ui-tooling-preview-android:1.6.6")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.6.6")
     val fragmentVersion = "1.6.2"
     val navVersion = "2.7.7"
     val gsonVersion = "2.10.1"

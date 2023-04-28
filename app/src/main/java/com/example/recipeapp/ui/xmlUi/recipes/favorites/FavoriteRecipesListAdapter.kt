@@ -1,9 +1,9 @@
-package com.example.recipeapp.ui.recipes.favorites
+package com.example.recipeapp.ui.xmlUi.recipes.favorites
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.recipeapp.R
-import com.example.recipeapp.ui.recipes.recipesList.RecipesListAdapter
+import com.example.recipeapp.ui.xmlUi.recipes.recipesList.RecipesListAdapter
 import com.example.recipeapp.model.Recipe
 
 class FavoriteRecipesListAdapter(
