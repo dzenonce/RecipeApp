@@ -4,10 +4,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -16,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
@@ -23,34 +28,47 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.recipeapp.API_RECIPE_IMAGE_URL
 import com.example.recipeapp.R
-import com.example.recipeapp.ui.compose.theme.Blue
-import com.example.recipeapp.ui.compose.theme.Red
-import com.example.recipeapp.ui.compose.theme.StyleMenuHeaderText20
-import com.example.recipeapp.ui.compose.theme.StyleTitleText14
-import com.example.recipeapp.ui.compose.theme.WhiteBlue
+import com.example.recipeapp.model.Category
+import com.example.recipeapp.ui.compose.components.CategoriesCard
+import com.example.recipeapp.ui.compose.theme.BlueColor
+import com.example.recipeapp.ui.compose.theme.PurpleColor
+import com.example.recipeapp.ui.compose.theme.RedColor
+import com.example.recipeapp.ui.compose.theme.StyleMenuHeaderTextPurple20
+import com.example.recipeapp.ui.compose.theme.StyleTitleTextWhite14
+import com.example.recipeapp.ui.compose.theme.WhiteBlueColor
 
-@Preview
 @Composable
+fun CategoriesScreen(
+    categoriesList: List<Category> = emptyList()
+) {
 
-fun CategoriesScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
     ) {
         Box(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(),
         ) {
             Image(
                 painter = painterResource(id = R.drawable.bcg_categories),
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(
+                        RoundedCornerShape(
+                            bottomStart = 10.dp,
+                            bottomEnd = 10.dp,
+                        )
+                    ),
                 contentScale = ContentScale.FillWidth,
                 contentDescription = stringResource(id = R.string.content_description_image),
             )
             Text(
                 text = stringResource(id = R.string.title_categories).uppercase(),
-                style = StyleMenuHeaderText20,
+                color = PurpleColor,
+                style = StyleMenuHeaderTextPurple20,
                 modifier = Modifier
                     .padding(16.dp)
                     .background(
@@ -66,13 +84,31 @@ fun CategoriesScreen() {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(WhiteBlue)
+                .background(WhiteBlueColor)
         ) {
-            Text(
-                text = "Empty Categories List",
+            // Categories Cards
+
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                contentPadding = PaddingValues(
+                    start = 8.dp,
+                    top = 8.dp,
+                    end = 8.dp,
+                    bottom = 52.dp
+                ),
                 modifier = Modifier
-                    .align(Alignment.Center),
-            )
+                    .background(WhiteBlueColor)
+                    .fillMaxSize()
+            ) {
+
+                itemsIndexed(categoriesList) { index, category ->
+                    CategoriesCard(
+                        title = category.title,
+                        description = category.description,
+                        imageUrl = "$API_RECIPE_IMAGE_URL/${category.imageUrl}",
+                    )
+                }
+            }
 
             Row(
                 modifier = Modifier
@@ -80,32 +116,32 @@ fun CategoriesScreen() {
                     .padding(bottom = 8.dp)
                     .fillMaxWidth()
             ) {
-                // TODO вынести в стиль
+                // TODO вынести в стиль (отдельный компонент)
                 Button(
                     onClick = { },
                     shape = RoundedCornerShape(8.dp),
-                    colors = ButtonDefaults.buttonColors(Blue),
+                    colors = ButtonDefaults.buttonColors(BlueColor),
                     modifier = Modifier
                         .weight(1F)
                         .padding(start = 16.dp, end = 2.dp)
                 ) {
                     Text(
                         text = stringResource(id = R.string.title_categories).uppercase(),
-                        style = StyleTitleText14,
+                        style = StyleTitleTextWhite14,
                     )
                 }
 
                 Button(
                     onClick = { },
                     shape = RoundedCornerShape(8.dp),
-                    colors = ButtonDefaults.buttonColors(Red),
+                    colors = ButtonDefaults.buttonColors(RedColor),
                     modifier = Modifier
                         .weight(1F)
                         .padding(start = 2.dp, end = 16.dp)
                 ) {
                     Text(
                         stringResource(id = R.string.title_favorite).uppercase(),
-                        style = StyleTitleText14
+                        style = StyleTitleTextWhite14
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.ic_heart_empty),
@@ -116,4 +152,16 @@ fun CategoriesScreen() {
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun CategoryScreenPreview() {
+    CategoriesScreen(
+        listOf(
+            Category(0, "Десерты", "СладкиеСладкиеСладкиеСладкиеСладкиеСладкиеСладкиеСладкие", "res/drawable/23уцфв")
+        ) + List(10) {
+            Category(1, "Бургеры", "Вкусные", "res/drawable/burger.png")
+        }
+    )
 }
