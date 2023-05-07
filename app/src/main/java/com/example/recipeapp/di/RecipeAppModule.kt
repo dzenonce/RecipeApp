@@ -18,11 +18,14 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Qualifier
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -74,6 +77,10 @@ class RecipeAppModule {
         RecipeApiService(iRecipeApiService)
 
     @Provides
+    @IoDispatcher
+    fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
+
+    @Provides
     fun provideCoroutineExceptionHandler(@ApplicationContext context: Context): CoroutineExceptionHandler {
         return CoroutineExceptionHandler { _, exception ->
             Log.e("coroutine exception", exception.stackTraceToString())
@@ -85,5 +92,8 @@ class RecipeAppModule {
         }
     }
 
+    @Retention(AnnotationRetention.BINARY)
+    @Qualifier
+    annotation class IoDispatcher
 
 }
