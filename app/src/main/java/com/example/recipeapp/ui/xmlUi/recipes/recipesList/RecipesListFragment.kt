@@ -11,10 +11,9 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.recipeapp.API_RECIPE_IMAGE_URL
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
-import com.example.recipeapp.API_RECIPE_IMAGE_URL
-import com.example.recipeapp.RecipeApplication
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
