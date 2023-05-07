@@ -75,8 +75,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeKtxVersion")
     implementation("androidx.activity:activity-compose:$activityComposeVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$composeViewModelVersion")
-    implementation("androidx.compose.ui:ui-tooling-preview-android:1.6.6")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.6.6")
+    implementation("androidx.compose.ui:ui-tooling-preview-android:1.6.7")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.6.7")
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
 
     // Room
