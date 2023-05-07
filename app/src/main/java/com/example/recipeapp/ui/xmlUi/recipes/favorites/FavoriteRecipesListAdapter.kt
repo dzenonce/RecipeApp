@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import com.example.recipeapp.R
 import com.example.recipeapp.ui.xmlUi.recipes.recipesList.RecipesListAdapter
 import com.example.recipeapp.model.Recipe
+import dagger.hilt.android.AndroidEntryPoint
 
 class FavoriteRecipesListAdapter(
     dataSet: List<Recipe> = listOf(),

@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.data.RecipeRepository
 import com.example.recipeapp.model.Recipe
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 data class RecipesListUiState(
     var recipeList: List<Recipe> = emptyList(),
@@ -15,7 +17,8 @@ data class RecipesListUiState(
     var categoryImageUrl: String? = null,
 )
 
-class RecipesListViewModel(
+@HiltViewModel
+class RecipesListViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository,
     private val exceptionHandler: CoroutineExceptionHandler,
 ) : ViewModel() {

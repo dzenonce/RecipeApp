@@ -12,6 +12,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.recipeapp.R
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.API_RECIPE_IMAGE_URL
+import dagger.hilt.android.AndroidEntryPoint
 
 class CategoriesListAdapter(
     var dataSet: List<Category> = emptyList(),
