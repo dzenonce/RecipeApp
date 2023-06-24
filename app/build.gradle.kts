@@ -4,6 +4,7 @@ plugins {
     id("kotlin-parcelize")
     id("androidx.navigation.safeargs.kotlin") version "2.7.7"
     id("com.google.devtools.ksp") version "1.9.10-1.0.13"
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -56,11 +57,16 @@ dependencies {
     val interceptorVersion = "4.12.0"
     val glideVersion = "4.16.0"
     val roomVersion = "2.6.1"
+    val hiltVersion = "2.51.1"
 
     val composeBom = platform("androidx.compose:compose-bom:2024.04.01")
     val activityComposeVersion = "1.9.0"
     val lifecycleRuntimeKtxVersion = "2.7.0"
     val composeViewModelVersion = "2.6.1"
+
+    // Hilt
+    ksp("com.google.dagger:hilt-compiler:$hiltVersion")
+    implementation ("com.google.dagger:hilt-android:$hiltVersion")
 
     // Compose
     implementation(composeBom)
@@ -69,10 +75,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeKtxVersion")
     implementation("androidx.activity:activity-compose:$activityComposeVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$composeViewModelVersion")
-    implementation("androidx.compose.ui:ui-tooling-preview-android:1.6.6")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.6.6")
+    implementation("androidx.compose.ui:ui-tooling-preview-android:1.6.7")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.6.7")
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
-
 
     // Room
     ksp("androidx.room:room-compiler:$roomVersion")
