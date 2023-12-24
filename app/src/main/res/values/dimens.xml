@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="button_container_horizontal_margin">16dp</dimen>
-    <dimen name="button_container_vertical_margin">8dp</dimen>
-
-    <dimen name="main_margin_button_horizontal">4dp</dimen>
-    <dimen name="half_margin_button_horizontal">2dp</dimen>
+    <dimen name="container_horizontal_margin">16dp</dimen>
+    <dimen name="container_vertical_margin">8dp</dimen>
+    <dimen name="main_horizontal_margin">4dp</dimen>
+    <dimen name="half_horizontal_margin">2dp</dimen>
 </resources>

@@ -4,40 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_background_white"
+    android:background="@color/main_background_white_color"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/container_vertical_margin"
         android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/container_horizontal_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:paddingHorizontal="@dimen/button_container_horizontal_margin"
-        android:layout_marginVertical="@dimen/button_container_vertical_margin"
-        >
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             style="@style/StyleNavButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/blue_nav_button"
-            android:text="@string/category_button_name"
-            android:layout_marginHorizontal="@dimen/half_margin_button_horizontal"
-            android:layout_weight="1" />
+            android:layout_marginHorizontal="@dimen/half_horizontal_margin"
+            android:layout_weight="1"
+            android:backgroundTint="@color/nav_button_blue_color"
+            android:text="@string/category_button_name" />
 
         <Button
             style="@style/StyleNavButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/half_horizontal_margin"
+            android:layout_weight="1"
+            android:backgroundTint="@color/nav_button_red_color"
             android:text="@string/favorite_button_name"
             app:icon="@drawable/ic_heart_empty"
             app:iconGravity="textEnd"
-            app:iconSize="24dp"
-            android:backgroundTint="@color/red_nav_button"
-            android:layout_marginHorizontal="@dimen/half_margin_button_horizontal"
-            android:layout_weight="1" />
+            app:iconSize="24dp" />
 
     </LinearLayout>
 
