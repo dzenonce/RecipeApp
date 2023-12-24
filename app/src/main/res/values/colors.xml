@@ -2,9 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="custom_red">#E13E3E</color>
-    <color name="custom_blue">#525DC0</color>
-    <color name="custom_white">#F4FAFF</color>
-    <color name="custom_blue_dust">#4D4D87</color>
-    <color name="custom_grey">#8E8E8E</color>
+
+    <color name="main_background_white">#F4FAFF</color>
+
+    <color name="red_nav_button">#E13E3E</color>
+    <color name="blue_nav_button">#525DC0</color>
+
+    <color name="status_and_nav_bar_white">#F4FAFF</color>
 </resources>
