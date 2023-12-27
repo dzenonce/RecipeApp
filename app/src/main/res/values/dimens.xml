@@ -4,4 +4,5 @@
     <dimen name="container_vertical_margin">8dp</dimen>
     <dimen name="main_horizontal_margin">4dp</dimen>
     <dimen name="half_horizontal_margin">2dp</dimen>
+    <dimen name="fragment_bottom_margin">60dp</dimen>
 </resources>
