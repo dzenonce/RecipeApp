@@ -1,6 +1,6 @@
 object STUB {
 
-    private val category: List<Category> = listOf(
+    private val categories: List<Category> = listOf(
         Category(
             id = 0,
             title = "Бургеры",
@@ -12,7 +12,7 @@ object STUB {
             id = 1,
             title = "Десерты",
             description = "Самые вкусные рецепты десертов специально для вас",
-            imageUrl = "desserts.png",
+            imageUrl = "dessert.png",
         ),
 
         Category(
@@ -44,6 +44,6 @@ object STUB {
         ),
     )
 
-    fun getCategories() = category.component1()
+    fun getCategories() = categories
 
 }
