@@ -41,6 +41,7 @@
         android:id="@+id/rvCategories"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:layout_marginHorizontal="@dimen/rv_category_card_half_horizontal_margin"
         android:layout_marginVertical="@dimen/rv_category_card_half_vertical_margin"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
