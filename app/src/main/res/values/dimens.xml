@@ -5,5 +5,18 @@
     <dimen name="main_horizontal_margin">4dp</dimen>
     <dimen name="half_horizontal_margin">2dp</dimen>
     <dimen name="fragment_bottom_margin">60dp</dimen>
-    <dimen name="screen_header_size">224pd</dimen>
+    <dimen name="screen_header_size">224dp</dimen>
+    <dimen name="screen_title_bottom_margin">16dp</dimen>
+    <dimen name="screen_title_start_margin">16dp</dimen>
+    <dimen name="screen_title_horizontal_margin">10dp</dimen>
+    <dimen name="screen_title_vertical_margin">10dp</dimen>
+    <dimen name="category_card_radius">8dp</dimen>
+    <dimen name="category_card_layout_width">160dp</dimen>
+    <dimen name="category_card_layout_height">220dp</dimen>
+    <dimen name="category_card_header_margin">8dp</dimen>
+    <dimen name="category_card_description_margin">8dp</dimen>
+    <dimen name="rv_category_card_half_horizontal_margin">8dp</dimen>
+    <dimen name="category_card_half_horizontal_margin">8dp</dimen>
+    <dimen name="rv_category_card_half_vertical_margin">8dp</dimen>
+    <dimen name="category_card_half_vertical_margin">8dp</dimen>
 </resources>
