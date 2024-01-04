@@ -50,6 +50,8 @@ class CategoriesListAdapter(
             Log.e("Stack Trace", e.stackTraceToString())
         }
 
+        viewHolder.categoryDescription.text = dataSet[position].description
+
     }
 
     override fun getItemCount() = dataSet.size
