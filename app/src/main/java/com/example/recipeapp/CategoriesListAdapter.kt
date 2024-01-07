@@ -12,10 +12,21 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import java.io.InputStream
 
+interface OnItemClickListener {
+
+    fun onItemClick() {}
+}
+
+var itemClickListener: OnItemClickListener? = null
+
+fun setOnItemClickListener(listener: OnItemClickListener?) {
+    itemClickListener = listener
+}
+
 class CategoriesListAdapter(
     private val dataSet: List<Category>,
     private val fragment: CategoriesListFragment,
-) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>(), OnItemClickListener {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var categoryItem: CardView
