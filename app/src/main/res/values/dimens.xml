@@ -2,8 +2,8 @@
 <resources>
     <dimen name="container_margin">16dp</dimen>
     <dimen name="container_half_margin">8dp</dimen>
-    <dimen name="main_horizontal_margin">4dp</dimen>
-    <dimen name="half_horizontal_margin">2dp</dimen>
+    <dimen name="main_margin">4dp</dimen>
+    <dimen name="half_main_margin">2dp</dimen>
     <dimen name="screen_header_size">224dp</dimen>
-    <dimen name="fragment_bottom_margin">60dp</dimen>
+    <dimen name="card_category_size">130dp</dimen>
 </resources>
