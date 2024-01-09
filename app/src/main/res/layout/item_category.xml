@@ -2,35 +2,36 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvCategoryItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/category_card_half_margin"
-    android:layout_marginVertical="@dimen/category_card_half_margin"
-    app:cardCornerRadius="@dimen/category_card_radius">
+    android:layout_marginHorizontal="@dimen/container_half_margin"
+    android:layout_marginTop="@dimen/container_margin"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/selectableItemBackground"
-        android:contextClickable="true"
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/ivCardCategoryImage"
+            android:id="@+id/ivCategoryImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
+            android:layout_height="@dimen/card_category_size"
+            android:scaleType="centerCrop"
             tools:src="@drawable/burger" />
 
         <TextView
-            android:id="@+id/tvCardCategoryHeader"
+            android:id="@+id/tvCategoryName"
             style="@style/StyleCardCategoryHeader14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Бургеры" />
 
         <TextView
-            android:id="@+id/tvCardCategoryDescription"
+            android:id="@+id/tvCategoryDescription"
             style="@style/StyleCardCategoryDescription12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -15,6 +15,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="@string/title_image_category"
             android:scaleType="centerCrop"
             android:src="@drawable/bcg_categories"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,8 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginHorizontal="@dimen/category_card_half_margin"
-        android:layout_marginVertical="@dimen/category_card_half_margin"
+        android:layout_marginHorizontal="@dimen/container_half_margin"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
         tools:itemCount="6"
