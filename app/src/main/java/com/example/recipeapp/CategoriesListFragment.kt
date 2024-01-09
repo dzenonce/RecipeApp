@@ -2,9 +2,11 @@ package com.example.recipeapp
 
 import STUB
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
@@ -21,7 +23,7 @@ class CategoriesListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentListCategoriesBinding.inflate(layoutInflater)
 
@@ -42,15 +44,25 @@ class CategoriesListFragment : Fragment() {
         recyclerView.adapter = categoryListAdapter
 
         openRecipesByCategoryId(categoryListAdapter)
+
     }
 
     private fun openRecipesByCategoryId(categoriesAdapter: CategoriesListAdapter) {
         categoriesAdapter.setOnItemClickListener(
             object : CategoriesListAdapter.OnItemClickListener {
-                override fun onItemClick() {
+                override fun onItemClick(categoryId: Int) {
+                    val categoryName: String = categoriesAdapter.dataSet[categoryId].title
+                    val categoryImageUrl: String = categoriesAdapter.dataSet[categoryId].imageUrl
+                    Log.d("!!!", "Выбраны рецепты: $categoryName")
+                    val bundle = bundleOf(
+                        ARG_CATEGORY_ID to categoryId,
+                        ARG_CATEGORY_NAME to categoryName,
+                        ARG_CATEGORY_IMAGE_URL to categoryImageUrl,
+                    )
+
                     parentFragmentManager.commit {
                         setReorderingAllowed(true)
-                        replace<RecipeListFragment>(R.id.frgMainFragmentContainer)
+                        replace<RecipeListFragment>(R.id.frgMainFragmentContainer, args = bundle)
                         addToBackStack(null)
                     }
                 }
@@ -59,3 +71,7 @@ class CategoriesListFragment : Fragment() {
     }
 
 }
+
+const val ARG_CATEGORY_ID: String = "category_id"
+const val ARG_CATEGORY_NAME: String = "category_name"
+const val ARG_CATEGORY_IMAGE_URL: String = "category_image_url"
