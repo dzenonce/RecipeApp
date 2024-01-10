@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 
 class RecipeListFragment : Fragment() {
 
-    var categoryId: Int? = null
-    var categoryName: String? = null
-    var categoryImageUrl: String? = null
+    private var categoryId: Int? = null
+    private var categoryName: String? = null
+    private var categoryImageUrl: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
