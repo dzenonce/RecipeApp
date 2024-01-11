@@ -43,33 +43,37 @@ class CategoriesListFragment : Fragment() {
         val recyclerView: RecyclerView = binding.rvCategories
         recyclerView.adapter = categoryListAdapter
 
-        openRecipesByCategoryId(categoryListAdapter)
-
-    }
-
-    private fun openRecipesByCategoryId(categoriesAdapter: CategoriesListAdapter) {
-        categoriesAdapter.setOnItemClickListener(
+        categoryListAdapter.setOnItemClickListener(
             object : CategoriesListAdapter.OnItemClickListener {
                 override fun onItemClick(categoryId: Int) {
-                    val categoryName: String = categoriesAdapter.dataSet[categoryId].title
-                    val categoryImageUrl: String = categoriesAdapter.dataSet[categoryId].imageUrl
-                    Log.d("!!!", "Выбраны рецепты: $categoryName")
-                    val bundle = bundleOf(
-                        ARG_CATEGORY_ID to categoryId,
-                        ARG_CATEGORY_NAME to categoryName,
-                        ARG_CATEGORY_IMAGE_URL to categoryImageUrl,
+                    val bundle = getBundle(
+                        categoryListAdapter = categoryListAdapter,
+                        categoryId = categoryId
                     )
-
-                    parentFragmentManager.commit {
-                        setReorderingAllowed(true)
-                        replace<RecipeListFragment>(R.id.frgMainFragmentContainer, args = bundle)
-                        addToBackStack(null)
-                    }
+                    openRecipesByCategoryId(bundle)
                 }
             }
         )
     }
 
+    private fun openRecipesByCategoryId(bundle: Bundle) {
+        parentFragmentManager.commit {
+            setReorderingAllowed(true)
+            replace<RecipeListFragment>(R.id.frgMainFragmentContainer, args = bundle)
+            addToBackStack(null)
+        }
+    }
+
+    private fun getBundle(categoryListAdapter: CategoriesListAdapter, categoryId: Int): Bundle {
+        val categoryName: String = categoryListAdapter.dataSet[categoryId].title
+        val categoryImageUrl: String = categoryListAdapter.dataSet[categoryId].imageUrl
+        Log.d("!!!", "Выбраны рецепты: $categoryName")
+        return bundleOf(
+            ARG_CATEGORY_ID to categoryId,
+            ARG_CATEGORY_NAME to categoryName,
+            ARG_CATEGORY_IMAGE_URL to categoryImageUrl,
+        )
+    }
 }
 
 const val ARG_CATEGORY_ID: String = "category_id"
