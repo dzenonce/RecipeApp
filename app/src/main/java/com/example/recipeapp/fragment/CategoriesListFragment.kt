@@ -41,7 +41,6 @@ class CategoriesListFragment : Fragment() {
 
     private fun initRecycler() {
         val dataSet = STUB.getCategories()
-
         val categoryListAdapter = CategoriesListAdapter(
             dataSet = dataSet,
             fragment = this
