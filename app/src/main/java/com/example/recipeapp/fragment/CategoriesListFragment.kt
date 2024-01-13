@@ -40,9 +40,9 @@ class CategoriesListFragment : Fragment() {
     }
 
     private fun initRecycler() {
-        val dataSet = STUB.getCategories()
+        val categories = STUB.getCategories()
         val categoryListAdapter = CategoriesListAdapter(
-            dataSet = dataSet,
+            dataSet = categories,
             fragment = this
         )
         val recyclerView: RecyclerView = binding.rvCategories
@@ -51,10 +51,11 @@ class CategoriesListFragment : Fragment() {
         categoryListAdapter.setOnItemClickListener(
             object : CategoriesListAdapter.OnItemClickListener {
                 override fun onItemClick(categoryId: Int) {
+                    val category = categories[categoryId]
                     val bundle = bundleOf(
-                        ARG_CATEGORY_ID to categoryId,
-                        ARG_CATEGORY_NAME to dataSet[categoryId].title,
-                        ARG_CATEGORY_IMAGE_URL to dataSet[categoryId].imageUrl,
+                        ARG_CATEGORY_ID to category.id,
+                        ARG_CATEGORY_NAME to category.title,
+                        ARG_CATEGORY_IMAGE_URL to category.imageUrl,
                     )
                     openRecipesByCategoryId(bundle)
                 }
