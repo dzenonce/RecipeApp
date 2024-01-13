@@ -1,4 +1,4 @@
-package com.example.recipeapp
+package com.example.recipeapp.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,7 +17,7 @@ class FavoritesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentFavoritesBinding.inflate(layoutInflater)
 
