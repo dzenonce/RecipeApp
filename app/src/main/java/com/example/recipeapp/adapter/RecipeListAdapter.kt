@@ -58,6 +58,8 @@ class RecipeListAdapter(
         } catch (e: Error) {
             Log.e("!!!", e.stackTraceToString())
         }
+        viewHolder.recipeImage.contentDescription =
+            fragment.context?.getString(R.string.content_description_image) + dataSet[position].title
 
         viewHolder.recipeCard.setOnClickListener {
             recipeClickListener?.onRecipeClick(dataSet[position].id)
