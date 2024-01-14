@@ -1,4 +1,4 @@
-package com.example.recipeapp
+package com.example.recipeapp.adapter
 
 import Category
 import android.graphics.drawable.Drawable
@@ -10,18 +10,20 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recipeapp.R
+import com.example.recipeapp.fragment.CategoriesListFragment
 import java.io.InputStream
 
 class CategoriesListAdapter(
-    private val dataSet: List<Category>,
+    val dataSet: List<Category>,
     private val fragment: CategoriesListFragment,
 ) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClick()
+        fun onItemClick(categoryId: Int)
     }
 
-    var itemClickListener: OnItemClickListener? = null
+    private var itemClickListener: OnItemClickListener? = null
     fun setOnItemClickListener(listener: OnItemClickListener?) {
         itemClickListener = listener
     }
@@ -67,7 +69,7 @@ class CategoriesListAdapter(
         viewHolder.categoryDescription.text = dataSet[position].description
 
         viewHolder.categoryItem.setOnClickListener {
-            itemClickListener?.onItemClick()
+            itemClickListener?.onItemClick(dataSet[position].id)
         }
 
     }
