@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.ARG_CATEGORY_ID
 import com.example.recipeapp.ARG_CATEGORY_IMAGE_URL
 import com.example.recipeapp.ARG_CATEGORY_NAME
+import com.example.recipeapp.ARG_RECIPE
 import com.example.recipeapp.R
 import com.example.recipeapp.adapter.RecipeListAdapter
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
@@ -75,19 +77,22 @@ class RecipesListFragment : Fragment() {
         recyclerView.adapter = recipeListAdapter
 
         recipeListAdapter.setOnRecipeClickListener(
-            object : RecipeListAdapter.OnRecipeClickListener{
+            object : RecipeListAdapter.OnRecipeClickListener {
                 override fun onRecipeClick(recipeId: Int) {
                     Log.d("!!!", "Передан RecipeId $recipeId")
-                    openRecipeByRecipeId(recipeId)
+                    val recipe = STUB.getRecipeByRecipeId(recipeId)
+                    val bundle = bundleOf()
+                    bundle.putParcelable(ARG_RECIPE, recipe)
+                    openRecipeByRecipeId(bundle)
                 }
             }
         )
     }
 
-    private fun openRecipeByRecipeId(recipeId: Int) {
+    private fun openRecipeByRecipeId(bundle: Bundle) {
         parentFragmentManager.commit {
             setReorderingAllowed(true)
-            replace<RecipeFragment>(R.id.frgMainFragmentContainer)
+            replace<RecipeFragment>(R.id.frgMainFragmentContainer, args = bundle)
             addToBackStack(null)
         }
     }
