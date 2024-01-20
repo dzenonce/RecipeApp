@@ -1,15 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white_blue_color"
     tools:context=".fragment.RecipeFragment">
 
-    <TextView
-        android:id="@+id/tvRecipeIdentifier"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        tools:text="@string/fragment_recipe" />
+        android:orientation="vertical">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivIngredientRecipeImage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_header_screen"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/burger" />
+
+            <TextView
+                android:id="@+id/tvIngredientRecipeHeader"
+                style="@style/StyleRecipeAndMethodHeader20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Бургер с грибами и сыром" />
+
+            <ImageButton
+                android:id="@+id/ibIngredientLikeButton"
+                style="@style/StyleLikeButton"
+                android:layout_width="@dimen/size_image_button"
+                android:layout_height="@dimen/size_image_button"
+                android:src="@drawable/ic_heart_empty"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_container"
+            android:layout_marginTop="@dimen/margin_container"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/StyleRecipeScreenHeader20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_ingredients" />
+
+            <TextView
+                android:id="@+id/tvPortionCountText"
+                style="@style/StylePortionText16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_edge_half"
+                tools:text="Порции: 3" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvIngredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_radius_variant_menu"
+                android:nestedScrollingEnabled="false"
+                android:paddingTop="@dimen/margin_main"
+                android:paddingBottom="@dimen/margin_container_half"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_ingredient" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_container"
+            android:layout_marginTop="@dimen/margin_container"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/StyleRecipeScreenHeader20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_cooking_method" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMethod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_container"
+                android:background="@drawable/shape_radius_variant_menu"
+                android:nestedScrollingEnabled="false"
+                android:paddingVertical="@dimen/margin_main"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_method" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
