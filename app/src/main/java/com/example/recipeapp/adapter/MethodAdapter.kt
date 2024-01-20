@@ -29,8 +29,8 @@ class MethodAdapter(
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.method.text =
-            dataSet.mapIndexed { index, c ->
-                "${index.plus(1)}. $c"
+            dataSet.mapIndexed { index, method ->
+                "${index.plus(1)}. $method"
             }[position]
     }
 

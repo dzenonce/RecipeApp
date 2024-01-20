@@ -33,7 +33,10 @@ class RecipeFragment : Fragment() {
     private val binding
         get() = _binding ?: throw IllegalStateException("Recipe Fragment Binding must not be null")
 
-    private lateinit var recipe: Recipe
+    private var _recipe: Recipe? = null
+    private val recipe
+        get() = _recipe
+            ?: throw IllegalStateException("Recipe list in RecipeFragment must not be null")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,20 +50,19 @@ class RecipeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            recipe =
+            _recipe =
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-                    it.getParcelable(ARG_RECIPE, Recipe::class.java)!!
+                    it.getParcelable(ARG_RECIPE, Recipe::class.java)
                 else
-                    it.getParcelable(ARG_RECIPE)!!
+                    it.getParcelable(ARG_RECIPE)
         }
         initUI()
         initRecycler()
     }
 
     private fun initRecycler() {
-        val ingredients = recipe.ingredients
         val ingredientsAdapter = IngredientsAdapter(
-            dataSet = ingredients,
+            dataSet = recipe.ingredients,
         )
         val recyclerViewIngredients: RecyclerView = binding.rvIngredients
         recyclerViewIngredients.adapter = ingredientsAdapter
@@ -84,8 +86,6 @@ class RecipeFragment : Fragment() {
             } catch (e: Error) {
                 Log.e("assets error", e.stackTraceToString())
             }
-            ibIngredientLikeButton.contentDescription =
-                context?.getString(R.string.content_description_favorite_button)
 
             tvIngredientRecipeHeader.text = recipe.title
             tvPortionCountText.text = "${context?.getString(R.string.title_portion_count)} 3"
