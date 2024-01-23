@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_background_white_color"
+    android:background="@color/white_blue_color"
     android:orientation="vertical"
     tools:context=".fragment.RecipesListFragment">
 
@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/ivRecipesListImage"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_recipes_list_header"
+            android:layout_height="@dimen/size_header_recipes_list"
             android:contentDescription="@string/title_image_category"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"

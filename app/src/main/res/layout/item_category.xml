@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cvCategoryItem"
-    style="@style/CardStyle16"
+    style="@style/StyleCard16"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_card_category_image"
             android:scaleType="centerCrop"
+            tools:ignore="ContentDescription"
             tools:src="@drawable/burger" />
 
         <TextView
