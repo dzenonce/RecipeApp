@@ -111,6 +111,7 @@ class RecipeFragment : Fragment() {
 
             tvIngredientRecipeHeader.text = recipe.title
             tvPortionText.text = "${context?.getString(R.string.title_portion_count)} "
+            binding.tvPortionCountText.text = binding.sbPortionCountSeekBar.progress.toString()
 
             rvIngredients.addItemDecorationWithoutLastItem()
             rvMethod.addItemDecorationWithoutLastItem()

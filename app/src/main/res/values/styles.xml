@@ -92,4 +92,9 @@
         <item name="android:maxWidth">@dimen/size_header_screen_recipe_and_method_max</item>
     </style>
 
+    <style name="StyleSeekBar">
+        <item name="android:thumb">@drawable/shape_seekbar_thumb</item>
+        <item name="android:progressDrawable">@drawable/shape_seekbar_progress</item>
+    </style>
+    
 </resources>

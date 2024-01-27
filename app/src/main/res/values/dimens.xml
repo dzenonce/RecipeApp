@@ -13,4 +13,6 @@
     <dimen name="size_card_category_image">130dp</dimen>
     <dimen name="size_recipe_image">100dp</dimen>
     <dimen name="size_image_button">40dp</dimen>
+    <dimen name="size_thumb_width">7.86dp</dimen>
+    <dimen name="size_thumb_height">30dp</dimen>
 </resources>
