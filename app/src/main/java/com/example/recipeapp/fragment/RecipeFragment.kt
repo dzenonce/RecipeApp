@@ -109,6 +109,11 @@ class RecipeFragment : Fragment() {
                 Log.e("assets error", e.stackTraceToString())
             }
 
+            setUncoloredFavoriteIcon()
+            ibIngredientLikeButton.setOnClickListener {
+                setColoredFavoriteIcon()
+            }
+
             tvIngredientRecipeHeader.text = recipe.title
             tvPortionText.text = "${context?.getString(R.string.title_portion_count)} "
             tvPortionCountText.text = sbPortionCountSeekBar.progress.toString()
@@ -117,5 +122,11 @@ class RecipeFragment : Fragment() {
             rvMethod.addItemDecorationWithoutLastItem()
         }
     }
+
+    private fun setUncoloredFavoriteIcon() =
+        binding.ibIngredientLikeButton.setImageResource(R.drawable.ic_heart_empty)
+
+    private fun setColoredFavoriteIcon() =
+        binding.ibIngredientLikeButton.setImageResource(R.drawable.ic_heart)
 
 }
