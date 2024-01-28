@@ -76,13 +76,15 @@ class RecipeFragment : Fragment() {
 
         binding.sbPortionCountSeekBar.setOnSeekBarChangeListener(
             object : SeekBar.OnSeekBarChangeListener {
+                @SuppressLint("SetTextI18n")
                 override fun onProgressChanged(
                     seekBar: SeekBar?,
                     progress: Int,
                     fromUser: Boolean
                 ) {
                     ingredientsAdapter.updateIngredients(progress)
-                    binding.tvPortionCountText.text = progress.toString()
+                    binding.tvPortionText.text =
+                        "${context?.getString(R.string.title_portion_count)} $progress"
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -110,7 +112,8 @@ class RecipeFragment : Fragment() {
             }
 
             tvIngredientRecipeHeader.text = recipe.title
-            tvPortionText.text = "${context?.getString(R.string.title_portion_count)} "
+            tvPortionText.text =
+                "${context?.getString(R.string.title_portion_count)} ${sbPortionCountSeekBar.progress}"
 
             rvIngredients.addItemDecorationWithoutLastItem()
             rvMethod.addItemDecorationWithoutLastItem()
