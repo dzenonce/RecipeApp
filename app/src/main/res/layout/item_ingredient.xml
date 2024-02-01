@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/tvIngredientName"
-        style="@style/StyleIngredient14"
+        style="@style/StyleMontserratAllCaps14"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
@@ -17,7 +17,7 @@
 
     <TextView
         android:id="@+id/tvIngredientCountAndMeasure"
-        style="@style/StyleIngredient14"
+        style="@style/StyleMontserratAllCaps14"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="2"

@@ -7,6 +7,7 @@
     <string name="title_ingredients">Ингредиенты</string>
     <string name="title_cooking_method">Способ приготовления</string>
     <string name="title_portion_count">Порции: </string>
+    <string name="title_favorites_recipe_empty">Вы еще не добавили ни одного рецепта в избранное</string>
     <string name="fragment_list_category">Fragment List Category</string>
     <string name="fragment_favorite">Fragment Favorite</string>
     <string name="fragment_recipes_list">Recipes list fragment</string>

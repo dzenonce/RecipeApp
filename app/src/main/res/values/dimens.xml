@@ -4,6 +4,7 @@
     <dimen name="margin_container_half">8dp</dimen>
     <dimen name="margin_main">4dp</dimen>
     <dimen name="margin_main_half">2dp</dimen>
+    <dimen name="margin_main_half_minus">-2dp</dimen>
     <dimen name="margin_edge">12dp</dimen>
     <dimen name="margin_edge_half">6dp</dimen>
     <dimen name="size_header_screen">224dp</dimen>
