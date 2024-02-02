@@ -11,14 +11,13 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
-import com.example.recipeapp.fragment.RecipesListFragment
 import com.example.recipeapp.model.Recipe
 import java.io.InputStream
 
-class RecipeListAdapter(
-    private val dataSet: List<Recipe>,
-    private val fragment: Fragment,
-) : RecyclerView.Adapter<RecipeListAdapter.ViewHolder>() {
+open class RecipesListAdapter(
+    val dataSet: List<Recipe>,
+    val fragment: Fragment,
+) : RecyclerView.Adapter<RecipesListAdapter.ViewHolder>() {
 
     interface OnRecipeClickListener {
         fun onRecipeClick(recipeId: Int)

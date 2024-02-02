@@ -1,4 +1,6 @@
-import com.example.recipeapp.model.*
+import com.example.recipeapp.model.Category
+import com.example.recipeapp.model.Ingredient
+import com.example.recipeapp.model.Recipe
 
 object STUB {
 
@@ -280,4 +282,15 @@ object STUB {
         burgerRecipes.find {
             it.id == recipeId
         } ?: burgerRecipes[0]
+
+    fun getRecipesByIds(recipesIds: Set<Int>?): MutableList<Recipe> {
+        val listRecipesByIds: MutableList<Recipe> = mutableListOf()
+        burgerRecipes.forEach { recipe ->
+            recipesIds?.forEach { ids ->
+                if (recipe.id == ids) listRecipesByIds.add(recipe)
+            }
+        }
+        return listRecipesByIds
+    }
+
 }
