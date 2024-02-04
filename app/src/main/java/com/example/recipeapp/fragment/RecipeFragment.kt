@@ -142,12 +142,10 @@ class RecipeFragment : Fragment() {
             com.example.recipeapp.PREFERENCE_FILE_KEY,
             Context.MODE_PRIVATE,
         )
-        return setOf(
-            sharedPreference?.getStringSet(
-                PREFERENCE_RECIPE_IDS_SET_KEY,
-                null,
-            )
-        ).first() ?: mutableSetOf()
+        return sharedPreference?.getStringSet(
+            PREFERENCE_RECIPE_IDS_SET_KEY,
+            null,
+        ) ?: mutableSetOf()
     }
 
     private fun checkRecipeInFavoriteAndChangeState(collectionRecipeIds: MutableSet<String>) {
