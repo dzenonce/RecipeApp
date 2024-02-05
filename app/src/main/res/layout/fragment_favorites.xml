@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_header_screen">
+        android:layout_height="@dimen/size_header_224">
 
         <ImageView
             android:id="@+id/ivFavoriteScreenHeader"
@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            style="@style/StyleMenuHeader20"
+            style="@style/StyleMenuHeaderText20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_favorite"
@@ -42,8 +42,8 @@
             style="@style/StyleMontserratAllCapsFalseGrey14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_container"
-            android:layout_marginEnd="@dimen/margin_container"
+            android:layout_marginStart="@dimen/margin_normal_16"
+            android:layout_marginEnd="@dimen/margin_normal_16"
             android:text="@string/title_favorites_recipe_empty"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -56,7 +56,7 @@
             android:id="@+id/rvFavoriteRecipe"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="@dimen/margin_container_half"
+            android:layout_marginHorizontal="@dimen/margin_normal_8"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
