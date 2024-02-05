@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_header_screen">
+        android:layout_height="@dimen/size_header_224">
 
         <ImageView
             android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            style="@style/StyleMenuHeader20"
+            style="@style/StyleMenuHeaderText20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_categories"
@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginHorizontal="@dimen/margin_container_half"
+        android:layout_marginHorizontal="@dimen/margin_normal_8"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
         tools:itemCount="6"
