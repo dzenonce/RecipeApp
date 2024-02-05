@@ -9,20 +9,13 @@ import com.example.recipeapp.databinding.FragmentFavoritesBinding
 
 class FavoritesFragment : Fragment() {
 
-    private var _binding: FragmentFavoritesBinding? = null
-    private val binding
-        get() = _binding
-            ?: throw IllegalStateException("Favorite fragment binding must not be null")
+    private val binding: FragmentFavoritesBinding
+            by lazy { FragmentFavoritesBinding.inflate(layoutInflater) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        _binding = FragmentFavoritesBinding.inflate(layoutInflater)
-
         return binding.root
     }
-
-
 }

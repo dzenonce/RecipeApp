@@ -13,7 +13,7 @@ class IngredientsAdapter(
     private val dataSet: List<Ingredient>,
 ) : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
 
-    private var quantity = 3
+    private var quantity = 1
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ingredientName: TextView

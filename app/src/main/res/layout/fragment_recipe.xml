@@ -19,7 +19,7 @@
             <ImageView
                 android:id="@+id/ivIngredientRecipeImage"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/size_header_screen"
+                android:layout_height="@dimen/size_header_224"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
 
             <TextView
                 android:id="@+id/tvIngredientRecipeHeader"
-                style="@style/StyleRecipeAndMethodHeader20"
+                style="@style/StyleRecipeAndMethodHeaderText20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -39,8 +39,8 @@
             <ImageButton
                 android:id="@+id/ibIngredientLikeButton"
                 style="@style/StyleLikeButton"
-                android:layout_width="@dimen/size_image_button"
-                android:layout_height="@dimen/size_image_button"
+                android:layout_width="@dimen/size_image_40"
+                android:layout_height="@dimen/size_image_40"
                 android:contentDescription="@string/content_description_favorite_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -51,12 +51,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_container"
-            android:layout_marginTop="@dimen/margin_container"
+            android:layout_marginHorizontal="@dimen/margin_normal_16"
+            android:layout_marginTop="@dimen/margin_normal_16"
             android:orientation="vertical">
 
             <TextView
-                style="@style/StyleRecipeScreenHeader20"
+                style="@style/StyleRecipeScreenHeaderText20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/title_ingredients" />
@@ -73,8 +73,8 @@
                 style="@style/StylePortionText16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/margin_edge_half"
-                android:layout_marginStart="@dimen/margin_container"
+                android:layout_marginVertical="@dimen/margin_small_6"
+                android:layout_marginStart="@dimen/margin_normal_16"
                 tools:text="Порции: 3" />
 
             <SeekBar
@@ -82,23 +82,22 @@
                 style="@style/StyleSeekBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_container"
+                android:layout_marginBottom="@dimen/margin_normal_16"
                 android:background="@android:color/transparent"
                 android:max="5"
                 android:min="1"
-                android:progress="1"
                 tools:progress="3" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvIngredients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_container"
+                android:layout_marginHorizontal="@dimen/margin_normal_16"
                 android:background="@drawable/shape_radius_variant_menu"
                 android:nestedScrollingEnabled="false"
-                android:paddingHorizontal="@dimen/margin_edge"
-                android:paddingTop="@dimen/margin_main"
-                android:paddingBottom="@dimen/margin_container_half"
+                android:paddingHorizontal="@dimen/margin_normal_12"
+                android:paddingTop="@dimen/margin_small_4"
+                android:paddingBottom="@dimen/margin_normal_8"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_ingredient" />
 
@@ -107,12 +106,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_container"
-            android:layout_marginTop="@dimen/margin_container"
+            android:layout_marginHorizontal="@dimen/margin_normal_16"
+            android:layout_marginTop="@dimen/margin_normal_16"
             android:orientation="vertical">
 
             <TextView
-                style="@style/StyleRecipeScreenHeader20"
+                style="@style/StyleRecipeScreenHeaderText20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/title_cooking_method" />
@@ -121,11 +120,11 @@
                 android:id="@+id/rvMethod"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_container"
+                android:layout_marginTop="@dimen/margin_normal_16"
                 android:background="@drawable/shape_radius_variant_menu"
                 android:nestedScrollingEnabled="false"
-                android:paddingHorizontal="@dimen/margin_edge"
-                android:paddingVertical="@dimen/margin_main"
+                android:paddingHorizontal="@dimen/margin_normal_12"
+                android:paddingVertical="@dimen/margin_small_4"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_method" />
 

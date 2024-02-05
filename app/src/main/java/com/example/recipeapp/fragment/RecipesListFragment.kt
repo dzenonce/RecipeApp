@@ -23,9 +23,8 @@ import java.io.InputStream
 
 class RecipesListFragment : Fragment() {
 
-    private var _binding: FragmentRecipesListBinding? = null
-    private val binding
-        get() = _binding ?: throw IllegalStateException("RecipeListFragment must not be null")
+    private val binding: FragmentRecipesListBinding
+            by lazy { FragmentRecipesListBinding.inflate(layoutInflater) }
 
     private var categoryId: Int? = null
     private var categoryName: String? = null
@@ -35,7 +34,6 @@ class RecipesListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentRecipesListBinding.inflate(inflater)
         return binding.root
     }
 
@@ -79,7 +77,6 @@ class RecipesListFragment : Fragment() {
         recipeListAdapter.setOnRecipeClickListener(
             object : RecipeListAdapter.OnRecipeClickListener {
                 override fun onRecipeClick(recipeId: Int) {
-                    Log.d("!!!", "Передан RecipeId $recipeId")
                     val recipe = STUB.getRecipeByRecipeId(recipeId)
                     val bundle = bundleOf()
                     bundle.putParcelable(ARG_RECIPE, recipe)
