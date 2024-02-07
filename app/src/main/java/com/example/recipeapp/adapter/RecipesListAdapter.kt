@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
 import com.example.recipeapp.model.Recipe
@@ -16,7 +16,6 @@ import java.io.InputStream
 
 open class RecipesListAdapter(
     val dataSet: List<Recipe>,
-    val fragment: Fragment,
 ) : RecyclerView.Adapter<RecipesListAdapter.ViewHolder>() {
 
     interface OnRecipeClickListener {
@@ -48,21 +47,23 @@ open class RecipesListAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.recipeName.text = dataSet[position].title
+        with(viewHolder) {
+            recipeName.text = dataSet[position].title
+            try {
+                val inputStream: InputStream =
+                    itemView.context.assets.open(dataSet[position].imageUrl)
+                val drawable: Drawable? = Drawable.createFromStream(inputStream, null)
+                recipeImage.setImageDrawable(drawable)
+            } catch (e: Error) {
+                Log.e("assets error", e.stackTraceToString())
+            }
+            recipeImage.contentDescription =
+                itemView.context
+                    .getString(R.string.content_description_image) + dataSet[position].title
 
-        try {
-            val inputStream: InputStream? =
-                fragment.context?.assets?.open(dataSet[position].imageUrl)
-            val drawable: Drawable? = Drawable.createFromStream(inputStream, null)
-            viewHolder.recipeImage.setImageDrawable(drawable)
-        } catch (e: Error) {
-            Log.e("assets error", e.stackTraceToString())
-        }
-        viewHolder.recipeImage.contentDescription =
-            fragment.context?.getString(R.string.content_description_image) + dataSet[position].title
-
-        viewHolder.recipeCard.setOnClickListener {
-            recipeClickListener?.onRecipeClick(dataSet[position].id)
+            recipeCard.setOnClickListener {
+                recipeClickListener?.onRecipeClick(dataSet[position].id)
+            }
         }
     }
 

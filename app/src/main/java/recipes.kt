@@ -279,18 +279,10 @@ object STUB {
         }
 
     fun getRecipeByRecipeId(recipeId: Int) =
-        burgerRecipes.find {
-            it.id == recipeId
-        } ?: burgerRecipes[0]
+        burgerRecipes.find { it.id == recipeId } ?: burgerRecipes[0]
 
-    fun getRecipesByIds(recipesIds: Set<Int>?): MutableList<Recipe> {
-        val listRecipesByIds: MutableList<Recipe> = mutableListOf()
-        burgerRecipes.forEach { recipe ->
-            recipesIds?.forEach { ids ->
-                if (recipe.id == ids) listRecipesByIds.add(recipe)
-            }
-        }
-        return listRecipesByIds
+    fun getRecipesByIds(recipesIds: Set<Int>): List<Recipe> {
+        return burgerRecipes.filter { recipesIds.contains(it.id) }
     }
 
 }

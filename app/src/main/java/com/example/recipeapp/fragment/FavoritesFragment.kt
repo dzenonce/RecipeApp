@@ -19,8 +19,9 @@ import com.example.recipeapp.databinding.FragmentFavoritesBinding
 
 class FavoritesFragment : Fragment() {
 
-    private val binding: FragmentFavoritesBinding
-            by lazy { FragmentFavoritesBinding.inflate(layoutInflater) }
+    private val binding: FragmentFavoritesBinding by lazy {
+        FragmentFavoritesBinding.inflate(layoutInflater)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,21 +32,21 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        checkRecipeIdsListAndInitRecycler()
+    }
 
-        val recipeIds = getFavorites().map { idInString ->
-            idInString.toInt()
-        }.toSet()
+    private fun checkRecipeIdsListAndInitRecycler() {
+        val recipeIds = getFavorites().map { it.toInt() }.toSet()
         if (recipeIds.isNotEmpty()) {
             binding.tvRecipeFavoriteIsEmptyText.visibility = View.GONE
             initRecycler(recipeIds)
         }
     }
 
-    private fun initRecycler(recipeIds: Set<Int>?) {
+    private fun initRecycler(recipeIds: Set<Int>) {
         val recipeList = STUB.getRecipesByIds(recipeIds)
         val favoriteRecipesListAdapter = FavoriteRecipesListAdapter(
             dataSet = recipeList,
-            fragment = this
         )
         val recyclerView: RecyclerView = binding.rvFavoriteRecipe
         recyclerView.adapter = favoriteRecipesListAdapter
@@ -53,10 +54,7 @@ class FavoritesFragment : Fragment() {
         favoriteRecipesListAdapter.setOnRecipeClickListener(
             object : FavoriteRecipesListAdapter.OnRecipeClickListener {
                 override fun onRecipeClick(recipeId: Int) {
-                    val recipe = STUB.getRecipeByRecipeId(recipeId)
-                    val bundle = bundleOf()
-                    bundle.putParcelable(ARG_RECIPE, recipe)
-                    openRecipeByRecipeId(bundle)
+                    openRecipeByRecipeId(getBundle(recipeId))
                 }
             }
         )
@@ -82,5 +80,11 @@ class FavoritesFragment : Fragment() {
             addToBackStack(null)
         }
     }
+
+    private fun getBundle(recipeId: Int) =
+        STUB.getRecipeByRecipeId(recipeId).let { recipe ->
+            bundleOf().apply { this.putParcelable(ARG_RECIPE, recipe) }
+        }
+
 
 }
