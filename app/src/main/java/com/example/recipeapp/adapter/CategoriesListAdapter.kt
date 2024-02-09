@@ -10,13 +10,11 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
-import com.example.recipeapp.fragment.CategoriesListFragment
 import com.example.recipeapp.model.Category
 import java.io.InputStream
 
 class CategoriesListAdapter(
     val dataSet: List<Category>,
-    private val fragment: CategoriesListFragment,
 ) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 
     interface OnItemClickListener {
@@ -49,28 +47,28 @@ class CategoriesListAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.categoryName.text = dataSet[position].title
+        with(viewHolder) {
+            categoryName.text = dataSet[position].title
+            try {
+                val inputStream: InputStream =
+                    itemView.context.assets.open(dataSet[position].imageUrl)
+                val drawable = Drawable.createFromStream(inputStream, null)
+                categoryImage.setImageDrawable(drawable)
 
-        try {
-            val inputStream: InputStream? =
-                fragment.context?.assets?.open(dataSet[position].imageUrl)
-            val drawable = Drawable.createFromStream(inputStream, null)
-            viewHolder.categoryImage.setImageDrawable(drawable)
+            } catch (e: Error) {
+                Log.e("assets error", e.stackTraceToString())
+            }
+            val contentDescriptionImage =
+                itemView.context.getString(R.string.content_description_image)
+            categoryImage.contentDescription =
+                contentDescriptionImage + viewHolder.categoryName
 
-        } catch (e: Error) {
-            Log.e("assets error", e.stackTraceToString())
+            categoryDescription.text = dataSet[position].description
+
+            categoryItem.setOnClickListener {
+                itemClickListener?.onItemClick(dataSet[position].id)
+            }
         }
-        val contentDescriptionImage =
-            fragment.context?.getString(R.string.content_description_image)
-        viewHolder.categoryImage.contentDescription =
-            contentDescriptionImage + viewHolder.categoryName
-
-        viewHolder.categoryDescription.text = dataSet[position].description
-
-        viewHolder.categoryItem.setOnClickListener {
-            itemClickListener?.onItemClick(dataSet[position].id)
-        }
-
     }
 
     override fun getItemCount() = dataSet.size

@@ -17,14 +17,15 @@ import com.example.recipeapp.ARG_CATEGORY_IMAGE_URL
 import com.example.recipeapp.ARG_CATEGORY_NAME
 import com.example.recipeapp.ARG_RECIPE
 import com.example.recipeapp.R
-import com.example.recipeapp.adapter.RecipeListAdapter
+import com.example.recipeapp.adapter.RecipesListAdapter
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
 import java.io.InputStream
 
 class RecipesListFragment : Fragment() {
 
-    private val binding: FragmentRecipesListBinding
-            by lazy { FragmentRecipesListBinding.inflate(layoutInflater) }
+    private val binding: FragmentRecipesListBinding by lazy {
+        FragmentRecipesListBinding.inflate(layoutInflater)
+    }
 
     private var categoryId: Int? = null
     private var categoryName: String? = null
@@ -67,20 +68,16 @@ class RecipesListFragment : Fragment() {
 
     private fun initRecycler() {
         val recipeList = STUB.getRecipesByCategoryId(categoryId)
-        val recipeListAdapter = RecipeListAdapter(
+        val recipeListAdapter = RecipesListAdapter(
             dataSet = recipeList,
-            fragment = this
         )
         val recyclerView: RecyclerView = binding.rvRecipes
         recyclerView.adapter = recipeListAdapter
 
         recipeListAdapter.setOnRecipeClickListener(
-            object : RecipeListAdapter.OnRecipeClickListener {
+            object : RecipesListAdapter.OnRecipeClickListener {
                 override fun onRecipeClick(recipeId: Int) {
-                    val recipe = STUB.getRecipeByRecipeId(recipeId)
-                    val bundle = bundleOf()
-                    bundle.putParcelable(ARG_RECIPE, recipe)
-                    openRecipeByRecipeId(bundle)
+                    openRecipeByRecipeId(getBundle(recipeId))
                 }
             }
         )
@@ -93,5 +90,10 @@ class RecipesListFragment : Fragment() {
             addToBackStack(null)
         }
     }
+
+    private fun getBundle(recipeId: Int) =
+        STUB.getRecipeByRecipeId(recipeId).let { recipe ->
+            bundleOf().apply { this.putParcelable(ARG_RECIPE, recipe) }
+        }
 
 }

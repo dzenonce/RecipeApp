@@ -7,6 +7,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/llRecipeCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -16,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_image_100"
             android:scaleType="centerCrop"
+            tools:ignore="ContentDescription"
             tools:src="@drawable/burger" />
 
         <TextView

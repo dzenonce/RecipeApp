@@ -30,8 +30,9 @@ fun RecyclerView.addItemDecorationWithoutLastItem() {
 
 class RecipeFragment : Fragment() {
 
-    private val binding: FragmentRecipeBinding
-            by lazy { FragmentRecipeBinding.inflate(layoutInflater) }
+    private val binding: FragmentRecipeBinding by lazy {
+        FragmentRecipeBinding.inflate(layoutInflater)
+    }
 
     private val recipe: Recipe by lazy { initRecipe() }
 
