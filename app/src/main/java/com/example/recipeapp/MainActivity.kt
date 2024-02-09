@@ -5,9 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import com.example.recipeapp.fragment.CategoriesListFragment
+import com.example.recipeapp.ui.category.CategoriesListFragment
 import com.example.recipeapp.databinding.ActivityMainBinding
-import com.example.recipeapp.fragment.FavoritesFragment
+import com.example.recipeapp.ui.recipes.favorites.FavoritesFragment
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package com.example.recipeapp
+package com.example.recipeapp.ui
 
 const val ARG_CATEGORY_ID: String = "arg_category_id"
 const val ARG_CATEGORY_NAME: String = "arg_category_name"
