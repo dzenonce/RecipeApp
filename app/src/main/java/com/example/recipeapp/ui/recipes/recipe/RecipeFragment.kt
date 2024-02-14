@@ -13,13 +13,13 @@ import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recipeapp.ui.ARG_RECIPE
-import com.example.recipeapp.ui.PREFERENCE_RECIPE_IDS_SET_KEY
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
-import com.example.recipeapp.ui.decorator.DividerItemDecorator
 import com.example.recipeapp.model.Recipe
+import com.example.recipeapp.ui.ARG_RECIPE
 import com.example.recipeapp.ui.PREFERENCE_FILE_KEY
+import com.example.recipeapp.ui.PREFERENCE_RECIPE_IDS_SET_KEY
+import com.example.recipeapp.ui.decorator.DividerItemDecorator
 import java.io.InputStream
 
 fun RecyclerView.addItemDecorationWithoutLastItem() {
