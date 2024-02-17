@@ -11,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
@@ -35,6 +37,8 @@ class RecipeFragment : Fragment() {
 
     private val recipe: Recipe by lazy { initRecipe() }
 
+    private val viewModel: RecipeViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -45,6 +49,18 @@ class RecipeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initUI()
         initRecycler()
+        initObserver()
+    }
+
+    private fun initObserver() {
+        viewModel.observe()
+        val recipeObserver = Observer<RecipeUiState> {
+            Log.i("!!!", "Fragment: ${it.isFavorite}")
+        }
+        viewModel.uiState.observe(
+            viewLifecycleOwner,
+            recipeObserver,
+        )
     }
 
     private fun initRecipe() =
@@ -151,8 +167,7 @@ class RecipeFragment : Fragment() {
 
     private fun checkRecipeInFavoriteAndChangeState(collectionRecipeIds: MutableSet<String>) {
         if (collectionRecipeIds.contains(recipe.id.toString())) {
-            val favoriteIdsMinusElement = collectionRecipeIds.minus(recipe.id.toString())
-            saveFavorites(favoriteIdsMinusElement)
+            saveFavorites(collectionRecipeIds.minus(recipe.id.toString()))
             setUncoloredFavoriteIcon()
         } else {
             collectionRecipeIds.add(recipe.id.toString())
