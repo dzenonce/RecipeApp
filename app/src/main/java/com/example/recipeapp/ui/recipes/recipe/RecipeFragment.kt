@@ -1,7 +1,7 @@
 package com.example.recipeapp.ui.recipes.recipe
 
 import android.annotation.SuppressLint
-import android.content.Context
+
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
@@ -12,15 +12,12 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.ui.ARG_RECIPE
-import com.example.recipeapp.ui.PREFERENCE_FILE_KEY
-import com.example.recipeapp.ui.PREFERENCE_RECIPE_IDS_SET_KEY
 import com.example.recipeapp.ui.decorator.DividerItemDecorator
 import java.io.InputStream
 
@@ -34,9 +31,7 @@ class RecipeFragment : Fragment() {
     private val binding: FragmentRecipeBinding by lazy {
         FragmentRecipeBinding.inflate(layoutInflater)
     }
-
     private val recipe: Recipe by lazy { initRecipe() }
-
     private val viewModel: RecipeViewModel by viewModels()
 
     override fun onCreateView(
@@ -49,18 +44,6 @@ class RecipeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initUI()
         initRecycler()
-        initObserver()
-    }
-
-    private fun initObserver() {
-        viewModel.observe()
-        val recipeObserver = Observer<RecipeUiState> {
-            Log.i("!!!", "Fragment: ${it.isFavorite}")
-        }
-        viewModel.uiState.observe(
-            viewLifecycleOwner,
-            recipeObserver,
-        )
     }
 
     private fun initRecipe() =
@@ -75,13 +58,13 @@ class RecipeFragment : Fragment() {
 
     private fun initRecycler() {
         val ingredientsAdapter = IngredientsAdapter(
-            dataSet = recipe.ingredients,
+            dataSet = viewModel.uiState.value?.recipe?.ingredients ?: listOf(),
         )
         val recyclerViewIngredients: RecyclerView = binding.rvIngredients
         recyclerViewIngredients.adapter = ingredientsAdapter
 
         val methodAdapter = MethodAdapter(
-            dataSet = recipe.method,
+            dataSet = viewModel.uiState.value?.recipe?.method ?: listOf(),
         )
         val recyclerViewMethod: RecyclerView = binding.rvMethod
         recyclerViewMethod.adapter = methodAdapter
@@ -105,74 +88,46 @@ class RecipeFragment : Fragment() {
 
     @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
     private fun initUI() {
-        with(binding) {
-            try {
-                val inputStream: InputStream? = context?.assets?.open(recipe.imageUrl)
-                val drawable: Drawable? = Drawable.createFromStream(inputStream, null)
-                ivIngredientRecipeImage.setImageDrawable(drawable)
-                ivIngredientRecipeImage.contentDescription =
-                    "${context?.getString(R.string.content_description_image)} ${recipe.title}"
-            } catch (e: Error) {
-                Log.e("assets error", e.stackTraceToString())
+        viewModel.uiState.observe(viewLifecycleOwner) { recipeState ->
+
+            with(binding) {
+                try {
+                    val inputStream: InputStream? =
+                        context?.assets?.open(recipeState.recipe?.imageUrl.toString())
+                    val drawable: Drawable? =
+                        Drawable.createFromStream(inputStream, null)
+                    ivIngredientRecipeImage.setImageDrawable(drawable)
+                    ivIngredientRecipeImage.contentDescription =
+                        "${context?.getString(R.string.content_description_image)} ${viewModel.uiState.value?.recipe?.title}"
+                } catch (e: Error) {
+                    Log.e("assets error", e.stackTraceToString())
+                }
+
+                setFavoriteIconState(recipeState.isFavorite)
+                ibIngredientFavoriteButton.setOnClickListener {
+                    viewModel.onFavoritesClicked()
+                    setFavoriteIconState(recipeState.isFavorite)
+                }
+
+                tvIngredientRecipeHeader.text = viewModel.uiState.value?.recipe?.title
+                tvPortionText.text =
+                    "${context?.getString(R.string.title_portion_count)} ${sbPortionCountSeekBar.progress}"
+
+                rvIngredients.addItemDecorationWithoutLastItem()
+                rvMethod.addItemDecorationWithoutLastItem()
             }
-
-            if (getFavorites().contains(recipe.id.toString())) setColoredFavoriteIcon()
-            else setUncoloredFavoriteIcon()
-
-            ibIngredientLikeButton.setOnClickListener {
-                checkRecipeInFavoriteAndChangeState(getFavorites())
-            }
-
-            tvIngredientRecipeHeader.text = recipe.title
-            tvPortionText.text =
-                "${context?.getString(R.string.title_portion_count)} ${sbPortionCountSeekBar.progress}"
-
-            rvIngredients.addItemDecorationWithoutLastItem()
-            rvMethod.addItemDecorationWithoutLastItem()
         }
+        viewModel.loadRecipe(recipe.id)
     }
 
-    private fun setUncoloredFavoriteIcon() =
-        binding.ibIngredientLikeButton.setImageResource(R.drawable.ic_heart_empty)
+    private fun setFavoriteIconState(isFavorite: Boolean) =
+        if (isFavorite) setColoredFavoriteIcon()
+        else setUncoloredFavoriteIcon()
 
-    private fun setColoredFavoriteIcon() =
-        binding.ibIngredientLikeButton.setImageResource(R.drawable.ic_heart)
+     private fun setUncoloredFavoriteIcon() =
+        binding.ibIngredientFavoriteButton.setImageResource(R.drawable.ic_heart_empty)
 
-    private fun saveFavorites(collectionRecipeIds: Set<String>?) {
-        val sharedPrefs = activity?.getSharedPreferences(
-            PREFERENCE_FILE_KEY,
-            Context.MODE_PRIVATE,
-        ) ?: return
-        with(sharedPrefs.edit()) {
-            clear()
-            putStringSet(
-                PREFERENCE_RECIPE_IDS_SET_KEY,
-                collectionRecipeIds,
-            )
-            apply()
-        }
-    }
+     private fun setColoredFavoriteIcon() =
+        binding.ibIngredientFavoriteButton.setImageResource(R.drawable.ic_heart)
 
-    private fun getFavorites(): HashSet<String> {
-        val sharedPreference = activity?.getSharedPreferences(
-            PREFERENCE_FILE_KEY,
-            Context.MODE_PRIVATE,
-        )
-        val favoriteSet = sharedPreference?.getStringSet(
-            PREFERENCE_RECIPE_IDS_SET_KEY,
-            null,
-        ) ?: mutableSetOf()
-        return HashSet(favoriteSet)
-    }
-
-    private fun checkRecipeInFavoriteAndChangeState(collectionRecipeIds: MutableSet<String>) {
-        if (collectionRecipeIds.contains(recipe.id.toString())) {
-            saveFavorites(collectionRecipeIds.minus(recipe.id.toString()))
-            setUncoloredFavoriteIcon()
-        } else {
-            collectionRecipeIds.add(recipe.id.toString())
-            saveFavorites(collectionRecipeIds)
-            setColoredFavoriteIcon()
-        }
-    }
 }
