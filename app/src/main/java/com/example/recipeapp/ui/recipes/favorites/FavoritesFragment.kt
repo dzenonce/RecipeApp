@@ -1,8 +1,8 @@
 package com.example.recipeapp.ui.recipes.favorites
 
-import com.example.recipeapp.data.STUB
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,19 +10,23 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recipeapp.ui.ARG_RECIPE
-import com.example.recipeapp.ui.PREFERENCE_RECIPE_IDS_SET_KEY
 import com.example.recipeapp.R
+import com.example.recipeapp.data.STUB
 import com.example.recipeapp.databinding.FragmentFavoritesBinding
+import com.example.recipeapp.ui.ARG_RECIPE_ID
 import com.example.recipeapp.ui.PREFERENCE_FILE_KEY
+import com.example.recipeapp.ui.PREFERENCE_RECIPE_IDS_SET_KEY
 import com.example.recipeapp.ui.recipes.recipe.RecipeFragment
+import com.example.recipeapp.ui.recipes.recipe.RecipeViewModel
 
 class FavoritesFragment : Fragment() {
 
     private val binding: FragmentFavoritesBinding by lazy {
         FragmentFavoritesBinding.inflate(layoutInflater)
     }
+    private val recipeViewModel: RecipeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,7 +59,13 @@ class FavoritesFragment : Fragment() {
         favoriteRecipesListAdapter.setOnRecipeClickListener(
             object : FavoriteRecipesListAdapter.OnRecipeClickListener {
                 override fun onRecipeClick(recipeId: Int) {
-                    openRecipeByRecipeId(getBundle(recipeId))
+                    recipeViewModel.loadRecipe(recipeId)
+                    recipeViewModel.uiState.observe(viewLifecycleOwner) { recipeState ->
+                        openRecipeByRecipeId(
+                            getBundle(recipeState.recipe?.id ?: 0)
+                        )
+                    }
+                    Log.d("!!!", "FavoritesFragment recipeId $recipeId")
                 }
             }
         )
@@ -82,10 +92,6 @@ class FavoritesFragment : Fragment() {
         }
     }
 
-    private fun getBundle(recipeId: Int) =
-        STUB.getRecipeByRecipeId(recipeId).let { recipe ->
-            bundleOf().apply { this.putParcelable(ARG_RECIPE, recipe) }
-        }
-
+    private fun getBundle(recipeId: Int) = bundleOf(ARG_RECIPE_ID to recipeId)
 
 }
