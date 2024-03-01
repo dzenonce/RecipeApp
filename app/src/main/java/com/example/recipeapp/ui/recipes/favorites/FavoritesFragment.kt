@@ -26,7 +26,6 @@ class FavoritesFragment : Fragment() {
     private val binding: FragmentFavoritesBinding by lazy {
         FragmentFavoritesBinding.inflate(layoutInflater)
     }
-    private val recipeViewModel: RecipeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,17 +58,13 @@ class FavoritesFragment : Fragment() {
         favoriteRecipesListAdapter.setOnRecipeClickListener(
             object : FavoriteRecipesListAdapter.OnRecipeClickListener {
                 override fun onRecipeClick(recipeId: Int) {
-                    recipeViewModel.loadRecipe(recipeId)
-                    recipeViewModel.uiState.observe(viewLifecycleOwner) { recipeState ->
-                        openRecipeByRecipeId(
-                            getBundle(recipeState.recipe?.id ?: 0)
-                        )
-                    }
+                    openRecipeByRecipeId(getBundle(recipeId))
                     Log.d("!!!", "FavoritesFragment recipeId $recipeId")
                 }
             }
         )
     }
+
 
     private fun getFavorites(): HashSet<String> {
         val sharedPrefs = activity?.getSharedPreferences(
