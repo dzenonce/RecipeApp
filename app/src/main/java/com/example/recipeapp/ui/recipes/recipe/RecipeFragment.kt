@@ -1,10 +1,7 @@
 package com.example.recipeapp.ui.recipes.recipe
 
 import android.annotation.SuppressLint
-
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +14,6 @@ import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import com.example.recipeapp.ui.ARG_RECIPE_ID
 import com.example.recipeapp.ui.decorator.DividerItemDecorator
-import java.io.InputStream
 
 fun RecyclerView.addItemDecorationWithoutLastItem() {
     if (layoutManager !is LinearLayoutManager) return
@@ -51,17 +47,9 @@ class RecipeFragment : Fragment() {
     private fun initUI() {
         recipeViewModel.uiState.observe(viewLifecycleOwner) { recipeState ->
             with(binding) {
-                try {
-                    val inputStream: InputStream? =
-                        context?.assets?.open(recipeState.recipe?.imageUrl.toString())
-                    val drawable: Drawable? =
-                        Drawable.createFromStream(inputStream, null)
-                    ivIngredientRecipeImage.setImageDrawable(drawable)
-                    ivIngredientRecipeImage.contentDescription =
-                        "${context?.getString(R.string.content_description_image)} ${recipeState.recipe?.title}"
-                } catch (e: Error) {
-                    Log.e("assets error", e.stackTraceToString())
-                }
+                ivIngredientRecipeImage.setImageDrawable(recipeState.recipeImage)
+                ivIngredientRecipeImage.contentDescription =
+                    "${context?.getString(R.string.content_description_image)} ${recipeState.recipe?.title}"
 
                 setFavoriteIconState(recipeState.isFavorite)
                 ibIngredientFavoriteButton.setOnClickListener {
@@ -69,7 +57,7 @@ class RecipeFragment : Fragment() {
                     setFavoriteIconState(recipeState.isFavorite)
                 }
 
-                tvIngredientRecipeHeader.text = recipeViewModel.uiState.value?.recipe?.title
+                tvIngredientRecipeHeader.text = recipeState.recipe?.title
                 tvPortionText.text =
                     "${context?.getString(R.string.title_portion_count)} ${sbPortionCountSeekBar.progress}"
 
