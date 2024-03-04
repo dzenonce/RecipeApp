@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,11 +16,6 @@ import com.example.recipeapp.databinding.FragmentRecipeBinding
 import com.example.recipeapp.ui.ARG_RECIPE_ID
 import com.example.recipeapp.ui.decorator.DividerItemDecorator
 
-fun RecyclerView.addItemDecorationWithoutLastItem() {
-    if (layoutManager !is LinearLayoutManager) return
-    addItemDecoration(DividerItemDecorator(context))
-}
-
 class RecipeFragment : Fragment() {
 
     private val binding: FragmentRecipeBinding by lazy {
@@ -27,6 +23,13 @@ class RecipeFragment : Fragment() {
     }
     private val recipeId: Int by lazy { initRecipe() }
     private val recipeViewModel: RecipeViewModel by viewModels()
+
+    private val ingredientsAdapter = IngredientsAdapter(
+        dataSet = listOf(),
+    )
+    private val methodAdapter = MethodAdapter(
+        dataSet = listOf(),
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -64,35 +67,22 @@ class RecipeFragment : Fragment() {
                 rvIngredients.addItemDecorationWithoutLastItem()
                 rvMethod.addItemDecorationWithoutLastItem()
 
-                val ingredientsAdapter = IngredientsAdapter(
-                    dataSet = recipeState.recipe?.ingredients ?: listOf(),
-                )
+                ingredientsAdapter.dataSet = recipeState.recipe?.ingredients ?: listOf()
                 val recyclerViewIngredients: RecyclerView = binding.rvIngredients
                 recyclerViewIngredients.adapter = ingredientsAdapter
 
-                val methodAdapter = MethodAdapter(
-                    dataSet = recipeState.recipe?.method ?: listOf(),
-                )
+                methodAdapter.dataSet = recipeState.recipe?.method ?: listOf()
                 val recyclerViewMethod: RecyclerView = binding.rvMethod
                 recyclerViewMethod.adapter = methodAdapter
 
                 binding.sbPortionCountSeekBar.setOnSeekBarChangeListener(
-                    object : SeekBar.OnSeekBarChangeListener {
-                        @SuppressLint("SetTextI18n")
-                        override fun onProgressChanged(
-                            seekBar: SeekBar?, progress: Int, fromUser: Boolean
-                        ) {
-                            recipeViewModel.updatePortionsCount(progress)
-                            ingredientsAdapter.updateIngredients(recipeState.portionsCount)
-                            binding.tvPortionText.text =
-                                "${context?.getString(R.string.title_portion_count)} ${recipeState.portionsCount}"
-                        }
-
-                        override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-                        override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+                    PortionSeekBarListener { portionsCount ->
+                        recipeViewModel.updatePortionsCount(portionsCount)
+                        ingredientsAdapter.updateIngredients(portionsCount)
+                        binding.tvPortionText.text =
+                            "${context?.getString(R.string.title_portion_count)} $portionsCount"
                     }
                 )
-
             }
         }
         recipeViewModel.loadRecipe(recipeId)
@@ -102,4 +92,21 @@ class RecipeFragment : Fragment() {
         if (isFavorite) binding.ibIngredientFavoriteButton.setImageResource(R.drawable.ic_heart)
         else binding.ibIngredientFavoriteButton.setImageResource(R.drawable.ic_heart_empty)
 
+}
+
+fun RecyclerView.addItemDecorationWithoutLastItem() {
+    if (layoutManager !is LinearLayoutManager) return
+    addItemDecoration(DividerItemDecorator(context))
+}
+
+class PortionSeekBarListener(
+    val onChangeIngredients: (Int) -> Unit,
+) : OnSeekBarChangeListener {
+
+    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+        onChangeIngredients(progress)
+    }
+
+    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
 }
