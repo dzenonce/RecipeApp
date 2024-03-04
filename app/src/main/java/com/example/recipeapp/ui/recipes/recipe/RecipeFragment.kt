@@ -64,40 +64,38 @@ class RecipeFragment : Fragment() {
                 rvIngredients.addItemDecorationWithoutLastItem()
                 rvMethod.addItemDecorationWithoutLastItem()
 
-                initRecycler(recipeState)
+                val ingredientsAdapter = IngredientsAdapter(
+                    dataSet = recipeState.recipe?.ingredients ?: listOf(),
+                )
+                val recyclerViewIngredients: RecyclerView = binding.rvIngredients
+                recyclerViewIngredients.adapter = ingredientsAdapter
+
+                val methodAdapter = MethodAdapter(
+                    dataSet = recipeState.recipe?.method ?: listOf(),
+                )
+                val recyclerViewMethod: RecyclerView = binding.rvMethod
+                recyclerViewMethod.adapter = methodAdapter
+
+                binding.sbPortionCountSeekBar.setOnSeekBarChangeListener(
+                    object : SeekBar.OnSeekBarChangeListener {
+                        @SuppressLint("SetTextI18n")
+                        override fun onProgressChanged(
+                            seekBar: SeekBar?, progress: Int, fromUser: Boolean
+                        ) {
+                            recipeViewModel.updatePortionsCount(progress)
+                            ingredientsAdapter.updateIngredients(recipeState.portionsCount)
+                            binding.tvPortionText.text =
+                                "${context?.getString(R.string.title_portion_count)} ${recipeState.portionsCount}"
+                        }
+
+                        override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+                        override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+                    }
+                )
+
             }
         }
         recipeViewModel.loadRecipe(recipeId)
-    }
-
-    private fun initRecycler(recipeState: RecipeUiState) {
-        val ingredientsAdapter = IngredientsAdapter(
-            dataSet = recipeState.recipe?.ingredients ?: listOf(),
-        )
-        val recyclerViewIngredients: RecyclerView = binding.rvIngredients
-        recyclerViewIngredients.adapter = ingredientsAdapter
-
-        val methodAdapter = MethodAdapter(
-            dataSet = recipeState.recipe?.method ?: listOf(),
-        )
-        val recyclerViewMethod: RecyclerView = binding.rvMethod
-        recyclerViewMethod.adapter = methodAdapter
-
-        binding.sbPortionCountSeekBar.setOnSeekBarChangeListener(
-            object : SeekBar.OnSeekBarChangeListener {
-                @SuppressLint("SetTextI18n")
-                override fun onProgressChanged(
-                    seekBar: SeekBar?, progress: Int, fromUser: Boolean
-                ) {
-                    ingredientsAdapter.updateIngredients(progress)
-                    binding.tvPortionText.text =
-                        "${context?.getString(R.string.title_portion_count)} $progress"
-                }
-
-                override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-                override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-            }
-        )
     }
 
     private fun setFavoriteIconState(isFavorite: Boolean) =
