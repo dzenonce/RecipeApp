@@ -24,12 +24,8 @@ class RecipeFragment : Fragment() {
     private val recipeId: Int by lazy { initRecipe() }
     private val recipeViewModel: RecipeViewModel by viewModels()
 
-    private val ingredientsAdapter = IngredientsAdapter(
-        dataSet = listOf(),
-    )
-    private val methodAdapter = MethodAdapter(
-        dataSet = listOf(),
-    )
+    private val ingredientsAdapter = IngredientsAdapter()
+    private val methodAdapter = MethodAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
