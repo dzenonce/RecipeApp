@@ -49,12 +49,12 @@ class CategoriesListAdapter(
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         with(viewHolder) {
             categoryName.text = dataSet[position].title
-            // TODO по хорошему можно было бы получать уже загруженный список drawable из сети
             try {
                 val inputStream: InputStream =
                     itemView.context.assets.open(dataSet[position].imageUrl)
                 val drawable = Drawable.createFromStream(inputStream, null)
                 categoryImage.setImageDrawable(drawable)
+
             } catch (e: Error) {
                 Log.e("assets error", e.stackTraceToString())
             }

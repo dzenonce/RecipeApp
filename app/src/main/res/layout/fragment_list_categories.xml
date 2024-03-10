@@ -13,15 +13,14 @@
         android:layout_height="@dimen/size_header_224">
 
         <ImageView
-            android:id="@+id/ivCategoriesScreenHeader"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@string/title_image_category"
             android:scaleType="centerCrop"
+            android:src="@drawable/bcg_categories"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/bcg_categories" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             style="@style/StyleMenuHeaderText20"

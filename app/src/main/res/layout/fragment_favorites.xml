@@ -18,10 +18,10 @@
             android:layout_height="match_parent"
             android:contentDescription="@string/content_description_favorite_header_image"
             android:scaleType="centerCrop"
+            android:src="@drawable/bcg_favorites"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/bcg_favorites" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             style="@style/StyleMenuHeaderText20"
@@ -44,9 +44,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal_16"
             android:layout_marginEnd="@dimen/margin_normal_16"
-            android:gravity="center"
             android:text="@string/title_favorites_recipe_empty"
             android:visibility="visible"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

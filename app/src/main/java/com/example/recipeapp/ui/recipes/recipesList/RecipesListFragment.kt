@@ -1,7 +1,6 @@
 package com.example.recipeapp.ui.recipes.recipesList
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,7 +40,7 @@ class RecipesListFragment : Fragment() {
     }
 
     private fun initCategoryId() = arguments?.getInt(ARG_CATEGORY_ID)
-        ?: Log.e("init id error", "CategoryId Init Error")
+        ?: throw Error("Category Id is not empty")
 
     private fun initUi() {
         recipesUiState.uiState.observe(viewLifecycleOwner) { recipeUiState ->
