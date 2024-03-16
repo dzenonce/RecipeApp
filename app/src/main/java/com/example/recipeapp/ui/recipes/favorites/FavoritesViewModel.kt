@@ -39,7 +39,7 @@ class FavoritesViewModel(
         val favoritesSet = sharedPrefs?.getStringSet(
             PREFERENCE_RECIPE_IDS_SET_KEY,
             null,
-        ) ?: mutableSetOf()
+        ) ?: setOf()
 
         return HashSet(favoritesSet)
     }
