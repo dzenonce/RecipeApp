@@ -274,6 +274,9 @@ object STUB {
 
     fun getCategories() = categories
 
+    fun getCategoryInfoByCategoryId(categoryId: Int) =
+        categories.find { it.id == categoryId }
+
     fun getRecipesByCategoryId(categoryId: Int?) =
         when (categoryId) {
             0 -> burgerRecipes
@@ -283,8 +286,6 @@ object STUB {
     fun getRecipeByRecipeId(recipeId: Int) =
         burgerRecipes.find { it.id == recipeId } ?: burgerRecipes[0]
 
-    fun getRecipesByIds(recipesIds: Set<Int>): List<Recipe> {
-        return burgerRecipes.filter { recipesIds.contains(it.id) }
-    }
+    fun getRecipesByIds(recipesIds: Set<Int>) = burgerRecipes.filter { recipesIds.contains(it.id) }
 
 }

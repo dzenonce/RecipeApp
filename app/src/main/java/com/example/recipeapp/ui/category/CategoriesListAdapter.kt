@@ -14,7 +14,7 @@ import com.example.recipeapp.model.Category
 import java.io.InputStream
 
 class CategoriesListAdapter(
-    val dataSet: List<Category>,
+    var dataSet: List<Category> = listOf(),
 ) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 
     interface OnItemClickListener {

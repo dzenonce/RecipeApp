@@ -7,7 +7,7 @@ import com.example.recipeapp.ui.recipes.recipesList.RecipesListAdapter
 import com.example.recipeapp.model.Recipe
 
 class FavoriteRecipesListAdapter(
-    dataSet: List<Recipe>,
+    dataSet: List<Recipe> = listOf(),
 ) : RecipesListAdapter(dataSet) {
 
     interface OnRecipeClickListener {

@@ -1,8 +1,6 @@
 package com.example.recipeapp.ui.recipes.recipesList
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +8,13 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
-import com.example.recipeapp.data.STUB
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
 import com.example.recipeapp.ui.ARG_CATEGORY_ID
-import com.example.recipeapp.ui.ARG_CATEGORY_IMAGE_URL
-import com.example.recipeapp.ui.ARG_CATEGORY_NAME
 import com.example.recipeapp.ui.ARG_RECIPE_ID
 import com.example.recipeapp.ui.recipes.recipe.RecipeFragment
-import java.io.InputStream
 
 class RecipesListFragment : Fragment() {
 
@@ -27,9 +22,10 @@ class RecipesListFragment : Fragment() {
         FragmentRecipesListBinding.inflate(layoutInflater)
     }
 
-    private var categoryId: Int? = null
-    private var categoryName: String? = null
-    private var categoryImageUrl: String? = null
+    private val categoryId: Int by lazy { initCategoryId() }
+    private val recipesUiState: RecipesListViewModel by viewModels()
+
+    private val recipesListAdapter = RecipesListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,46 +36,35 @@ class RecipesListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        arguments?.let {
-            categoryId = it.getInt(ARG_CATEGORY_ID)
-            categoryName = it.getString(ARG_CATEGORY_NAME)
-            categoryImageUrl = it.getString(ARG_CATEGORY_IMAGE_URL)
-        }
-        Log.d(
-            "!!!",
-            "RecipesListFragment \ncategoryId: $categoryId, \ncategoryName: $categoryName, \ncategoryImageUrl: $categoryImageUrl"
-        )
-        initRecipeListScreenHeader()
-        initRecycler()
+        initUi()
     }
 
-    private fun initRecipeListScreenHeader() {
-        try {
-            val inputStream: InputStream? = this.context?.assets?.open(categoryImageUrl.toString())
-            val drawable: Drawable? = Drawable.createFromStream(inputStream, null)
-            binding.ivRecipesListImage.setImageDrawable(drawable)
-        } catch (e: Error) {
-            Log.e("assets error", e.stackTraceToString())
-        }
-        binding.tvRecipesListHeaderName.text = categoryName
-    }
+    private fun initCategoryId() = arguments?.getInt(ARG_CATEGORY_ID)
+        ?: throw Error("Category Id is not empty")
 
-    private fun initRecycler() {
-        val recipeList = STUB.getRecipesByCategoryId(categoryId)
-        val recipeListAdapter = RecipesListAdapter(
-            dataSet = recipeList,
-        )
-        val recyclerView: RecyclerView = binding.rvRecipes
-        recyclerView.adapter = recipeListAdapter
-
-        recipeListAdapter.setOnRecipeClickListener(
-            object : RecipesListAdapter.OnRecipeClickListener {
-                override fun onRecipeClick(recipeId: Int) {
-                    openRecipeByRecipeId(getBundle(recipeId))
-                }
+    private fun initUi() {
+        recipesUiState.uiState.observe(viewLifecycleOwner) { recipeUiState ->
+            with(binding) {
+                ivRecipesListImage.setImageDrawable(recipeUiState.categoryImageUrl)
+                ivRecipesListImage.contentDescription =
+                    "${context?.getString(R.string.content_description_image)}" +
+                            " ${recipeUiState.categoryName}"
+                tvRecipesListHeaderName.text = recipeUiState.categoryName
             }
-        )
+
+            recipesListAdapter.dataSet = recipeUiState.recipeList
+            val recyclerView: RecyclerView = binding.rvRecipes
+            recyclerView.adapter = recipesListAdapter
+
+            recipesListAdapter.setOnRecipeClickListener(
+                object : RecipesListAdapter.OnRecipeClickListener {
+                    override fun onRecipeClick(recipeId: Int) {
+                        openRecipeByRecipeId(getBundle(recipeId))
+                    }
+                }
+            )
+        }
+        recipesUiState.loadRecipesList(categoryId)
     }
 
     private fun openRecipeByRecipeId(bundle: Bundle) {

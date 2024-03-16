@@ -14,7 +14,7 @@ import com.example.recipeapp.model.Recipe
 import java.io.InputStream
 
 open class RecipesListAdapter(
-    val dataSet: List<Recipe>,
+    var dataSet: List<Recipe> = listOf(),
 ) : RecyclerView.Adapter<RecipesListAdapter.ViewHolder>() {
 
     interface OnRecipeClickListener {
