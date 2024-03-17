@@ -40,7 +40,7 @@ class RecipesListFragment : Fragment() {
     }
 
     private fun initCategoryId() = arguments?.getInt(ARG_CATEGORY_ID)
-        ?: throw Error("Category Id is not empty")
+        ?: throw Error("Category Id is empty")
 
     private fun initUi() {
         recipesUiState.uiState.observe(viewLifecycleOwner) { recipeUiState ->
