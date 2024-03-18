@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
 import com.example.recipeapp.ui.ARG_CATEGORY_ID
-import com.example.recipeapp.ui.ARG_RECIPE_ID
 
 class RecipesListFragment : Fragment() {
 
@@ -59,20 +57,15 @@ class RecipesListFragment : Fragment() {
             recipesListAdapter.setOnRecipeClickListener(
                 object : RecipesListAdapter.OnRecipeClickListener {
                     override fun onRecipeClick(recipeId: Int) {
-                        openRecipeByRecipeId(getBundle(recipeId))
+                        navController.navigate(
+                            RecipesListFragmentDirections
+                                .actionRecipesListFragmentToRecipeFragment(recipeId)
+                        )
                     }
                 }
             )
         }
         recipesUiState.loadRecipesList(categoryId)
     }
-
-    private fun openRecipeByRecipeId(bundle: Bundle) =
-        navController.navigate(
-            resId = R.id.recipeFragment,
-            args = bundle,
-        )
-
-    private fun getBundle(recipeId: Int) = bundleOf(ARG_RECIPE_ID to recipeId)
 
 }
