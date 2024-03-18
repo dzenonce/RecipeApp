@@ -21,14 +21,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         with(binding) {
-            btnCategoryButton.setOnClickListener { showCategories() }
-            btnFavoriteButton.setOnClickListener { showFavorites() }
+            btnCategoryButton.setOnClickListener {
+                navController.navigate(R.id.categoriesListFragment)
+            }
+            btnFavoriteButton.setOnClickListener {
+                navController.navigate(R.id.favoritesFragment)
+            }
         }
 
     }
-
-    private fun showCategories() = navController.navigate(R.id.categoriesListFragment)
-    private fun showFavorites() = navController.navigate(R.id.favoritesFragment)
 
 }
 
