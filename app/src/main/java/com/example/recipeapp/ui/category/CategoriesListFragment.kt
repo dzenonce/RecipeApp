@@ -4,23 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
-import com.example.recipeapp.ui.ARG_CATEGORY_ID
+import com.example.recipeapp.model.Category
+import java.lang.IllegalArgumentException
 
 class CategoriesListFragment : Fragment() {
 
     private val binding: FragmentListCategoriesBinding by lazy {
         FragmentListCategoriesBinding.inflate(layoutInflater)
     }
-
     private val navController by lazy { this.findNavController() }
-
     private val categoriesViewModel: CategoriesViewModel by viewModels()
     private val categoryListAdapter = CategoriesListAdapter()
 
@@ -46,7 +43,10 @@ class CategoriesListFragment : Fragment() {
             categoryListAdapter.setOnItemClickListener(
                 object : CategoriesListAdapter.OnItemClickListener {
                     override fun onItemClick(categoryId: Int) {
-                        openRecipesByCategoryId(getBundle(categoryId))
+                        openRecipesByCategoryId(
+                            categoryList = categoriesListState.categoriesList,
+                            categoryId = categoryId,
+                        )
                     }
                 }
             )
@@ -54,12 +54,18 @@ class CategoriesListFragment : Fragment() {
         categoriesViewModel.loadCategories()
     }
 
-    private fun openRecipesByCategoryId(bundle: Bundle) =
+    private fun openRecipesByCategoryId(categoryList: List<Category>, categoryId: Int) =
         navController.navigate(
-            resId = R.id.recipesListFragment,
-            args = bundle,
+            CategoriesListFragmentDirections
+                .actionCategoriesListFragmentToRecipesListFragment(
+                    try {
+                        categoryList.find { it.id == categoryId }
+                    } catch (e: Error) {
+                        throw IllegalArgumentException("openRecipesByCategoryId must not have empty category")
+                    }
+                )
         )
-
-    private fun getBundle(categoryId: Int) = bundleOf(ARG_CATEGORY_ID to categoryId)
+    
 
 }
+
