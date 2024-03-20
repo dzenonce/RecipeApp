@@ -1,18 +1,19 @@
 package com.example.recipeapp.ui.recipes.recipesList
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
-import com.example.recipeapp.ui.ARG_CATEGORY_ID
-import com.example.recipeapp.ui.ARG_RECIPE_ID
+import java.io.InputStream
 
 class RecipesListFragment : Fragment() {
 
@@ -21,10 +22,9 @@ class RecipesListFragment : Fragment() {
     }
 
     private val navController by lazy { this.findNavController() }
+    private val recipesListFragmentArgs: RecipesListFragmentArgs by navArgs()
 
-    private val categoryId: Int by lazy { initCategoryId() }
     private val recipesUiState: RecipesListViewModel by viewModels()
-
     private val recipesListAdapter = RecipesListAdapter()
 
     override fun onCreateView(
@@ -39,19 +39,18 @@ class RecipesListFragment : Fragment() {
         initUi()
     }
 
-    private fun initCategoryId() = arguments?.getInt(ARG_CATEGORY_ID)
-        ?: throw Error("Category Id is not empty")
-
     private fun initUi() {
-        recipesUiState.uiState.observe(viewLifecycleOwner) { recipeUiState ->
-            with(binding) {
-                ivRecipesListImage.setImageDrawable(recipeUiState.categoryImageUrl)
-                ivRecipesListImage.contentDescription =
-                    "${context?.getString(R.string.content_description_image)}" +
-                            " ${recipeUiState.categoryName}"
-                tvRecipesListHeaderName.text = recipeUiState.categoryName
-            }
+        val category = recipesListFragmentArgs.category ?: throw IllegalArgumentException()
 
+        with(binding) {
+            ivRecipesListImage.setImageDrawable(loadCategoryImage(category.imageUrl))
+            ivRecipesListImage.contentDescription =
+                "${context?.getString(R.string.content_description_image)}" +
+                        " ${category.title}"
+            tvRecipesListHeaderName.text = category.title
+        }
+
+        recipesUiState.uiState.observe(viewLifecycleOwner) { recipeUiState ->
             recipesListAdapter.dataSet = recipeUiState.recipeList
             val recyclerView: RecyclerView = binding.rvRecipes
             recyclerView.adapter = recipesListAdapter
@@ -59,20 +58,24 @@ class RecipesListFragment : Fragment() {
             recipesListAdapter.setOnRecipeClickListener(
                 object : RecipesListAdapter.OnRecipeClickListener {
                     override fun onRecipeClick(recipeId: Int) {
-                        openRecipeByRecipeId(getBundle(recipeId))
+                        navController.navigate(
+                            RecipesListFragmentDirections
+                                .actionRecipesListFragmentToRecipeFragment(recipeId)
+                        )
                     }
                 }
             )
         }
-        recipesUiState.loadRecipesList(categoryId)
+        recipesUiState.loadRecipesList(category.id)
     }
 
-    private fun openRecipeByRecipeId(bundle: Bundle) =
-        navController.navigate(
-            resId = R.id.recipeFragment,
-            args = bundle,
-        )
-
-    private fun getBundle(recipeId: Int) = bundleOf(ARG_RECIPE_ID to recipeId)
+    private fun loadCategoryImage(categoryImageUrl: String) =
+        try {
+            val inputStream: InputStream? = context?.assets?.open(categoryImageUrl)
+            Drawable.createFromStream(inputStream, null)
+        } catch (e: Error) {
+            Log.e("assets error", e.stackTraceToString())
+            null
+        }
 
 }
