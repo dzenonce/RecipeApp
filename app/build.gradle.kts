@@ -47,7 +47,11 @@ dependencies {
     val navVersion = "2.7.7"
     val gsonVersion = "2.10.1"
     val okHttpVersion = "4.12.0"
+    val retrofitVersion = "2.11.0"
+    val retrofitGsonConverterVersion = "2.11.0"
 
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitGsonConverterVersion")
+    implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.okhttp3:logging-interceptor:$okHttpVersion")
     implementation("com.squareup.okhttp3:okhttp:$okHttpVersion")
     implementation("com.google.code.gson:gson:$gsonVersion")
@@ -55,6 +59,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
     implementation("androidx.fragment:fragment:$fragmentVersion")
     implementation("androidx.fragment:fragment-ktx:$fragmentVersion")
+
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
