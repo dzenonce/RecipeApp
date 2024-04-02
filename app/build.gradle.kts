@@ -52,6 +52,7 @@ dependencies {
     val interceptorVersion = "4.12.0"
 
     implementation("com.github.bumptech.glide:glide:$glideVersion")
+    implementation("com.github.bumptech.glide:glide:$glideVersion")
     implementation("com.squareup.okhttp3:logging-interceptor:$interceptorVersion")
     implementation("com.squareup.retrofit2:converter-gson:$retrofitGsonConverterVersion")
     implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
