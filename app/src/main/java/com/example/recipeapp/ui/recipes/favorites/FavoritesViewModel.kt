@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.recipeapp.data.STUB
+import com.example.recipeapp.data.RecipeRepository
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.ui.PREFERENCE_FILE_KEY
 import com.example.recipeapp.ui.PREFERENCE_RECIPE_IDS_SET_KEY
@@ -20,6 +20,8 @@ class FavoritesViewModel(
     application = Application()
 ) {
 
+    private val recipeRepository = RecipeRepository()
+
     private var _uiState = MutableLiveData<FavoritesUiState>()
     val uiState: LiveData<FavoritesUiState> = _uiState
 
@@ -27,7 +29,7 @@ class FavoritesViewModel(
         val recipesIds = getFavoritesIds().map { it.toInt() }.toSet()
         _uiState.value =
             FavoritesUiState(
-                favoritesRecipesList = STUB.getRecipesByIds(recipesIds),
+                favoritesRecipesList = recipeRepository.loadRecipesByIds(recipesIds.joinToString(",")),
             )
     }
 

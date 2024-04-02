@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
 import com.example.recipeapp.model.Category
-import java.lang.IllegalArgumentException
 
 class CategoriesListFragment : Fragment() {
 
@@ -65,6 +64,5 @@ class CategoriesListFragment : Fragment() {
                     }
                 )
         )
-    
 
 }
