@@ -7,3 +7,5 @@ const val ARG_RECIPE: String = "arg_recipe"
 const val ARG_RECIPE_ID: String = "arg_recipe_id"
 const val PREFERENCE_FILE_KEY = "preference_favorite_recipe_file_key"
 const val PREFERENCE_RECIPE_IDS_SET_KEY = "preference_favorite_recipe_ids_set_key"
+
+const val API_RECIPE_URL = "https://recipes.androidsprint.ru/api"

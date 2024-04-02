@@ -45,7 +45,12 @@ android {
 dependencies {
     val fragmentVersion = "1.6.2"
     val navVersion = "2.7.7"
+    val gsonVersion = "2.10.1"
+    val okHttpVersion = "4.12.0"
 
+    implementation("com.squareup.okhttp3:logging-interceptor:$okHttpVersion")
+    implementation("com.squareup.okhttp3:okhttp:$okHttpVersion")
+    implementation("com.google.code.gson:gson:$gsonVersion")
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
     implementation("androidx.fragment:fragment:$fragmentVersion")
