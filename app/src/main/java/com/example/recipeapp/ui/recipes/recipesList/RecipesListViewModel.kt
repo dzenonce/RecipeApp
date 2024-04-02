@@ -1,6 +1,5 @@
 package com.example.recipeapp.ui.recipes.recipesList
 
-import android.graphics.drawable.Drawable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,9 +9,8 @@ import com.example.recipeapp.model.Recipe
 data class RecipesListUiState(
     var recipeList: List<Recipe> = emptyList(),
     var categoryName: String? = null,
-    var categoryImageUrl: Drawable? = null,
+    var categoryImageUrl: String? = null,
 )
-
 
 class RecipesListViewModel : ViewModel() {
 

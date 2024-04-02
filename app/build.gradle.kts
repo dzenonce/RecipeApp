@@ -48,7 +48,9 @@ dependencies {
     val gsonVersion = "2.10.1"
     val retrofitVersion = "2.11.0"
     val retrofitGsonConverterVersion = "2.11.0"
+    val glideVersion = "4.16.0"
 
+    implementation("com.github.bumptech.glide:glide:$glideVersion")
     implementation("com.squareup.retrofit2:converter-gson:$retrofitGsonConverterVersion")
     implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.google.code.gson:gson:$gsonVersion")

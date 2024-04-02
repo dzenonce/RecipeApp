@@ -1,7 +1,5 @@
 package com.example.recipeapp.ui.recipes.recipesList
 
-import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.recipeapp.R
 import com.example.recipeapp.model.Recipe
-import java.io.InputStream
+import com.example.recipeapp.ui.API_RECIPE_IMAGE_URL
 
 open class RecipesListAdapter(
     var dataSet: List<Recipe> = listOf(),
@@ -46,26 +45,17 @@ open class RecipesListAdapter(
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         with(viewHolder) {
-            recipeName.text = dataSet[position].title
-
-            val imageUrl = dataSet[position].imageUrl
-            try {
-                val assertEquals = itemView.context.assets.list("")?.contains(imageUrl)
-                if (assertEquals != null) {
-                    if (assertEquals) {
-                        val inputStream: InputStream =
-                            itemView.context.assets.open(imageUrl)
-                        val drawable: Drawable? = Drawable.createFromStream(inputStream, null)
-                        recipeImage.setImageDrawable(drawable)
-                    }
-                }
-            } catch (e: Error) {
-                Log.e("assets error", e.stackTraceToString())
-            }
+            Glide.with(recipeImage)
+                .load("$API_RECIPE_IMAGE_URL/${dataSet[position].imageUrl}")
+                .error(R.drawable.img_error)
+                .placeholder(R.drawable.img_placeholder)
+                .into(recipeImage)
 
             recipeImage.contentDescription =
                 itemView.context
                     .getString(R.string.content_description_image) + dataSet[position].title
+
+            recipeName.text = dataSet[position].title
 
             recipeCard.setOnClickListener {
                 recipeClickListener?.onRecipeClick(dataSet[position].id)
