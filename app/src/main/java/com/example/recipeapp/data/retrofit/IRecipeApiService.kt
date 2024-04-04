@@ -1,4 +1,4 @@
-package com.example.recipeapp.data
+package com.example.recipeapp.data.retrofit
 
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface RecipeApiService {
+interface IRecipeApiService {
 
     @GET("category")
     fun getCategories(): Call<List<Category>>
