@@ -47,14 +47,22 @@ open class RecipesListAdapter(
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         with(viewHolder) {
             recipeName.text = dataSet[position].title
+
+            val imageUrl = dataSet[position].imageUrl
             try {
-                val inputStream: InputStream =
-                    itemView.context.assets.open(dataSet[position].imageUrl)
-                val drawable: Drawable? = Drawable.createFromStream(inputStream, null)
-                recipeImage.setImageDrawable(drawable)
+                val assertEquals = itemView.context.assets.list("")?.contains(imageUrl)
+                if (assertEquals != null) {
+                    if (assertEquals) {
+                        val inputStream: InputStream =
+                            itemView.context.assets.open(imageUrl)
+                        val drawable: Drawable? = Drawable.createFromStream(inputStream, null)
+                        recipeImage.setImageDrawable(drawable)
+                    }
+                }
             } catch (e: Error) {
                 Log.e("assets error", e.stackTraceToString())
             }
+
             recipeImage.contentDescription =
                 itemView.context
                     .getString(R.string.content_description_image) + dataSet[position].title

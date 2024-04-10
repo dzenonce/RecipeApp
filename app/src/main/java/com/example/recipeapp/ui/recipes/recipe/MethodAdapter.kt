@@ -14,6 +14,7 @@ class MethodAdapter(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val method: TextView
+
         init {
             method = view.findViewById(R.id.tvMethod)
         }

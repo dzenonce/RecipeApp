@@ -50,13 +50,18 @@ class IngredientsAdapter(
         notifyDataSetChanged()
     }
 
-    private fun getCurrentIngredientQuantity(position: Int) =
-        dataSet[position].quantity.toDouble().let {
+    private fun getCurrentIngredientQuantity(position: Int): String {
+        val quantityIngredient = dataSet[position].quantity
+
+        if (quantityIngredient.toDoubleOrNull() == null) return quantityIngredient
+        quantityIngredient.toDouble().let {
             val currentQuantity = it * quantity
-            if (currentQuantity % 1 == 0.0) currentQuantity.toInt().toString()
+            return if (currentQuantity % 1 == 0.0) currentQuantity.toInt().toString()
             else String.format("%.1f", currentQuantity)
         }
+    }
 
 }
+
 
 
