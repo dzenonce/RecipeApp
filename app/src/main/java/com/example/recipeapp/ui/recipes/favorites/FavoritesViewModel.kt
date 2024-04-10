@@ -5,10 +5,12 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.data.RecipeRepository
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.ui.PREFERENCE_FILE_KEY
 import com.example.recipeapp.ui.PREFERENCE_RECIPE_IDS_SET_KEY
+import kotlinx.coroutines.launch
 
 data class FavoritesUiState(
     var favoritesRecipesList: List<Recipe> = listOf(),
@@ -27,10 +29,13 @@ class FavoritesViewModel(
 
     fun loadFavorites() {
         val recipesIds = getFavoritesIds().map { it.toInt() }.toSet()
-        _uiState.value =
-            FavoritesUiState(
-                favoritesRecipesList = recipeRepository.loadRecipesByIds(recipesIds.joinToString(",")),
-            )
+        viewModelScope.launch {
+            _uiState.value =
+                FavoritesUiState(
+                    favoritesRecipesList =
+                    recipeRepository.loadRecipesByIds(recipesIds.joinToString(",")) ?: emptyList(),
+                )
+        }
     }
 
     private fun getFavoritesIds(): HashSet<String> {
