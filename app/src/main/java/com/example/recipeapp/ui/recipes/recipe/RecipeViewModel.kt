@@ -2,8 +2,6 @@ package com.example.recipeapp.ui.recipes.recipe
 
 import android.app.Application
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -11,17 +9,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.data.RecipeRepository
 import com.example.recipeapp.model.Recipe
+import com.example.recipeapp.ui.API_RECIPE_IMAGE_URL
 import com.example.recipeapp.ui.PREFERENCE_FILE_KEY
 import com.example.recipeapp.ui.PREFERENCE_RECIPE_IDS_SET_KEY
 import com.example.recipeapp.ui.TOAST_TEXT_ERROR_LOADING
 import kotlinx.coroutines.launch
-import java.io.InputStream
 
 data class RecipeUiState(
     var isFavorite: Boolean = false,
     var recipe: Recipe? = null,
     var portionsCount: Int = 1,
-    var recipeImage: Drawable? = null,
+    var recipeImageUrl: String = "",
 )
 
 class RecipeViewModel(
@@ -44,7 +42,7 @@ class RecipeViewModel(
                         isFavorite = getFavorites().contains(recipeId.toString()),
                         recipe = recipe,
                         portionsCount = RecipeUiState().portionsCount,
-                        recipeImage = loadRecipeImage(recipe.imageUrl)
+                        recipeImageUrl = "$API_RECIPE_IMAGE_URL/${recipe.imageUrl}"
                     )
             else Toast.makeText(
                 application.applicationContext,
@@ -98,21 +96,4 @@ class RecipeViewModel(
             apply()
         }
     }
-
-    private fun loadRecipeImage(imageUrl: String = ""): Drawable? {
-        try {
-            val assertEquals = application.assets.list("")?.contains(imageUrl)
-            if (assertEquals != null) {
-                if (assertEquals) {
-                    val inputStream: InputStream? =
-                        application.assets?.open(imageUrl)
-                    return Drawable.createFromStream(inputStream, null)
-                }
-            }
-        } catch (e: Error) {
-            Log.e("assets error", e.stackTraceToString())
-        }
-        return null
-    }
 }
-
