@@ -4,8 +4,7 @@ import androidx.room.RoomDatabase
 import androidx.room.Database
 import com.example.recipeapp.model.Category
 
-@Database(entities = [Category::class], version = 1)
-abstract class Database: RoomDatabase() {
-    abstract fun categoryDao(): CategoryDao
-
+@Database(entities = [Category::class], version = 2)
+abstract class RecipeDatabase: RoomDatabase() {
+    abstract fun categoriesDao(): CategoriesDao
 }

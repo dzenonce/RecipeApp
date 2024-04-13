@@ -1,8 +1,12 @@
 package com.example.recipeapp.data
 
+import android.content.Context
+import androidx.room.Room
+import com.example.recipeapp.data.room.RecipeDatabase
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.ui.API_RECIPE_URL
+import com.example.recipeapp.ui.DATABASE_NAME
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -11,7 +15,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
-class RecipeRepository {
+class RecipeRepository(
+    val context: Context? = null
+) {
 
     private val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     private val okHttpCli = OkHttpClient.Builder()
@@ -22,8 +28,24 @@ class RecipeRepository {
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpCli)
         .build()
-
     private val recipeDataSource: RecipeDataSource = RecipeDataSource(retrofit.create())
+
+    private val recipeDatabase = Room.databaseBuilder(
+        context = context!!,
+        RecipeDatabase::class.java,
+        DATABASE_NAME
+    ).build()
+    private val categoriesDao = recipeDatabase.categoriesDao()
+
+    suspend fun getCategoriesFromCache(): List<Category> =
+        withContext(Dispatchers.IO) {
+            categoriesDao.getAllCategory()
+        }
+
+    suspend fun loadCategoryToCache(categories: List<Category>) =
+        withContext(Dispatchers.IO) {
+            categoriesDao.addCategory(categories)
+        }
 
     suspend fun loadCategories(): List<Category>? =
         withContext(Dispatchers.IO) {

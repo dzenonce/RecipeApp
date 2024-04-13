@@ -52,7 +52,7 @@ class CategoriesListAdapter(
                 .load("$API_RECIPE_IMAGE_URL/${dataSet[position].imageUrl}")
                 .error(R.drawable.img_error)
                 .placeholder(R.drawable.img_placeholder)
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(categoryImage)
 
             categoryImage.contentDescription =
