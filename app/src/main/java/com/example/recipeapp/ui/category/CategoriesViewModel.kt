@@ -31,16 +31,13 @@ class CategoriesViewModel(
             var categories: List<Category> = recipeRepository.getCategoriesFromCache()
             if (categories.isEmpty()) {
                 categories = recipeRepository.loadCategories() ?: emptyList()
-                recipeRepository.loadCategoryToCache(categories)
             }
             _uiState.value =
                 CategoriesUiState(
                     categoriesList = categories
                 )
+            recipeRepository.loadCategoryToCache(categories)
         }
     }
-
-//    private fun loadCategoryFromRoomDatabase(): List<Category> = categoryDao.getAllCategory()
-//    private fun addCategoryToDatabase(categories: List<Category>) = categoryDao.addCategory(categories)
 
 }
