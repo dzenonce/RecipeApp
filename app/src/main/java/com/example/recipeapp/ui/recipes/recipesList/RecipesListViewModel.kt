@@ -1,9 +1,8 @@
 package com.example.recipeapp.ui.recipes.recipesList
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.data.RecipeRepository
 import com.example.recipeapp.model.Recipe
@@ -15,13 +14,9 @@ data class RecipesListUiState(
     var categoryImageUrl: String? = null,
 )
 
-class RecipesListViewModel(application: Application) : AndroidViewModel(
-    application = Application()
-) {
+class RecipesListViewModel : ViewModel() {
 
-    private val recipeRepository = RecipeRepository(
-        context = application.applicationContext
-    )
+    private val recipeRepository = RecipeRepository()
 
     private var _uiState = MutableLiveData<RecipesListUiState>()
     val uiState: LiveData<RecipesListUiState> = _uiState

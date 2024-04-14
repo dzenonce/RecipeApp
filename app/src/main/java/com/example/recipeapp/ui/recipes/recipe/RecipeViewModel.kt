@@ -31,9 +31,7 @@ class RecipeViewModel(
     private val _uiState = MutableLiveData<RecipeUiState>()
     val uiState: LiveData<RecipeUiState> = _uiState
 
-    private val recipeRepository = RecipeRepository(
-        context = application.applicationContext
-    )
+    private val recipeRepository = RecipeRepository()
 
     fun loadRecipe(recipeId: Int) {
         viewModelScope.launch {
