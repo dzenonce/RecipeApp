@@ -1,6 +1,6 @@
 package com.example.recipeapp.data
 
-import com.example.recipeapp.data.room.RecipeDatabase
+import com.example.recipeapp.data.room.RecipeAppDatabase
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.ui.API_RECIPE_URL
@@ -13,18 +13,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
 class RecipeRepository(
-    private val recipeDatabase: RecipeDatabase? = null
+    private val recipeDatabase: RecipeAppDatabase? = null
 ) {
-
-    suspend fun getCategoriesFromCache(): List<Category>? =
-        withContext(Dispatchers.IO) {
-            recipeDatabase?.categoriesDao()?.getAllCategory()
-        }
-
-    suspend fun loadCategoryToCache(categories: List<Category>) =
-        withContext(Dispatchers.IO) {
-            recipeDatabase?.categoriesDao()?.addCategory(categories)
-        }
 
     suspend fun loadCategories(): List<Category>? =
         withContext(Dispatchers.IO) {
@@ -51,14 +41,23 @@ class RecipeRepository(
             recipeDataSource.getCategoryByCategoryId(categoryId)
         }
 
+    suspend fun loadCategoriesFromCache(): List<Category>? =
+        withContext(Dispatchers.IO) {
+            recipeDatabase?.categoriesDao()?.getAllCategory()
+        }
+    suspend fun loadCategoryToCache(categories: List<Category>) =
+        withContext(Dispatchers.IO) {
+            recipeDatabase?.categoriesDao()?.addCategory(categories)
+        }
+
     private val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-    private val okHttpCli = OkHttpClient.Builder()
+    private val okHttpClient = OkHttpClient.Builder()
         .addNetworkInterceptor(interceptor)
         .build()
     private val retrofit = Retrofit.Builder()
         .baseUrl("$API_RECIPE_URL/")
         .addConverterFactory(GsonConverterFactory.create())
-        .client(okHttpCli)
+        .client(okHttpClient)
         .build()
     private val recipeDataSource: RecipeDataSource = RecipeDataSource(retrofit.create())
 

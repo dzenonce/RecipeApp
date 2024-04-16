@@ -19,7 +19,7 @@ data class FavoritesUiState(
 class FavoritesViewModel(
     private val application: Application,
 ) : AndroidViewModel(
-    application = Application()
+    application = application
 ) {
 
     private val recipeRepository = RecipeRepository()

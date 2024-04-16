@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import com.example.recipeapp.data.RecipeRepository
-import com.example.recipeapp.data.room.RecipeDatabase
+import com.example.recipeapp.data.room.RecipeAppDatabase
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.ui.DATABASE_NAME
 import kotlinx.coroutines.launch
@@ -19,7 +19,7 @@ data class CategoriesUiState(
 class CategoriesViewModel(
     private val application: Application,
 ) : AndroidViewModel(
-    application = Application()
+    application = application
 ) {
 
     private var _uiState = MutableLiveData<CategoriesUiState>()
@@ -28,7 +28,7 @@ class CategoriesViewModel(
     fun loadCategories() {
         viewModelScope.launch {
             var categories: List<Category> =
-                recipeRepository.getCategoriesFromCache() ?: emptyList()
+                recipeRepository.loadCategoriesFromCache() ?: emptyList()
             if (categories.isEmpty()) {
                 categories = recipeRepository.loadCategories() ?: emptyList()
             }
@@ -44,7 +44,7 @@ class CategoriesViewModel(
 
     private val recipeDatabase = Room.databaseBuilder(
         context = application.applicationContext,
-        RecipeDatabase::class.java,
+        RecipeAppDatabase::class.java,
         DATABASE_NAME
     ).build()
     private val recipeRepository = RecipeRepository(
