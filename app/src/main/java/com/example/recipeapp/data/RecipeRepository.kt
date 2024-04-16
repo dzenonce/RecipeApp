@@ -52,13 +52,13 @@ class RecipeRepository(
         }
 
     private val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-    private val okHttpCli = OkHttpClient.Builder()
+    private val okHttpClient = OkHttpClient.Builder()
         .addNetworkInterceptor(interceptor)
         .build()
     private val retrofit = Retrofit.Builder()
         .baseUrl("$API_RECIPE_URL/")
         .addConverterFactory(GsonConverterFactory.create())
-        .client(okHttpCli)
+        .client(okHttpClient)
         .build()
     private val recipeDataSource: RecipeDataSource = RecipeDataSource(retrofit.create())
 
