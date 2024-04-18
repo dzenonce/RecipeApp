@@ -52,9 +52,6 @@ dependencies {
     val glideVersion = "4.16.0"
     val interceptorVersion = "4.12.0"
     val roomVersion = "2.6.1"
-    val swipeRefreshVersion = "1.2.0-alpha01"
-
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:$swipeRefreshVersion")
 
     implementation ("androidx.room:room-runtime:$roomVersion")
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
