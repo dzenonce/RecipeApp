@@ -14,6 +14,7 @@ import com.example.recipeapp.ui.API_RECIPE_IMAGE_URL
 import com.example.recipeapp.ui.PREFERENCE_FILE_KEY
 import com.example.recipeapp.ui.PREFERENCE_RECIPE_IDS_SET_KEY
 import com.example.recipeapp.ui.TOAST_TEXT_ERROR_LOADING
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 data class RecipeUiState(
@@ -35,30 +36,26 @@ class RecipeViewModel(
     private val recipeRepository = RecipeRepository()
 
     fun loadRecipe(recipeId: Int) {
-        viewModelScope.launch {
-            val recipe =
-                try {
-                    Log.e("!!!", "Try recipe load...")
-                    recipeRepository.loadRecipeByRecipeId(recipeId)
-                } catch (e: Error) {
-                    Log.e("internet error", e.stackTraceToString())
-                    null
-                }
-
-            if (recipe != null)
-                _uiState.value =
-                    RecipeUiState(
+        viewModelScope.launch(exceptionHandler) {
+            recipeRepository.loadRecipeByRecipeId(recipeId)
+                ?.let { recipe ->
+                    _uiState.value = RecipeUiState(
                         isFavorite = getFavorites().contains(recipeId.toString()),
                         recipe = recipe,
                         portionsCount = RecipeUiState().portionsCount,
                         recipeImageUrl = "$API_RECIPE_IMAGE_URL/${recipe.imageUrl}"
                     )
-            else Toast.makeText(
-                application.applicationContext,
-                TOAST_TEXT_ERROR_LOADING,
-                Toast.LENGTH_SHORT
-            ).show()
+                }
         }
+    }
+
+    private val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+        Log.e("internet error", throwable.stackTraceToString())
+        Toast.makeText(
+            application.applicationContext,
+            TOAST_TEXT_ERROR_LOADING,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     fun onFavoritesClicked() {
