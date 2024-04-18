@@ -13,6 +13,7 @@ import com.example.recipeapp.data.room.RecipeDatabase
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.ui.DATABASE_NAME
 import com.example.recipeapp.ui.TOAST_TEXT_ERROR_LOADING
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 data class CategoriesUiState(
@@ -29,34 +30,26 @@ class CategoriesViewModel(
     val uiState: LiveData<CategoriesUiState> = _uiState
 
     fun loadCategories() {
-        viewModelScope.launch {
-            var categories = recipeRepository.getCategoriesFromCache() ?: emptyList()
-            if (categories.isEmpty()) {
-                categories =
-                    try {
-                        recipeRepository.loadCategories() ?: emptyList()
-                    } catch (e: Exception) {
-                        Log.e("internet error", e.stackTraceToString())
-                        emptyList()
-                    }
-            }
-            if (categories.isEmpty())
-                Toast.makeText(
-                    application.applicationContext,
-                    TOAST_TEXT_ERROR_LOADING,
-                    Toast.LENGTH_SHORT
-                ).show()
-            else {
-                _uiState.value =
-                    CategoriesUiState(
-                        categoriesList = categories
-                    )
-
-                recipeRepository.loadCategoryToCache(
-                    categories = categories
+        viewModelScope.launch(exceptionHandler) {
+            var categories = recipeRepository.recipesCache.getCategoriesFromCache() ?: emptyList()
+            if (categories.isEmpty()) recipeRepository.loadCategories()?.let { categories = it }
+            _uiState.value =
+                CategoriesUiState(
+                    categoriesList = categories
                 )
-            }
+            recipeRepository.recipesCache.loadCategoryToCache(
+                categories = categories
+            )
         }
+    }
+
+    private val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+        Log.e("internet error", throwable.stackTraceToString())
+        Toast.makeText(
+            application.applicationContext,
+            TOAST_TEXT_ERROR_LOADING,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private val recipeDatabase = Room.databaseBuilder(

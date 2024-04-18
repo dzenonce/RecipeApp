@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
 import com.example.recipeapp.ui.API_RECIPE_IMAGE_URL
@@ -47,6 +48,7 @@ class RecipesListFragment : Fragment() {
                 .load("$API_RECIPE_IMAGE_URL/${category.imageUrl}")
                 .error(R.drawable.img_error)
                 .placeholder(R.drawable.img_placeholder)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(ivRecipesListImage)
 
             ivRecipesListImage.contentDescription =
