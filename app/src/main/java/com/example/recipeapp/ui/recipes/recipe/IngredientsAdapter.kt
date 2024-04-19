@@ -10,7 +10,7 @@ import com.example.recipeapp.R
 import com.example.recipeapp.model.Ingredient
 
 class IngredientsAdapter(
-    var dataSet: List<Ingredient> = listOf(),
+    var dataSet: List<Ingredient> = emptyList(),
 ) : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
 
     private var quantity = 1

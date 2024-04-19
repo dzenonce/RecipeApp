@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
     id("androidx.navigation.safeargs.kotlin") version "2.7.7"
+    id("com.google.devtools.ksp") version "1.9.10-1.0.13"
 }
 
 android {
@@ -50,16 +51,21 @@ dependencies {
     val retrofitGsonConverterVersion = "2.11.0"
     val glideVersion = "4.16.0"
     val interceptorVersion = "4.12.0"
+    val roomVersion = "2.6.1"
+
+    implementation ("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
 
     implementation("com.github.bumptech.glide:glide:$glideVersion")
-    implementation("com.github.bumptech.glide:glide:$glideVersion")
     implementation("com.squareup.okhttp3:logging-interceptor:$interceptorVersion")
-    implementation("com.github.bumptech.glide:glide:$glideVersion")
     implementation("com.squareup.retrofit2:converter-gson:$retrofitGsonConverterVersion")
     implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.google.code.gson:gson:$gsonVersion")
+
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
+
     implementation("androidx.fragment:fragment:$fragmentVersion")
     implementation("androidx.fragment:fragment-ktx:$fragmentVersion")
 

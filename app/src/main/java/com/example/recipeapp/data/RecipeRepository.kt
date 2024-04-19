@@ -1,5 +1,6 @@
 package com.example.recipeapp.data
 
+import com.example.recipeapp.data.room.RecipeDatabase
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.ui.API_RECIPE_URL
@@ -11,19 +12,19 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
-class RecipeRepository {
+class RecipeRepository(
+    private val recipeDatabase: RecipeDatabase? = null
+) {
 
-    private val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-    private val okHttpCli = OkHttpClient.Builder()
-        .addNetworkInterceptor(interceptor)
-        .build()
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("$API_RECIPE_URL/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .client(okHttpCli)
-        .build()
+    suspend fun getCategoriesFromCache(): List<Category>? =
+        withContext(Dispatchers.IO) {
+            recipeDatabase?.categoriesDao()?.getAllCategory()
+        }
 
-    private val recipeDataSource: RecipeDataSource = RecipeDataSource(retrofit.create())
+    suspend fun loadCategoryToCache(categories: List<Category>) =
+        withContext(Dispatchers.IO) {
+            recipeDatabase?.categoriesDao()?.addCategory(categories)
+        }
 
     suspend fun loadCategories(): List<Category>? =
         withContext(Dispatchers.IO) {
@@ -49,5 +50,16 @@ class RecipeRepository {
         withContext(Dispatchers.IO) {
             recipeDataSource.getCategoryByCategoryId(categoryId)
         }
+
+    private val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+    private val okHttpClient = OkHttpClient.Builder()
+        .addNetworkInterceptor(interceptor)
+        .build()
+    private val retrofit = Retrofit.Builder()
+        .baseUrl("$API_RECIPE_URL/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .client(okHttpClient)
+        .build()
+    private val recipeDataSource: RecipeDataSource = RecipeDataSource(retrofit.create())
 
 }

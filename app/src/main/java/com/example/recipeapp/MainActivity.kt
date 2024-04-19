@@ -7,9 +7,9 @@ import com.example.recipeapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private var _binding: ActivityMainBinding? = null
-    private val binding
-        get() = _binding ?: throw IllegalStateException("ActivityMainBinding must not be null")
+    private val binding: ActivityMainBinding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
 
     private val navController by lazy {
         this.findNavController(R.id.navHostFragmentContainer)
@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         with(binding) {
