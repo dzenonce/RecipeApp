@@ -51,16 +51,14 @@ class RecipeViewModel(
         }
     }
 
-    private val exceptionHandler: CoroutineExceptionHandler =
-        CoroutineExceptionHandler { coroutineContext, throwable ->
-            Log.e("internet error", throwable.stackTraceToString())
-            Toast.makeText(
-                application.applicationContext,
-                TOAST_TEXT_ERROR_LOADING,
-                Toast.LENGTH_SHORT
-            ).show()
-            // TODO error image
-        }
+    private val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+        Log.e("internet error", throwable.stackTraceToString())
+        Toast.makeText(
+            application.applicationContext,
+            TOAST_TEXT_ERROR_LOADING,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 
     fun onFavoritesClicked() {
         if (uiState.value?.isFavorite == true) {
@@ -106,5 +104,4 @@ class RecipeViewModel(
             apply()
         }
     }
-
 }
