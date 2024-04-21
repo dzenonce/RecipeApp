@@ -4,9 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(
-    tableName = "recipe"
-)
+@Entity(tableName = "recipe")
 data class Recipe(
     @PrimaryKey
     val id: Int,

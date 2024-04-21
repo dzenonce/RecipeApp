@@ -2,6 +2,7 @@ package com.example.recipeapp.ui.recipes.recipe
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -34,16 +35,6 @@ class RecipeViewModel(
 
     private val recipeRepository = RecipeRepository()
 
-    private val exceptionHandler: CoroutineExceptionHandler =
-        CoroutineExceptionHandler { coroutineContext, throwable ->
-            Toast.makeText(
-                application.applicationContext,
-                TOAST_TEXT_ERROR_LOADING,
-                Toast.LENGTH_SHORT
-            ).show()
-            // TODO error image
-        }
-
     fun loadRecipe(recipeId: Int) {
         viewModelScope.launch(exceptionHandler) {
             recipeRepository.loadRecipeByRecipeId(recipeId).let { recipe ->
@@ -59,6 +50,17 @@ class RecipeViewModel(
 
         }
     }
+
+    private val exceptionHandler: CoroutineExceptionHandler =
+        CoroutineExceptionHandler { coroutineContext, throwable ->
+            Log.e("internet error", throwable.stackTraceToString())
+            Toast.makeText(
+                application.applicationContext,
+                TOAST_TEXT_ERROR_LOADING,
+                Toast.LENGTH_SHORT
+            ).show()
+            // TODO error image
+        }
 
     fun onFavoritesClicked() {
         if (uiState.value?.isFavorite == true) {
