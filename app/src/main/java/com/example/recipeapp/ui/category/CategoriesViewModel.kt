@@ -37,7 +37,7 @@ class CategoriesViewModel(
                 CategoriesUiState(
                     categoriesList = categories
                 )
-            recipeRepository.recipesCache.loadCategoryToCache(
+            recipeRepository.recipesCache.addCategoryToCache(
                 categories = categories
             )
         }

@@ -1,18 +1,18 @@
 package com.example.recipeapp.ui.recipes.recipe
 
 import android.app.Application
-import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.room.Room
 import com.example.recipeapp.data.RecipeRepository
+import com.example.recipeapp.data.room.RecipeDatabase
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.ui.API_RECIPE_IMAGE_URL
-import com.example.recipeapp.ui.PREFERENCE_FILE_KEY
-import com.example.recipeapp.ui.PREFERENCE_RECIPE_IDS_SET_KEY
+import com.example.recipeapp.ui.DATABASE_NAME
 import com.example.recipeapp.ui.TOAST_TEXT_ERROR_LOADING
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
@@ -33,21 +33,24 @@ class RecipeViewModel(
     private val _uiState = MutableLiveData<RecipeUiState>()
     val uiState: LiveData<RecipeUiState> = _uiState
 
-    private val recipeRepository = RecipeRepository()
+    private val recipeDatabase = Room.databaseBuilder(
+        context = application.applicationContext,
+        RecipeDatabase::class.java,
+        DATABASE_NAME
+    ).build()
+    private val recipeRepository = RecipeRepository(recipeDatabase)
 
     fun loadRecipe(recipeId: Int) {
         viewModelScope.launch(exceptionHandler) {
-            recipeRepository.loadRecipeByRecipeId(recipeId).let { recipe ->
-                if (recipe != null)
-                    _uiState.value =
-                        RecipeUiState(
-                            isFavorite = getFavorites().contains(recipeId.toString()),
-                            recipe = recipe,
-                            portionsCount = RecipeUiState().portionsCount,
-                            recipeImageUrl = "$API_RECIPE_IMAGE_URL/${recipe.imageUrl}"
-                        )
-            }
-
+            var recipe = recipeRepository.recipesCache.getRecipeFromCache(recipeId)
+            if (recipe == null) recipeRepository.loadRecipeByRecipeId(recipeId).let { recipe = it }
+            _uiState.value =
+                RecipeUiState(
+                    isFavorite = recipe?.isFavorite ?: false,
+                    recipe = recipe,
+                    portionsCount = RecipeUiState().portionsCount,
+                    recipeImageUrl = "$API_RECIPE_IMAGE_URL/${recipe?.imageUrl}"
+                )
         }
     }
 
@@ -60,48 +63,19 @@ class RecipeViewModel(
         ).show()
     }
 
-    fun onFavoritesClicked() {
-        if (uiState.value?.isFavorite == true) {
-            this._uiState.value?.isFavorite = false
-            saveFavorites(
-                getFavorites().minus(uiState.value?.recipe?.id.toString())
-            )
-        } else {
-            _uiState.value?.isFavorite = true
-            saveFavorites(
-                getFavorites().plus(uiState.value?.recipe?.id.toString())
-            )
+    fun onFavoritesClicked(recipeId: Int) {
+        viewModelScope.launch(exceptionHandler) {
+            if (uiState.value?.isFavorite == true) {
+                _uiState.value?.isFavorite = false
+                recipeRepository.recipesCache.deleteRecipeFromFavorite(recipeId)
+            } else {
+                _uiState.value?.isFavorite = true
+                recipeRepository.recipesCache.addRecipeToFavorite(recipeId)
+            }
         }
     }
 
     fun updatePortionsCount(progress: Int) {
         _uiState.value?.portionsCount = progress
-    }
-
-    private fun getFavorites(): HashSet<String> {
-        val sharedPreference = application.getSharedPreferences(
-            PREFERENCE_FILE_KEY,
-            Context.MODE_PRIVATE,
-        )
-        val favoriteSet = sharedPreference?.getStringSet(
-            PREFERENCE_RECIPE_IDS_SET_KEY,
-            null,
-        ) ?: emptySet()
-        return HashSet(favoriteSet)
-    }
-
-    private fun saveFavorites(collectionRecipeIds: Set<String>?) {
-        val sharedPrefs = application.getSharedPreferences(
-            PREFERENCE_FILE_KEY,
-            Context.MODE_PRIVATE,
-        ) ?: return
-        with(sharedPrefs.edit()) {
-            clear()
-            putStringSet(
-                PREFERENCE_RECIPE_IDS_SET_KEY,
-                collectionRecipeIds,
-            )
-            apply()
-        }
     }
 }

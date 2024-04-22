@@ -1,7 +1,8 @@
 package com.example.recipeapp.data
 
+import com.example.recipeapp.data.api.RecipeDataSource
 import com.example.recipeapp.data.room.RecipeDatabase
-import com.example.recipeapp.data.room.recipes.RecipesCache
+import com.example.recipeapp.data.room.RecipesCache
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.ui.API_RECIPE_URL
@@ -15,8 +16,6 @@ import retrofit2.create
 
 class RecipeRepository(
     val recipeDatabase: RecipeDatabase? = null,
-//    val recipeApiService: IRecipeApiService? = null,
-//    private val recipeDataSource: RecipeDataSource? = null
 ) {
 
     val recipesCache = RecipesCache(recipeDatabase)

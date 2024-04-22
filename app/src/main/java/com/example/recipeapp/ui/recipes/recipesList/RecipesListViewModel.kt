@@ -11,7 +11,6 @@ import androidx.room.Room
 import com.example.recipeapp.data.RecipeRepository
 import com.example.recipeapp.data.room.RecipeDatabase
 import com.example.recipeapp.model.Recipe
-import com.example.recipeapp.model.RecipesList
 import com.example.recipeapp.ui.DATABASE_NAME
 import com.example.recipeapp.ui.TOAST_TEXT_ERROR_LOADING
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -42,17 +41,18 @@ class RecipesListViewModel(
     fun loadRecipesList(categoryId: Int) {
         viewModelScope.launch(exceptionHandler) {
             var recipesList =
-                recipeRepository.recipesCache.getRecipesByCategoryIdFromCache(categoryId)?.recipesList
+                recipeRepository.recipesCache.getRecipesByCategoryIdFromCache(categoryId)
                     ?: emptyList()
+
             if (recipesList.isEmpty())
                 recipeRepository.loadRecipesListByCategoryId(categoryId)?.let { recipesList = it }
-
             _uiState.value = RecipesListUiState(recipeList = recipesList)
-            recipeRepository.recipesCache.addRecipesByCategoryIdToCache(
-                RecipesList(
-                    categoryId = categoryId,
-                    recipesList = recipesList,
-                )
+
+            recipeRepository.recipesCache.addRecipesToCache(
+                recipesList.map {
+                    it.categoryId = categoryId
+                    it
+                }
             )
         }
     }
