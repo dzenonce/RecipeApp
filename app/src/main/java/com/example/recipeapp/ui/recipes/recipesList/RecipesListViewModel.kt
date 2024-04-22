@@ -43,17 +43,19 @@ class RecipesListViewModel(
             var recipesList =
                 recipeRepository.recipesCache.getRecipesByCategoryIdFromCache(categoryId)
                     ?: emptyList()
+            if (recipesList.isNotEmpty()) _uiState.value =
+                RecipesListUiState(recipeList = recipesList)
 
-            if (recipesList.isEmpty())
+            if (recipesList.isEmpty()) {
                 recipeRepository.loadRecipesListByCategoryId(categoryId)?.let { recipesList = it }
+                recipeRepository.recipesCache.addRecipesToCache(
+                    recipesList.map {
+                        it.categoryId = categoryId
+                        it
+                    }
+                )
+            }
             _uiState.value = RecipesListUiState(recipeList = recipesList)
-
-            recipeRepository.recipesCache.addRecipesToCache(
-                recipesList.map {
-                    it.categoryId = categoryId
-                    it
-                }
-            )
         }
     }
 

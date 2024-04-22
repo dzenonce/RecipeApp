@@ -76,7 +76,6 @@ class RecipeFragment : Fragment() {
 
                 binding.sbPortionCountSeekBar.setOnSeekBarChangeListener(
                     PortionSeekBarListener { portionsCount ->
-                        recipeViewModel.updatePortionsCount(portionsCount)
                         ingredientsAdapter.updateIngredients(portionsCount)
                         binding.tvPortionText.text =
                             "${context?.getString(R.string.title_portion_count)} $portionsCount"
