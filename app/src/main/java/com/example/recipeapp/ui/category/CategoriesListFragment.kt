@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recipeapp.RecipeApplication
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
 import com.example.recipeapp.model.Category
 
@@ -17,8 +17,15 @@ class CategoriesListFragment : Fragment() {
         FragmentListCategoriesBinding.inflate(layoutInflater)
     }
     private val navController by lazy { this.findNavController() }
-    private val categoriesViewModel: CategoriesViewModel by viewModels()
+
+    private lateinit var categoriesListViewModel: CategoriesListViewModel
     private val categoryListAdapter = CategoriesListAdapter()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val appContainer = (requireActivity().application as RecipeApplication).appContainer
+        categoriesListViewModel = appContainer.getCategoriesListViewModelFactory().create()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +40,7 @@ class CategoriesListFragment : Fragment() {
     }
 
     private fun initUi() {
-        categoriesViewModel.uiState.observe(viewLifecycleOwner) { categoriesListState ->
+        categoriesListViewModel.uiState.observe(viewLifecycleOwner) { categoriesListState ->
 
             val recyclerView: RecyclerView = binding.rvCategories
             categoryListAdapter.dataSet = categoriesListState.categoriesList
@@ -50,7 +57,7 @@ class CategoriesListFragment : Fragment() {
                 }
             )
         }
-        categoriesViewModel.loadCategories()
+        categoriesListViewModel.loadCategories()
     }
 
     private fun openRecipesByCategoryId(categoryList: List<Category>, categoryId: Int) =

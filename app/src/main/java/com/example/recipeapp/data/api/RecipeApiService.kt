@@ -4,7 +4,7 @@ import com.example.recipeapp.data.retrofit.IRecipeApiService
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 
-class RecipeDataSource(
+class RecipeApiService(
     private val recipeApiService: IRecipeApiService,
 ) {
 

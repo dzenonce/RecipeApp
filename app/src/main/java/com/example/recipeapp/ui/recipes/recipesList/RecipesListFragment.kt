@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +12,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
-import com.example.recipeapp.ui.API_RECIPE_IMAGE_URL
+import com.example.recipeapp.API_RECIPE_IMAGE_URL
+import com.example.recipeapp.RecipeApplication
 
 class RecipesListFragment : Fragment() {
 
@@ -24,8 +24,14 @@ class RecipesListFragment : Fragment() {
     private val navController by lazy { this.findNavController() }
     private val recipesListFragmentArgs: RecipesListFragmentArgs by navArgs()
 
-    private val recipesUiState: RecipesListViewModel by viewModels()
+    private lateinit var recipesListViewModel: RecipesListViewModel
     private val recipesListAdapter = RecipesListAdapter()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val appContainer = (requireActivity().application as RecipeApplication).appContainer
+        recipesListViewModel = appContainer.getRecipesListViewModelFactory().create()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,7 +63,7 @@ class RecipesListFragment : Fragment() {
             tvRecipesListHeaderName.text = category.title
         }
 
-        recipesUiState.uiState.observe(viewLifecycleOwner) { recipeUiState ->
+        recipesListViewModel.uiState.observe(viewLifecycleOwner) { recipeUiState ->
             recipesListAdapter.dataSet = recipeUiState.recipeList
             val recyclerView: RecyclerView = binding.rvRecipes
             recyclerView.adapter = recipesListAdapter
@@ -73,6 +79,6 @@ class RecipesListFragment : Fragment() {
                 }
             )
         }
-        recipesUiState.loadRecipesList(category.id)
+        recipesListViewModel.loadRecipesList(category.id)
     }
 }

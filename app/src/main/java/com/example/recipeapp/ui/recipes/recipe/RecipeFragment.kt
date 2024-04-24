@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.recipeapp.R
+import com.example.recipeapp.RecipeApplication
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import com.example.recipeapp.ui.recipes.recipe.decorator.DividerItemDecorator
 
@@ -24,10 +24,16 @@ class RecipeFragment : Fragment() {
     }
 
     private val recipeFragmentArgs: RecipeFragmentArgs by navArgs()
-    private val recipeViewModel: RecipeViewModel by viewModels()
+    private lateinit var recipeViewModel: RecipeViewModel
 
     private val ingredientsAdapter = IngredientsAdapter()
     private val methodAdapter = MethodAdapter()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val appContainer = (requireActivity().application as RecipeApplication).appContainer
+        recipeViewModel = appContainer.getRecipeViewModelFactory().create()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
