@@ -31,13 +31,13 @@ class CategoriesViewModel(
 
     fun loadCategories() {
         viewModelScope.launch(exceptionHandler) {
-            var categories = recipeRepository.getCategoriesFromCache() ?: emptyList()
+            var categories = recipeRepository.recipesCache.getCategoriesFromCache() ?: emptyList()
             if (categories.isEmpty()) recipeRepository.loadCategories()?.let { categories = it }
             _uiState.value =
                 CategoriesUiState(
                     categoriesList = categories
                 )
-            recipeRepository.loadCategoryToCache(
+            recipeRepository.recipesCache.addCategoryToCache(
                 categories = categories
             )
         }

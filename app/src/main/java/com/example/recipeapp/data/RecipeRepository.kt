@@ -1,6 +1,8 @@
 package com.example.recipeapp.data
 
+import com.example.recipeapp.data.api.RecipeDataSource
 import com.example.recipeapp.data.room.RecipeDatabase
+import com.example.recipeapp.data.room.RecipesCache
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.ui.API_RECIPE_URL
@@ -13,18 +15,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
 class RecipeRepository(
-    private val recipeDatabase: RecipeDatabase? = null
+    val recipeDatabase: RecipeDatabase? = null,
 ) {
 
-    suspend fun getCategoriesFromCache(): List<Category>? =
-        withContext(Dispatchers.IO) {
-            recipeDatabase?.categoriesDao()?.getAllCategory()
-        }
-
-    suspend fun loadCategoryToCache(categories: List<Category>) =
-        withContext(Dispatchers.IO) {
-            recipeDatabase?.categoriesDao()?.addCategory(categories)
-        }
+    val recipesCache = RecipesCache(recipeDatabase)
 
     suspend fun loadCategories(): List<Category>? =
         withContext(Dispatchers.IO) {
