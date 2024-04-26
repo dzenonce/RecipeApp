@@ -52,6 +52,9 @@ dependencies {
     val glideVersion = "4.16.0"
     val interceptorVersion = "4.12.0"
     val roomVersion = "2.6.1"
+    val splashScreenVersion = "1.2.0-alpha01"
+
+    implementation ("androidx.core:core-splashscreen:$splashScreenVersion")
 
     ksp("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
