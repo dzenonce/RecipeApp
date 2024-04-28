@@ -2,7 +2,7 @@ package com.example.recipeapp.di.recipes.recipesList
 
 import com.example.recipeapp.data.RecipeRepository
 import com.example.recipeapp.di.Factory
-import com.example.recipeapp.ui.recipes.recipesList.RecipesListViewModel
+import com.example.recipeapp.ui.xmlUi.recipes.recipesList.RecipesListViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 
 class RecipesListViewModelFactory(
