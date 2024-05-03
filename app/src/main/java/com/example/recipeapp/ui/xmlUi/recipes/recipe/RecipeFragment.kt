@@ -1,4 +1,4 @@
-package com.example.recipeapp.ui.recipes.recipe
+package com.example.recipeapp.ui.xmlUi.recipes.recipe
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide
 import com.example.recipeapp.R
 import com.example.recipeapp.RecipeApplication
 import com.example.recipeapp.databinding.FragmentRecipeBinding
-import com.example.recipeapp.ui.recipes.recipe.decorator.DividerItemDecorator
+import com.example.recipeapp.ui.xmlUi.recipes.recipe.decorator.DividerItemDecorator
 
 class RecipeFragment : Fragment() {
 

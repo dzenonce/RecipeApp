@@ -39,8 +39,12 @@ android {
 
     buildFeatures {
         viewBinding = true
+        compose = true
     }
 
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.3"
+    }
 }
 
 dependencies {
@@ -49,27 +53,45 @@ dependencies {
     val gsonVersion = "2.10.1"
     val retrofitVersion = "2.11.0"
     val retrofitGsonConverterVersion = "2.11.0"
-    val glideVersion = "4.16.0"
     val interceptorVersion = "4.12.0"
+    val glideVersion = "4.16.0"
     val roomVersion = "2.6.1"
-    val splashScreenVersion = "1.2.0-alpha01"
 
-    implementation ("androidx.core:core-splashscreen:$splashScreenVersion")
+    val composeBom = platform("androidx.compose:compose-bom:2024.04.01")
+    val activityComposeVersion = "1.9.0"
+    val lifecycleRuntimeKtxVersion = "2.7.0"
+    val composeViewModelVersion = "2.6.1"
 
+    // Compose
+    implementation(composeBom)
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeKtxVersion")
+    implementation("androidx.activity:activity-compose:$activityComposeVersion")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$composeViewModelVersion")
+    implementation("androidx.compose.ui:ui-tooling-preview-android:1.6.6")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.6.6")
+    implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
+
+
+    // Room
     ksp("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
-    implementation ("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-runtime:$roomVersion")
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
 
+    // Http + Serializer
     implementation("com.github.bumptech.glide:glide:$glideVersion")
     implementation("com.squareup.okhttp3:logging-interceptor:$interceptorVersion")
     implementation("com.squareup.retrofit2:converter-gson:$retrofitGsonConverterVersion")
-    implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.google.code.gson:gson:$gsonVersion")
 
+    // Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
 
+    // Fragment
     implementation("androidx.fragment:fragment:$fragmentVersion")
     implementation("androidx.fragment:fragment-ktx:$fragmentVersion")
 

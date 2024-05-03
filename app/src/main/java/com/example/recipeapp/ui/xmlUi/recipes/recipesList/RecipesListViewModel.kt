@@ -1,4 +1,4 @@
-package com.example.recipeapp.ui.recipes.recipesList
+package com.example.recipeapp.ui.xmlUi.recipes.recipesList
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

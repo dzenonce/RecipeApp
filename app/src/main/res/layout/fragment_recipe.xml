@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_blue_color"
-    tools:context=".ui.recipes.recipe.RecipeFragment">
+    tools:context=".ui.xmlUi.recipes.recipe.RecipeFragment">
 
     <LinearLayout
         android:id="@+id/llRecipeScreenView"

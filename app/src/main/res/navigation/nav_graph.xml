@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/categoriesListFragment"
-        android:name="com.example.recipeapp.ui.category.CategoriesListFragment"
+        android:name="com.example.recipeapp.ui.xmlUi.category.CategoriesListFragment"
         android:label="fragment_list_categories"
         tools:layout="@layout/fragment_list_categories">
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.example.recipeapp.ui.recipes.favorites.FavoritesFragment"
+        android:name="com.example.recipeapp.ui.xmlUi.recipes.favorites.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites">
         <action
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/recipeFragment"
-        android:name="com.example.recipeapp.ui.recipes.recipe.RecipeFragment"
+        android:name="com.example.recipeapp.ui.xmlUi.recipes.recipe.RecipeFragment"
         android:label="fragment_recipe"
         tools:layout="@layout/fragment_recipe" >
         <argument
@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/recipesListFragment"
-        android:name="com.example.recipeapp.ui.recipes.recipesList.RecipesListFragment"
+        android:name="com.example.recipeapp.ui.xmlUi.recipes.recipesList.RecipesListFragment"
         android:label="fragment_recipes_list"
         tools:layout="@layout/fragment_recipes_list">
         <argument
