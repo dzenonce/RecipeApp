@@ -72,7 +72,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview-android:1.6.6")
     debugImplementation("androidx.compose.ui:ui-tooling:1.6.6")
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
-
+    implementation("androidx.compose.runtime:runtime-livedata:1.6.6")
 
     // Room
     ksp("androidx.room:room-compiler:$roomVersion")

@@ -49,6 +49,7 @@ fun CategoriesCard(
                 .fillMaxWidth(),
             contentScale = ContentScale.FillWidth,
             loading = placeholder(R.drawable.img_placeholder),
+            failure = placeholder(R.drawable.img_error),
         )
         Text(
             text = title.uppercase(),
