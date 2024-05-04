@@ -11,8 +11,8 @@ import kotlinx.coroutines.launch
 
 data class RecipesListUiState(
     var recipeList: List<Recipe> = emptyList(),
-    var categoryName: String? = null,
-    var categoryImageUrl: String? = null,
+    var categoryName: String = "",
+    var categoryImageUrl: String = "",
 )
 
 class RecipesListViewModel(
