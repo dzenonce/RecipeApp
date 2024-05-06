@@ -1,44 +1,59 @@
 package com.example.recipeapp.ui.compose
 
 import android.os.Bundle
-import android.text.Editable.Factory
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.ui.graphics.BlendMode.Companion.Screen
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import com.example.recipeapp.RecipeApplication
 import com.example.recipeapp.di.AppContainer
 import com.example.recipeapp.ui.compose.screens.CategoriesScreen
-import com.example.recipeapp.ui.xmlUi.category.CategoriesListViewModel
-
-//enum Screens( // sealed
-//    CategoriesList(1)
-//)
-
-sealed class Screens(
-) {
-    object CategoriesScreen: Screens()
-    object RecipesList: Screens()
-    object Favorites: Screens()
-}
+import com.example.recipeapp.ui.compose.screens.RecipesListScreen
+import com.example.recipeapp.ui.compose.screens.Screen
+import com.example.recipeapp.ui.compose.screens.ScreenUiState
+import com.example.recipeapp.ui.compose.screens.ScreenViewModel
 
 class ComposeMainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val appContainer = (this.application as RecipeApplication).appContainer
-        val categoriesListViewModel = appContainer.getCategoriesListViewModelFactory().create()
 
-//        val currentScreen = Screens.CategoriesList(categoriesListViewModel)
-//        categoriesListViewModel.uiState.observe(this) {
+        val startScreen = Screen.CategoriesScreen
+        val appContainer = (this.application as RecipeApplication).appContainer
+        val screenViewModel = appContainer.getScreenViewModelFactory().create()
+
         setContent {
-                CategoriesScreen(
-                    categoriesListViewModel,
-//                    { currentScreen = it },
-//                    categoriesList = it.categoriesList
-                )
-            }
-//        }
-//        categoriesListViewModel.loadCategories()
+            val currentScreen by screenViewModel.screenState.observeAsState(ScreenUiState())
+            AppNavigator(
+                screenViewModel = screenViewModel,
+                currentScreen = currentScreen.currentScreen ?: startScreen,
+                appContainer = appContainer
+            )
+        }
     }
+
+}
+
+@Composable
+fun AppNavigator(screenViewModel: ScreenViewModel, currentScreen: Screen, appContainer: AppContainer) {
+
+    val categoriesListViewModel = appContainer.getCategoriesListViewModelFactory().create()
+    val recipesListViewModel = appContainer.getRecipesListViewModelFactory().create()
+
+    when (currentScreen) {
+        is Screen.CategoriesScreen -> {
+            CategoriesScreen(
+                screenViewModel = screenViewModel,
+                categoriesListViewModel = categoriesListViewModel)
+        }
+
+        is Screen.Favorites -> {
+//            CategoriesScreen(categoriesListViewModel = categoriesListViewModel)
+        }
+
+        is Screen.RecipesList -> {
+            RecipesListScreen(recipesListViewModel = recipesListViewModel)
+        }
+    }
+
 }

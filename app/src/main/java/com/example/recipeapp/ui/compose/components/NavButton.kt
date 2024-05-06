@@ -14,20 +14,26 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.recipeapp.R
+import com.example.recipeapp.ui.compose.screens.Screen
+import com.example.recipeapp.ui.compose.screens.ScreenViewModel
 import com.example.recipeapp.ui.compose.theme.BlueColor
 import com.example.recipeapp.ui.compose.theme.RedColor
 import com.example.recipeapp.ui.compose.theme.StyleTitleTextWhite14
 
 @Composable
-fun NavButton() {
+fun NavButton(
+//    screenViewModel: ScreenViewModel
+) {
+
     Row(
         modifier = Modifier
             .padding(bottom = 8.dp)
             .fillMaxWidth()
     ) {
+
         // TODO вынести в стиль (отдельный компонент)
         Button(
-            onClick = { },
+            onClick = { },//screenViewModel.navigateTo(Screen.RecipesList) },
             shape = RoundedCornerShape(8.dp),
             colors = ButtonDefaults.buttonColors(BlueColor),
             modifier = Modifier

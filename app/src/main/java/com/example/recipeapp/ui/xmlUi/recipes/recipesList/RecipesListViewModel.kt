@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.data.RecipeRepository
 import com.example.recipeapp.model.Recipe
+import com.example.recipeapp.ui.compose.screens.Screen
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
@@ -13,6 +14,7 @@ data class RecipesListUiState(
     var recipeList: List<Recipe> = emptyList(),
     var categoryName: String = "",
     var categoryImageUrl: String = "",
+    var currentScreen: Screen? = null,
 )
 
 class RecipesListViewModel(

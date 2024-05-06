@@ -31,6 +31,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.bumptech.glide.integration.compose.placeholder
 import com.example.recipeapp.API_RECIPE_IMAGE_URL
+import com.example.recipeapp.MAX_LINES_1
 import com.example.recipeapp.R
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.ui.compose.components.NavButton
@@ -89,6 +90,7 @@ fun RecipesListView(
                 text = categoryName.uppercase(),
                 color = PurpleColor,
                 style = StyleMenuHeaderTextPurple20,
+                maxLines = MAX_LINES_1,
                 modifier = Modifier
                     .padding(16.dp)
                     .background(
@@ -109,7 +111,7 @@ fun RecipesListView(
             // Recipe Cards
 
             LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
+                columns = GridCells.Fixed(1),
                 contentPadding = PaddingValues(
                     start = 8.dp,
                     top = 8.dp,
@@ -145,13 +147,13 @@ fun RecipesListViewPreview() {
                 1,
                 1,
                 false,
-                "123",
+                "Бургеры",
                 emptyList(),
                 emptyList(),
                 "burger.png",
             )
         },
         categoryName = "Бургеры",
-        categoryImageUrl = "burgers.png"
+        categoryImageUrl = "burger.png"
     )
 }

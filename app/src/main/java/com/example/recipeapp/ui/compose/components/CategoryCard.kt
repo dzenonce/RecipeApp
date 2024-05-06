@@ -13,11 +13,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.bumptech.glide.integration.compose.placeholder
+import com.example.recipeapp.MAX_LINES_1
+import com.example.recipeapp.MAX_LINES_3
 import com.example.recipeapp.R
 import com.example.recipeapp.ui.compose.theme.StyleTitleTextGrey12
 import com.example.recipeapp.ui.compose.theme.StyleTitleTextPurple14
@@ -54,12 +57,16 @@ fun CategoriesCard(
         Text(
             text = title.uppercase(),
             style = StyleTitleTextPurple14,
+            maxLines = MAX_LINES_1,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .padding(8.dp)
         )
         Text(
             text = description,
             style = StyleTitleTextGrey12,
+            maxLines = MAX_LINES_3,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .padding(start = 8.dp, bottom = 8.dp)
         )
