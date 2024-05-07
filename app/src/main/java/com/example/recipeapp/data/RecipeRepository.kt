@@ -5,9 +5,10 @@ import com.example.recipeapp.data.room.RecipesRoomStorage
 import com.example.recipeapp.data.room.categories.CategoriesDao
 import com.example.recipeapp.data.room.recipes.recipes.favorites.FavoritesDao
 import com.example.recipeapp.data.room.recipes.recipesList.RecipesDao
+import com.example.recipeapp.di.RecipeAppModule
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -17,9 +18,9 @@ class RecipeRepository @Inject constructor(
     private val recipesDao: RecipesDao,
     private val favoritesDao: FavoritesDao,
     private val recipeDataSource: RecipeApiService,
+    @RecipeAppModule.IoDispatcher
+    private val ioDispatcher: CoroutineDispatcher,
 ) {
-
-    private val ioDispatcher = Dispatchers.IO
 
     val recipesCache = RecipesRoomStorage(
         categoriesDao = categoriesDao,
