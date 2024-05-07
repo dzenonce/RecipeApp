@@ -35,7 +35,11 @@ class ComposeMainActivity : ComponentActivity() {
 }
 
 @Composable
-fun AppNavigator(screenViewModel: ScreenViewModel, currentScreen: Screen, appContainer: AppContainer) {
+fun AppNavigator(
+    screenViewModel: ScreenViewModel,
+    currentScreen: Screen,
+    appContainer: AppContainer
+) {
 
     val categoriesListViewModel = appContainer.getCategoriesListViewModelFactory().create()
     val recipesListViewModel = appContainer.getRecipesListViewModelFactory().create()
@@ -44,7 +48,8 @@ fun AppNavigator(screenViewModel: ScreenViewModel, currentScreen: Screen, appCon
         is Screen.CategoriesScreen -> {
             CategoriesScreen(
                 screenViewModel = screenViewModel,
-                categoriesListViewModel = categoriesListViewModel)
+                categoriesListViewModel = categoriesListViewModel
+            )
         }
 
         is Screen.Favorites -> {
