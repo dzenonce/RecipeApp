@@ -7,7 +7,6 @@ import com.example.recipeapp.data.room.recipes.recipes.favorites.FavoritesDao
 import com.example.recipeapp.data.room.recipes.recipesList.RecipesDao
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
