@@ -7,8 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.API_RECIPE_IMAGE_URL
 import com.example.recipeapp.data.RecipeRepository
 import com.example.recipeapp.model.Recipe
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 data class RecipeUiState(
     var isFavorite: Boolean = false,
@@ -16,7 +18,8 @@ data class RecipeUiState(
     var recipeImageUrl: String = "",
 )
 
-class RecipeViewModel(
+@HiltViewModel
+class RecipeViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository,
     private val exceptionHandler: CoroutineExceptionHandler,
 ) : ViewModel() {

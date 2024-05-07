@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.RecipeApplication
 import com.example.recipeapp.databinding.FragmentFavoritesBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FavoritesFragment : Fragment() {
 
     private val binding: FragmentFavoritesBinding by lazy {
@@ -18,14 +21,8 @@ class FavoritesFragment : Fragment() {
 
     private val navController by lazy { this.findNavController() }
 
-    private lateinit var favoritesViewModel: FavoritesViewModel
+    private val favoritesViewModel: FavoritesViewModel by viewModels()
     private val favoriteRecipesListAdapter = FavoriteRecipesListAdapter()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val appContainer = (requireActivity().application as RecipeApplication).appContainer
-        favoritesViewModel = appContainer.getFavoritesViewModelFactory().create()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

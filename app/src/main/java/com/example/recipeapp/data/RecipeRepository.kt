@@ -8,15 +8,19 @@ import com.example.recipeapp.data.room.recipes.recipesList.RecipesDao
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class RecipeRepository(
+
+class RecipeRepository @Inject constructor(
     private val categoriesDao: CategoriesDao,
     private val recipesDao: RecipesDao,
     private val favoritesDao: FavoritesDao,
-    private val ioDispatcher: CoroutineDispatcher,
     private val recipeDataSource: RecipeApiService,
 ) {
+
+    private val ioDispatcher = Dispatchers.IO
 
     val recipesCache = RecipesRoomStorage(
         categoriesDao = categoriesDao,

@@ -4,7 +4,7 @@ plugins {
     id("kotlin-parcelize")
     id("androidx.navigation.safeargs.kotlin") version "2.7.7"
     id("com.google.devtools.ksp") version "1.9.10-1.0.13"
-    id ("com.google.dagger.hilt.android")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
