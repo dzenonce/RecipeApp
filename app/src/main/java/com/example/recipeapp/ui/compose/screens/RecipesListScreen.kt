@@ -44,10 +44,12 @@ import com.example.recipeapp.ui.xmlUi.recipes.recipesList.RecipesListViewModel
 
 @Composable
 fun RecipesListScreen(
+    navigateTo: (Screen) -> Unit,
     recipesListViewModel: RecipesListViewModel
 ) {
     val recipesUiState by recipesListViewModel.uiState.observeAsState(RecipesListUiState())
     RecipesListView(
+        navigateTo = navigateTo,
         recipesList = recipesUiState.recipeList,
         categoryName = recipesUiState.categoryName,
         categoryImageUrl = recipesUiState.categoryImageUrl
@@ -57,6 +59,7 @@ fun RecipesListScreen(
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun RecipesListView(
+    navigateTo: (Screen) -> Unit,
     recipesList: List<Recipe>,
     categoryName: String,
     categoryImageUrl: String,
@@ -133,7 +136,7 @@ fun RecipesListView(
 
             Row(
                 modifier = Modifier.align(Alignment.BottomCenter)
-            ) { NavButton() }
+            ) { NavButton(navigateTo) }
         }
     }
 }
@@ -142,6 +145,7 @@ fun RecipesListView(
 @Composable
 fun RecipesListViewPreview() {
     RecipesListView(
+        navigateTo = { },
         recipesList = List(10) {
             Recipe(
                 1,

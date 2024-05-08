@@ -15,14 +15,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.recipeapp.R
 import com.example.recipeapp.ui.compose.screens.Screen
-import com.example.recipeapp.ui.compose.screens.ScreenViewModel
 import com.example.recipeapp.ui.compose.theme.BlueColor
 import com.example.recipeapp.ui.compose.theme.RedColor
 import com.example.recipeapp.ui.compose.theme.StyleTitleTextWhite14
 
 @Composable
 fun NavButton(
-//    screenViewModel: ScreenViewModel
+    navigateTo: (Screen) -> Unit,
 ) {
 
     Row(
@@ -33,7 +32,7 @@ fun NavButton(
 
         // TODO вынести в стиль (отдельный компонент)
         Button(
-            onClick = { },//screenViewModel.navigateTo(Screen.RecipesList) },
+            onClick = { navigateTo(Screen.CategoriesScreen) },
             shape = RoundedCornerShape(8.dp),
             colors = ButtonDefaults.buttonColors(BlueColor),
             modifier = Modifier
@@ -46,8 +45,9 @@ fun NavButton(
             )
         }
 
+        // TODO Favorites
         Button(
-            onClick = { },
+            onClick = { navigateTo(Screen.RecipesList) },
             shape = RoundedCornerShape(8.dp),
             colors = ButtonDefaults.buttonColors(RedColor),
             modifier = Modifier

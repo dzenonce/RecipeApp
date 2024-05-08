@@ -10,16 +10,16 @@ sealed class Screen {
     object Favorites : Screen()
 }
 
-data class ScreenUiState(
-    var currentScreen: Screen? = null
+data class ScreenState(
+    var currentScreen: Screen = Screen.CategoriesScreen,
 )
 
-class ScreenViewModel : ViewModel() {
+class NavigationViewModel : ViewModel() {
 
-    private var _screenState = MutableLiveData<ScreenUiState>()
-    val screenState: LiveData<ScreenUiState> = _screenState
+    private var _screenState = MutableLiveData<ScreenState>()
+    val currentScreen: LiveData<ScreenState> = _screenState
 
     fun navigateTo(screen: Screen) {
-        _screenState.value = ScreenUiState(currentScreen = screen)
+        _screenState.value = ScreenState(currentScreen = screen)
     }
 }

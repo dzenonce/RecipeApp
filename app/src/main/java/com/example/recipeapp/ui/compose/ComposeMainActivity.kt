@@ -9,25 +9,19 @@ import androidx.compose.runtime.livedata.observeAsState
 import com.example.recipeapp.RecipeApplication
 import com.example.recipeapp.di.AppContainer
 import com.example.recipeapp.ui.compose.screens.CategoriesScreen
+import com.example.recipeapp.ui.compose.screens.NavigationViewModel
 import com.example.recipeapp.ui.compose.screens.RecipesListScreen
 import com.example.recipeapp.ui.compose.screens.Screen
-import com.example.recipeapp.ui.compose.screens.ScreenUiState
-import com.example.recipeapp.ui.compose.screens.ScreenViewModel
+import com.example.recipeapp.ui.compose.screens.ScreenState
 
 class ComposeMainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val startScreen = Screen.CategoriesScreen
         val appContainer = (this.application as RecipeApplication).appContainer
-        val screenViewModel = appContainer.getScreenViewModelFactory().create()
 
         setContent {
-            val currentScreen by screenViewModel.screenState.observeAsState(ScreenUiState())
-            AppNavigator(
-                screenViewModel = screenViewModel,
-                currentScreen = currentScreen.currentScreen ?: startScreen,
-                appContainer = appContainer
+            RecipeAppNavigation(
+                appContainer = appContainer,
             )
         }
     }
@@ -35,19 +29,19 @@ class ComposeMainActivity : ComponentActivity() {
 }
 
 @Composable
-fun AppNavigator(
-    screenViewModel: ScreenViewModel,
-    currentScreen: Screen,
-    appContainer: AppContainer
+fun RecipeAppNavigation(
+    appContainer: AppContainer,
 ) {
 
     val categoriesListViewModel = appContainer.getCategoriesListViewModelFactory().create()
     val recipesListViewModel = appContainer.getRecipesListViewModelFactory().create()
+    val navigationViewModel = appContainer.getNavigationViewModelFactory().create()
+    val screenState: ScreenState by navigationViewModel.currentScreen.observeAsState(ScreenState())
 
-    when (currentScreen) {
+    when (screenState.currentScreen) {
         is Screen.CategoriesScreen -> {
             CategoriesScreen(
-                screenViewModel = screenViewModel,
+                navigateTo = navigationViewModel::navigateTo,
                 categoriesListViewModel = categoriesListViewModel
             )
         }
@@ -57,7 +51,10 @@ fun AppNavigator(
         }
 
         is Screen.RecipesList -> {
-            RecipesListScreen(recipesListViewModel = recipesListViewModel)
+            RecipesListScreen(
+                navigateTo = navigationViewModel::navigateTo,
+                recipesListViewModel = recipesListViewModel
+            )
         }
     }
 
