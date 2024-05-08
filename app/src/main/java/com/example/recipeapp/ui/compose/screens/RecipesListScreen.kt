@@ -58,7 +58,6 @@ fun RecipesListScreen(
     )
     recipesListViewModel.loadRecipesList(categoryId)
 
-    // TODO Передавать map в который кладется имя категории, ее id, ее изображение, и список рецептов, который ей соответствует
     RecipesListView(
         navigateTo = navigateTo,
         recipesList = recipesUiState.recipeList,

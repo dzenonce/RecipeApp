@@ -72,7 +72,7 @@ fun FavoriteView(
                 .fillMaxWidth(),
         ) {
             Image(
-                painter = painterResource(id = R.drawable.bcg_categories),
+                painter = painterResource(id = R.drawable.bcg_favorites),
                 contentDescription = stringResource(id = R.string.content_description_image),
                 modifier = Modifier
                     .fillMaxWidth()
