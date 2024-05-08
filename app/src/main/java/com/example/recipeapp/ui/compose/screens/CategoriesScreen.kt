@@ -32,8 +32,9 @@ import androidx.compose.ui.unit.dp
 import com.example.recipeapp.API_RECIPE_IMAGE_URL
 import com.example.recipeapp.R
 import com.example.recipeapp.model.Category
-import com.example.recipeapp.ui.compose.components.CategoriesCard
+import com.example.recipeapp.ui.compose.components.CategoryCard
 import com.example.recipeapp.ui.compose.components.NavButton
+import com.example.recipeapp.ui.compose.navigation.Screen
 import com.example.recipeapp.ui.compose.theme.PurpleColor
 import com.example.recipeapp.ui.compose.theme.StyleMenuHeaderTextPurple20
 import com.example.recipeapp.ui.compose.theme.WhiteBlueColor
@@ -43,14 +44,14 @@ import com.example.recipeapp.ui.xmlUi.category.CategoriesUiState
 
 @Composable
 fun CategoriesScreen(
-    categoriesListViewModel: CategoriesListViewModel,
     navigateTo: (Screen) -> Unit,
+    categoriesListViewModel: CategoriesListViewModel,
 ) {
     val categoryUiState by categoriesListViewModel.uiState.observeAsState(CategoriesUiState())
     categoriesListViewModel.loadCategories()
     CategoriesView(
         navigateTo = navigateTo,
-        categoriesList = categoryUiState.categoriesList
+        categoriesList = categoryUiState.categoriesList,
     )
 }
 
@@ -119,7 +120,9 @@ fun CategoriesView(
                     .fillMaxSize()
             ) {
                 items(categoriesList) { category ->
-                    CategoriesCard(
+                    CategoryCard(
+                        navigateTo = navigateTo,
+                        categoryId = category.id,
                         title = category.title,
                         description = category.description,
                         imageUrl = "$API_RECIPE_IMAGE_URL/${category.imageUrl}",

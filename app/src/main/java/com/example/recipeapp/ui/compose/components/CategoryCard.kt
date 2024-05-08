@@ -22,21 +22,34 @@ import com.bumptech.glide.integration.compose.placeholder
 import com.example.recipeapp.MAX_LINES_1
 import com.example.recipeapp.MAX_LINES_3
 import com.example.recipeapp.R
+import com.example.recipeapp.ui.compose.navigation.Screen
 import com.example.recipeapp.ui.compose.theme.StyleTitleTextGrey12
 import com.example.recipeapp.ui.compose.theme.StyleTitleTextPurple14
 import com.example.recipeapp.ui.compose.theme.WhiteBlueColor
 
+
+// TODO 3-x слойная архитектура для предпросмотра
 @OptIn(ExperimentalGlideComposeApi::class)
 @Preview
 @Composable
-fun CategoriesCard(
+fun CategoryCard(
+    navigateTo: (Screen) -> Unit = { },
+    categoryId: Int = 0,
     title: String = "Бургеры",
     description: String = "Вкуснейшие",
     imageUrl: String = "burger.png",
 ) {
 
     ElevatedCard(
-        onClick = { },
+        onClick = {
+            navigateTo(
+                Screen.RecipesList(
+                    categoryId = categoryId,
+                    categoryName = title,
+                    categoryImageUrl = imageUrl,
+                )
+            )
+        },
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         modifier = Modifier
             .heightIn(min = 230.dp, max = 240.dp)

@@ -36,6 +36,7 @@ import com.example.recipeapp.R
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.ui.compose.components.NavButton
 import com.example.recipeapp.ui.compose.components.RecipeCard
+import com.example.recipeapp.ui.compose.navigation.Screen
 import com.example.recipeapp.ui.compose.theme.PurpleColor
 import com.example.recipeapp.ui.compose.theme.StyleMenuHeaderTextPurple20
 import com.example.recipeapp.ui.compose.theme.WhiteBlueColor
@@ -44,15 +45,25 @@ import com.example.recipeapp.ui.xmlUi.recipes.recipesList.RecipesListViewModel
 
 @Composable
 fun RecipesListScreen(
+    // Картой / объектом
+    categoryId: Int,
+    categoryName: String,
+    categoryImageUrl: String,
+
     navigateTo: (Screen) -> Unit,
     recipesListViewModel: RecipesListViewModel
 ) {
-    val recipesUiState by recipesListViewModel.uiState.observeAsState(RecipesListUiState())
+    val recipesUiState: RecipesListUiState by recipesListViewModel.uiState.observeAsState(
+        RecipesListUiState()
+    )
+    recipesListViewModel.loadRecipesList(categoryId)
+
+    // TODO Передавать map в который кладется имя категории, ее id, ее изображение, и список рецептов, который ей соответствует
     RecipesListView(
         navigateTo = navigateTo,
         recipesList = recipesUiState.recipeList,
-        categoryName = recipesUiState.categoryName,
-        categoryImageUrl = recipesUiState.categoryImageUrl
+        categoryName = categoryName,
+        categoryImageUrl = categoryImageUrl,
     )
 }
 
@@ -73,7 +84,7 @@ fun RecipesListView(
                 .fillMaxWidth(),
         ) {
             GlideImage(
-                model = "$API_RECIPE_IMAGE_URL/$categoryImageUrl",
+                model = categoryImageUrl,
                 contentDescription = stringResource(id = R.string.content_description_image),
                 modifier = Modifier
                     .fillMaxWidth()

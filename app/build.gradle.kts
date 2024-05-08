@@ -61,6 +61,7 @@ dependencies {
     val activityComposeVersion = "1.9.0"
     val lifecycleRuntimeKtxVersion = "2.7.0"
     val composeViewModelVersion = "2.6.1"
+    val composeVersion = "1.6.7"
 
     // Compose
     implementation(composeBom)
@@ -69,10 +70,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeKtxVersion")
     implementation("androidx.activity:activity-compose:$activityComposeVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$composeViewModelVersion")
-    implementation("androidx.compose.ui:ui-tooling-preview-android:1.6.6")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.6.6")
+    implementation("androidx.compose.ui:ui-tooling-preview-android:$composeVersion")
+    debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
-    implementation("androidx.compose.runtime:runtime-livedata:1.6.6")
+    implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
 
     // Room
     ksp("androidx.room:room-compiler:$roomVersion")

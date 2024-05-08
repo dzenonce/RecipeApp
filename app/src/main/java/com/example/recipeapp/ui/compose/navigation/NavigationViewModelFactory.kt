@@ -1,4 +1,4 @@
-package com.example.recipeapp.ui.compose.screens
+package com.example.recipeapp.ui.compose.navigation
 
 import com.example.recipeapp.di.Factory
 
