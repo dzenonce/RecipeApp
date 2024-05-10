@@ -1,6 +1,7 @@
 package com.example.recipeapp.ui.compose.screens
 
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -27,6 +28,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.recipeapp.API_RECIPE_IMAGE_URL
@@ -37,7 +39,8 @@ import com.example.recipeapp.ui.compose.components.NavButton
 import com.example.recipeapp.ui.compose.components.RecipeCard
 import com.example.recipeapp.ui.compose.navigation.Screen
 import com.example.recipeapp.ui.compose.theme.PurpleColor
-import com.example.recipeapp.ui.compose.theme.StyleMenuHeaderTextPurple20
+import com.example.recipeapp.ui.compose.theme.StyleMontserratAlternatesPurple20
+import com.example.recipeapp.ui.compose.theme.StyleMontserratNatureGrey16
 import com.example.recipeapp.ui.compose.theme.WhiteBlueColor
 import com.example.recipeapp.ui.xmlUi.recipes.favorites.FavoritesUiState
 import com.example.recipeapp.ui.xmlUi.recipes.favorites.FavoritesViewModel
@@ -72,8 +75,8 @@ fun FavoriteView(
                 .fillMaxWidth(),
         ) {
             Image(
-                painter = painterResource(id = R.drawable.bcg_favorites),
                 contentDescription = stringResource(id = R.string.content_description_image),
+                painter = painterResource(id = R.drawable.bcg_favorites),
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(WhiteBlueColor)
@@ -87,9 +90,9 @@ fun FavoriteView(
                 contentScale = ContentScale.FillWidth,
             )
             Text(
+                style = StyleMontserratAlternatesPurple20,
                 text = stringResource(id = R.string.title_favorite).uppercase(),
                 color = PurpleColor,
-                style = StyleMenuHeaderTextPurple20,
                 maxLines = MAX_LINES_1,
                 modifier = Modifier
                     .padding(16.dp)
@@ -104,33 +107,44 @@ fun FavoriteView(
             )
         }
         Box(
+            contentAlignment = Alignment.Center,
             modifier = Modifier
                 .fillMaxSize()
                 .background(WhiteBlueColor)
         ) {
             // Recipe Cards
 
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(1),
-                contentPadding = PaddingValues(
-                    start = 8.dp,
-                    top = 8.dp,
-                    end = 8.dp,
-                    bottom = 52.dp
-                ),
-                modifier = Modifier
-                    .background(WhiteBlueColor)
-                    .fillMaxSize()
-            ) {
+            Log.d("!!!", "fRL isNotEmpty = ${favoritesRecipesList.isNotEmpty()}")
+            if (favoritesRecipesList.isNotEmpty()) {
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(1),
+                    contentPadding = PaddingValues(
+                        start = 8.dp,
+                        top = 8.dp,
+                        end = 8.dp,
+                        bottom = 52.dp
+                    ),
+                    modifier = Modifier
+                        .background(WhiteBlueColor)
+                        .fillMaxSize()
+                ) {
 
-                items(favoritesRecipesList) { recipe ->
-                    RecipeCard(
-                        title = recipe.title,
-                        imageUrl = "$API_RECIPE_IMAGE_URL/${recipe.imageUrl}",
-                    )
+                    items(favoritesRecipesList) { recipe ->
+                        RecipeCard(
+                            title = recipe.title,
+                            imageUrl = "$API_RECIPE_IMAGE_URL/${recipe.imageUrl}",
+                        )
+                    }
                 }
+            } else {
+                Text(
+                    text = stringResource(id = R.string.title_favorites_recipe_empty),
+                    modifier = Modifier
+                        .align(Alignment.Center),
+                    textAlign = TextAlign.Center,
+                    style = StyleMontserratNatureGrey16,
+                )
             }
-
             Row(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)

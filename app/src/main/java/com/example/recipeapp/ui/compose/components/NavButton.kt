@@ -18,7 +18,7 @@ import com.example.recipeapp.R
 import com.example.recipeapp.ui.compose.navigation.Screen
 import com.example.recipeapp.ui.compose.theme.BlueColor
 import com.example.recipeapp.ui.compose.theme.RedColor
-import com.example.recipeapp.ui.compose.theme.StyleTitleTextWhite14
+import com.example.recipeapp.ui.compose.theme.StyleMontserratAlternatesWhite14
 
 @Preview
 @Composable
@@ -43,7 +43,7 @@ fun NavButton(
         ) {
             Text(
                 text = stringResource(id = R.string.title_categories).uppercase(),
-                style = StyleTitleTextWhite14,
+                style = StyleMontserratAlternatesWhite14,
             )
         }
 
@@ -57,7 +57,7 @@ fun NavButton(
         ) {
             Text(
                 stringResource(id = R.string.title_favorite).uppercase(),
-                style = StyleTitleTextWhite14
+                style = StyleMontserratAlternatesWhite14
             )
             Icon(
                 painter = painterResource(id = R.drawable.ic_heart_empty),

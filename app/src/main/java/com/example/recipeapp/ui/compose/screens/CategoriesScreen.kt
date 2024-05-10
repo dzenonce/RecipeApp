@@ -36,7 +36,7 @@ import com.example.recipeapp.ui.compose.components.CategoryCard
 import com.example.recipeapp.ui.compose.components.NavButton
 import com.example.recipeapp.ui.compose.navigation.Screen
 import com.example.recipeapp.ui.compose.theme.PurpleColor
-import com.example.recipeapp.ui.compose.theme.StyleMenuHeaderTextPurple20
+import com.example.recipeapp.ui.compose.theme.StyleMontserratAlternatesPurple20
 import com.example.recipeapp.ui.compose.theme.WhiteBlueColor
 import com.example.recipeapp.ui.xmlUi.category.CategoriesListViewModel
 import com.example.recipeapp.ui.xmlUi.category.CategoriesUiState
@@ -85,7 +85,7 @@ fun CategoriesView(
             Text(
                 text = stringResource(id = R.string.title_categories).uppercase(),
                 color = PurpleColor,
-                style = StyleMenuHeaderTextPurple20,
+                style = StyleMontserratAlternatesPurple20,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier

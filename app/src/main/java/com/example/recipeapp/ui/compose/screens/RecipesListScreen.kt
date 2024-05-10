@@ -38,7 +38,7 @@ import com.example.recipeapp.ui.compose.components.NavButton
 import com.example.recipeapp.ui.compose.components.RecipeCard
 import com.example.recipeapp.ui.compose.navigation.Screen
 import com.example.recipeapp.ui.compose.theme.PurpleColor
-import com.example.recipeapp.ui.compose.theme.StyleMenuHeaderTextPurple20
+import com.example.recipeapp.ui.compose.theme.StyleMontserratAlternatesPurple20
 import com.example.recipeapp.ui.compose.theme.WhiteBlueColor
 import com.example.recipeapp.ui.xmlUi.recipes.recipesList.RecipesListUiState
 import com.example.recipeapp.ui.xmlUi.recipes.recipesList.RecipesListViewModel
@@ -102,7 +102,7 @@ fun RecipesListView(
             Text(
                 text = categoryName.uppercase(),
                 color = PurpleColor,
-                style = StyleMenuHeaderTextPurple20,
+                style = StyleMontserratAlternatesPurple20,
                 maxLines = MAX_LINES_1,
                 modifier = Modifier
                     .padding(16.dp)

@@ -20,7 +20,7 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.bumptech.glide.integration.compose.placeholder
 import com.example.recipeapp.MAX_LINES_1
 import com.example.recipeapp.R
-import com.example.recipeapp.ui.compose.theme.StyleTitleTextPurple14
+import com.example.recipeapp.ui.compose.theme.StyleMontserratAlternatesPurple14
 import com.example.recipeapp.ui.compose.theme.WhiteBlueColor
 
 @OptIn(ExperimentalGlideComposeApi::class)
@@ -52,7 +52,7 @@ fun RecipeCard(
         )
         Text(
             text = title.uppercase(),
-            style = StyleTitleTextPurple14,
+            style = StyleMontserratAlternatesPurple14,
             maxLines = MAX_LINES_1,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier

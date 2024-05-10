@@ -14,6 +14,6 @@ import com.example.recipeapp.R
 
     val MontserratAlternatesFont =
         FontFamily(
-            Font(R.font.montserratalternates_semibold, FontWeight.SemiBold)
+            Font(R.font.montserratalternates_semibold, FontWeight.SemiBold),
         )
 

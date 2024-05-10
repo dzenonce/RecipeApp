@@ -24,7 +24,7 @@ import com.example.recipeapp.MAX_LINES_3
 import com.example.recipeapp.R
 import com.example.recipeapp.ui.compose.navigation.Screen
 import com.example.recipeapp.ui.compose.theme.StyleTitleTextGrey12
-import com.example.recipeapp.ui.compose.theme.StyleTitleTextPurple14
+import com.example.recipeapp.ui.compose.theme.StyleMontserratAlternatesPurple14
 import com.example.recipeapp.ui.compose.theme.WhiteBlueColor
 
 
@@ -69,7 +69,7 @@ fun CategoryCard(
         )
         Text(
             text = title.uppercase(),
-            style = StyleTitleTextPurple14,
+            style = StyleMontserratAlternatesPurple14,
             maxLines = MAX_LINES_1,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
