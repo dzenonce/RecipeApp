@@ -60,8 +60,8 @@ dependencies {
     val composeBom = platform("androidx.compose:compose-bom:2024.04.01")
     val activityComposeVersion = "1.9.0"
     val lifecycleRuntimeKtxVersion = "2.7.0"
-    val composeViewModelVersion = "2.7.0"
     val composeVersion = "1.6.7"
+    val composeViewModelVersion = "2.7.0"
 
     // Compose
     implementation(composeBom)
