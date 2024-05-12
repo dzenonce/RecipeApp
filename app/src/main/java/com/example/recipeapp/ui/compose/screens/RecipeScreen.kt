@@ -1,6 +1,8 @@
 package com.example.recipeapp.ui.compose.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +13,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.twotone.Favorite
+import androidx.compose.material.icons.twotone.FavoriteBorder
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonColors
@@ -29,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
@@ -69,7 +76,7 @@ fun RecipeScreen(
     )
 }
 
-@OptIn(ExperimentalGlideComposeApi::class)
+@OptIn(ExperimentalGlideComposeApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun RecipeScreenView(
     navigateTo: (Screen) -> Unit,
@@ -124,10 +131,11 @@ fun RecipeScreenView(
                     .padding(end = 16.dp, top = 16.dp)
                     .align(Alignment.TopEnd)
             ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_heart_empty),
+                Image(
+//                    imageVector = Icons.TwoTone.FavoriteBorder,
+                    painter = painterResource(id = R.drawable.ic_heart),
                     contentDescription = stringResource(id = R.string.content_description_image),
-                    tint = Color.White,
+//                    tint = Color.White,
                     modifier = Modifier
                         .height(40.dp)
                         .width(40.dp)
@@ -152,16 +160,24 @@ fun RecipeScreenView(
                 text = "${stringResource(id = R.string.title_portion_count)} ${sliderPosition.toInt()}"
             )
             Slider(
-                value = sliderPosition,
+                thumb = {
+                    Image(
+                        image = painterResource(id = R.drawable.ic_launcher_background),"contentDescription")
+                },
                 onValueChange = { sliderPosition = it },
-                valueRange = 1f..5f,
+
+            )
+//            Slider(
+//                value = sliderPosition,
+//                onValueChange = { sliderPosition = it },
+//                valueRange = 1f..5f,
 //                thumb = SliderDefaults.Thumb(),
-                colors = SliderDefaults.colors(
-                    thumbColor = BlueColor,
-                    inactiveTickColor = LightStateBlueColor,
-                    activeTrackColor = LightStateBlueColor,
-                    disabledThumbColor = LightStateBlueColor,
-                ),
+//                colors = SliderDefaults.colors(
+//                    thumbColor = BlueColor,
+//                    inactiveTickColor = LightStateBlueColor,
+//                    activeTrackColor = LightStateBlueColor,
+//                    disabledThumbColor = LightStateBlueColor,
+//                ),
 
             )
             // List
