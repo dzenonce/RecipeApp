@@ -133,15 +133,18 @@ fun RecipeScreenView(
                     .align(Alignment.BottomStart)
             )
 
-            val isFavoriteState by remember { mutableStateOf(isFavorite) }
-// TODO необходимо обновлять кнопочку при нажатии
+            val isFavoriteState = remember { mutableStateOf(isFavorite) }
+
             IconButton(
-                onClick = { onClick(!isFavorite) },
+                onClick = {
+                    isFavoriteState.value = !isFavoriteState.value
+                    onClick(!isFavorite)
+                },
                 modifier = Modifier
                     .padding(end = 16.dp, top = 16.dp)
                     .align(Alignment.TopEnd)
             ) {
-                if (isFavorite)
+                if (isFavoriteState.value)
                     Image(
                         painter = painterResource(id = R.drawable.ic_heart),
                         contentDescription = stringResource(id = R.string.content_description_image),
@@ -195,30 +198,27 @@ fun RecipeScreenView(
                 onValueChange = { sliderPosition = it },
                 valueRange = 1f..5f,
                 modifier = Modifier
-//                    .fillMaxWidth()
                     .padding(
                         bottom = dimensionResource(id = R.dimen.margin_normal_8),
                     )
                     .fillMaxWidth(),
-                thumb = {
-                    Box(
-                        modifier = Modifier
-                            .padding(start = 16.dp, end = 8.dp)
-                            .clip(RoundedCornerShape(dimensionResource(id = R.dimen.margin_small_2)))
-                            .background(BlueColor)
-                            .height(dimensionResource(id = R.dimen.size_thumb_30))
-                            .width(dimensionResource(id = R.dimen.size_thumb_8))
-                    )
-                },
                 track = {
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 8.dp, end = 8.dp)
                             .clip(RoundedCornerShape(dimensionResource(id = R.dimen.margin_small_4)))
                             .background(LightStateBlueColor)
                             .height(16.dp)
-                        ,
+                    )
+                },
+                thumb = {
+                    Box(
+                        modifier = Modifier
+                            .padding(start = 16.dp, end = 16.dp)
+                            .clip(RoundedCornerShape(dimensionResource(id = R.dimen.margin_small_2)))
+                            .background(BlueColor)
+                            .height(dimensionResource(id = R.dimen.size_thumb_30))
+                            .width(dimensionResource(id = R.dimen.size_thumb_8))
                     )
                 },
             )
