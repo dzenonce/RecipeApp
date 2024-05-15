@@ -48,7 +48,7 @@ android {
 }
 
 dependencies {
-    val fragmentVersion = "1.6.2"
+    val fragmentVersion = "1.7.0"
     val navVersion = "2.7.7"
     val gsonVersion = "2.10.1"
     val retrofitVersion = "2.11.0"
@@ -60,7 +60,8 @@ dependencies {
     val composeBom = platform("androidx.compose:compose-bom:2024.04.01")
     val activityComposeVersion = "1.9.0"
     val lifecycleRuntimeKtxVersion = "2.7.0"
-    val composeViewModelVersion = "2.6.1"
+    val composeVersion = "1.6.7"
+    val composeViewModelVersion = "2.7.0"
 
     // Compose
     implementation(composeBom)
@@ -69,10 +70,11 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeKtxVersion")
     implementation("androidx.activity:activity-compose:$activityComposeVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$composeViewModelVersion")
-    implementation("androidx.compose.ui:ui-tooling-preview-android:1.6.6")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.6.6")
+    implementation("androidx.compose.ui:ui-tooling-preview-android:$composeVersion")
+    debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
-
+    implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
+    implementation("androidx.navigation:navigation-compose:$navVersion")
 
     // Room
     ksp("androidx.room:room-compiler:$roomVersion")
@@ -95,7 +97,7 @@ dependencies {
     implementation("androidx.fragment:fragment:$fragmentVersion")
     implementation("androidx.fragment:fragment-ktx:$fragmentVersion")
 
-    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")

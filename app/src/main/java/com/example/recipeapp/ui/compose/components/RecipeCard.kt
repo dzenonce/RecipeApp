@@ -2,7 +2,6 @@ package com.example.recipeapp.ui.compose.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,31 +19,23 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.bumptech.glide.integration.compose.placeholder
 import com.example.recipeapp.MAX_LINES_1
-import com.example.recipeapp.MAX_LINES_3
 import com.example.recipeapp.R
-import com.example.recipeapp.ui.compose.theme.StyleTitleTextGrey12
 import com.example.recipeapp.ui.compose.theme.StyleMontserratAlternatesPurple14
 import com.example.recipeapp.ui.compose.theme.WhiteBlueColor
 
-
-// TODO 3-x слойная архитектура для предпросмотра
 @OptIn(ExperimentalGlideComposeApi::class)
 @Preview
 @Composable
-fun CategoryCard(
-    // TODO navigateToRecipes() or onCategoryClicked: (categoryId) -> Unit хотя походу он ничего не должен знать о кликах, типа галереи переиспользовать
-    onClick: (Int) -> Unit = { },
-    categoryId: Int = 0,
-    title: String = "Бургеры",
-    description: String = "Вкуснейшие",
+fun RecipeCard(
+    onRecipeCardClicked: () -> Unit = { },
+    title: String = "Чизбургер",
     imageUrl: String = "burger.png",
 ) {
 
-   ElevatedCard(
-        onClick = { onClick(categoryId) },
+    ElevatedCard(
+        onClick = { onRecipeCardClicked() },
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         modifier = Modifier
-            .heightIn(min = 230.dp, max = 240.dp)
             .padding(8.dp),
         shape = RoundedCornerShape(corner = CornerSize(8.dp)),
         colors = CardDefaults.cardColors(containerColor = WhiteBlueColor),
@@ -53,7 +44,7 @@ fun CategoryCard(
             model = imageUrl,
             contentDescription = stringResource(id = R.string.content_description_image),
             modifier = Modifier
-                .height(130.dp)
+                .height(100.dp)
                 .fillMaxWidth(),
             contentScale = ContentScale.FillWidth,
             loading = placeholder(R.drawable.img_placeholder),
@@ -67,21 +58,5 @@ fun CategoryCard(
             modifier = Modifier
                 .padding(8.dp)
         )
-        Text(
-            text = description,
-            style = StyleTitleTextGrey12,
-            maxLines = MAX_LINES_3,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier
-                .padding(start = 8.dp, bottom = 8.dp)
-        )
     }
 }
-
-//            navigateTo(
-//                Screen.RecipesList(
-//                    categoryId = categoryId,
-//                    categoryName = title,
-//                    categoryImageUrl = imageUrl,
-//                )
-//            )

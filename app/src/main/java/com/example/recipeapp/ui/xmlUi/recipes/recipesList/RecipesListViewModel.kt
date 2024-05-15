@@ -11,8 +11,6 @@ import kotlinx.coroutines.launch
 
 data class RecipesListUiState(
     var recipeList: List<Recipe> = emptyList(),
-    var categoryName: String? = null,
-    var categoryImageUrl: String? = null,
 )
 
 class RecipesListViewModel(
@@ -42,5 +40,4 @@ class RecipesListViewModel(
             _uiState.value = RecipesListUiState(recipeList = recipesList)
         }
     }
-
 }

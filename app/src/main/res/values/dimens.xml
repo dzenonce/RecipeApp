@@ -13,7 +13,7 @@
     <dimen name="margin_normal_12">12dp</dimen>
     <dimen name="margin_normal_16">16dp</dimen>
 
-    <dimen name="size_thumb_7.86">7.86dp</dimen>
+    <dimen name="size_thumb_8">8dp</dimen>
     <dimen name="size_thumb_30">30dp</dimen>
     <dimen name="size_image_40">40dp</dimen>
     <dimen name="size_image_100">100dp</dimen>

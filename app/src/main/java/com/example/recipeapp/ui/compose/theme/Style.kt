@@ -5,7 +5,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-val StyleMenuHeaderTextPurple20 =
+val StyleMontserratAlternatesPurple20 =
     TextStyle(
         color = PurpleColor,
         fontSize = 20.sp,
@@ -13,17 +13,49 @@ val StyleMenuHeaderTextPurple20 =
         fontWeight = FontWeight.SemiBold,
     )
 
-val StyleTitleTextWhite14 =
+val StyleMontserratAlternatesDarkBurgundy20 =
     TextStyle(
-        color = Color.White,
+        color = DarkBurgundyColor,
+        fontSize = 20.sp,
+        fontFamily = MontserratAlternatesFont,
+        fontWeight = FontWeight.SemiBold,
+    )
+
+val StyleMontserratAlternatesPurple14 =
+    TextStyle(
+        color = PurpleColor,
         fontSize = 14.sp,
         fontFamily = MontserratAlternatesFont,
         fontWeight = FontWeight.SemiBold,
     )
 
-val StyleTitleTextPurple14 =
+val StyleMontserratNatureGrey16 =
     TextStyle(
-        color = PurpleColor,
+        color = NatureGreyColor,
+        fontSize = 16.sp,
+        fontFamily = MontserratFont,
+        fontWeight = FontWeight.Normal,
+    )
+
+val StyleMontserratLiteGrey16 =
+    TextStyle(
+        color = LightGreyColor,
+        fontSize = 16.sp,
+        fontFamily = MontserratFont,
+        fontWeight = FontWeight.SemiBold,
+    )
+
+val StyleMontserratGrey14 =
+    TextStyle(
+        color = NatureGreyColor,
+        fontSize = 16.sp,
+        fontFamily = MontserratFont,
+        fontWeight = FontWeight.Normal,
+    )
+
+val StyleMontserratAlternatesWhite14 =
+    TextStyle(
+        color = Color.White,
         fontSize = 14.sp,
         fontFamily = MontserratAlternatesFont,
         fontWeight = FontWeight.SemiBold,

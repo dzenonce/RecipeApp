@@ -9,7 +9,7 @@ data class Recipe(
     @PrimaryKey
     val id: Int,
     @ColumnInfo(name = "category_id")
-    var categoryId: Int = 0,
+    var categoryId: Int,
     @ColumnInfo(name = "is_favorite")
     val isFavorite: Boolean,
     @ColumnInfo(name = "title")

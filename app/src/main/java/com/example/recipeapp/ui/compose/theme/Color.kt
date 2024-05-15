@@ -9,5 +9,6 @@ val PurpleColor = Color(0xFF5F3678)
 
 val NatureGreyColor = Color(0xFF666666)
 val LightGreyColor = Color(0xFF626466)
+val LightWhiteGreyColor = Color(0xFFF5F5F5)
 val DarkBurgundyColor = Color(0xFF422952)
 val LightStateBlueColor = Color(0xFFA1A9F9)

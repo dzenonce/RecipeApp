@@ -28,7 +28,7 @@ class AppContainer(context: Context) {
         context,
         RecipeDatabase::class.java,
         DATABASE_NAME
-    ).build()
+    ).fallbackToDestructiveMigration().build()
 
     private val ioDispatcher = Dispatchers.IO
     private val categoriesDao = recipeDatabase.categoriesDao()
