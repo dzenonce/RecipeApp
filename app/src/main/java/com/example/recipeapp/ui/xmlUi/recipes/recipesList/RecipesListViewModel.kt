@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.recipeapp.API_RECIPE_IMAGE_URL
 import com.example.recipeapp.data.RecipeRepository
 import com.example.recipeapp.model.Recipe
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -11,8 +12,6 @@ import kotlinx.coroutines.launch
 
 data class RecipesListUiState(
     var recipeList: List<Recipe> = emptyList(),
-    var categoryName: String = "",
-    var categoryImageUrl: String = "",
 )
 
 class RecipesListViewModel(
@@ -42,5 +41,4 @@ class RecipesListViewModel(
             _uiState.value = RecipesListUiState(recipeList = recipesList)
         }
     }
-
 }

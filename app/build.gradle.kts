@@ -74,6 +74,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
     implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
+    implementation("androidx.navigation:navigation-compose:$navVersion")
 
     // Room
     ksp("androidx.room:room-compiler:$roomVersion")

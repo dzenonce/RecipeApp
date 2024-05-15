@@ -26,14 +26,14 @@ import com.example.recipeapp.ui.compose.theme.WhiteBlueColor
 @OptIn(ExperimentalGlideComposeApi::class)
 @Preview
 @Composable
-
 fun RecipeCard(
+    onRecipeCardClicked: () -> Unit = { },
     title: String = "Чизбургер",
     imageUrl: String = "burger.png",
 ) {
 
     ElevatedCard(
-        onClick = { },
+        onClick = { onRecipeCardClicked() },
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         modifier = Modifier
             .padding(8.dp),
@@ -60,4 +60,3 @@ fun RecipeCard(
         )
     }
 }
-

@@ -7,5 +7,8 @@ const val TOAST_TEXT_ERROR_LOADING = "Ошибка получения данны
 
 const val DATABASE_NAME = "recipe-app-bd"
 
+const val ARG_CATEGORY_ID = "categoryId"
+const val ARG_RECIPE_ID = "recipeId"
+
 const val MAX_LINES_1 = 1
 const val MAX_LINES_3 = 3

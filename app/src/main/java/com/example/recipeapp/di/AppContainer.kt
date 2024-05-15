@@ -29,7 +29,7 @@ class AppContainer(context: Context) {
         context,
         RecipeDatabase::class.java,
         DATABASE_NAME
-    ).build()
+    ).fallbackToDestructiveMigration().build()
 
     private val ioDispatcher = Dispatchers.IO
     private val categoriesDao = recipeDatabase.categoriesDao()
@@ -62,11 +62,11 @@ class AppContainer(context: Context) {
 
     private val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
         Log.e("internet error", throwable.stackTraceToString())
-        Toast.makeText(
-            context,
-            TOAST_TEXT_ERROR_LOADING,
-            Toast.LENGTH_SHORT
-        ).show()
+//        Toast.makeText(
+//            context,
+//            TOAST_TEXT_ERROR_LOADING,
+//            Toast.LENGTH_SHORT
+//        ).show()
     }
 
     fun getNavigationViewModelFactory() = NavigationViewModelFactory()

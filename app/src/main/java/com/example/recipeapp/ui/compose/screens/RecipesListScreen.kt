@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -33,46 +32,46 @@ import com.bumptech.glide.integration.compose.placeholder
 import com.example.recipeapp.API_RECIPE_IMAGE_URL
 import com.example.recipeapp.MAX_LINES_1
 import com.example.recipeapp.R
+import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
-import com.example.recipeapp.ui.compose.components.NavButton
 import com.example.recipeapp.ui.compose.components.RecipeCard
-import com.example.recipeapp.ui.compose.navigation.Screen
 import com.example.recipeapp.ui.compose.theme.PurpleColor
 import com.example.recipeapp.ui.compose.theme.StyleMontserratAlternatesPurple20
 import com.example.recipeapp.ui.compose.theme.WhiteBlueColor
+import com.example.recipeapp.ui.xmlUi.category.CategoriesListViewModel
+import com.example.recipeapp.ui.xmlUi.category.CategoryInfo
 import com.example.recipeapp.ui.xmlUi.recipes.recipesList.RecipesListUiState
 import com.example.recipeapp.ui.xmlUi.recipes.recipesList.RecipesListViewModel
 
 @Composable
 fun RecipesListScreen(
-    // Картой / объектом
     categoryId: Int,
-    categoryName: String,
-    categoryImageUrl: String,
-
-    navigateTo: (Screen) -> Unit,
-    recipesListViewModel: RecipesListViewModel
+    onRecipeClicked: (Int) -> Unit,
+    recipesListViewModel: RecipesListViewModel,
+    categoriesListViewModel: CategoriesListViewModel,
 ) {
     val recipesUiState: RecipesListUiState by recipesListViewModel.uiState.observeAsState(
         RecipesListUiState()
     )
+    val categoriesInfo: CategoryInfo by categoriesListViewModel.categoryInfo.observeAsState(
+        CategoryInfo()
+    )
     recipesListViewModel.loadRecipesList(categoryId)
+    categoriesListViewModel.loadCategoriesByCategoryId(categoryId)
 
     RecipesListView(
-        navigateTo = navigateTo,
+        onRecipeClicked = onRecipeClicked,
         recipesList = recipesUiState.recipeList,
-        categoryName = categoryName,
-        categoryImageUrl = categoryImageUrl,
+        category = categoriesInfo.category,
     )
 }
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun RecipesListView(
-    navigateTo: (Screen) -> Unit,
+    onRecipeClicked: (Int) -> Unit,
     recipesList: List<Recipe>,
-    categoryName: String,
-    categoryImageUrl: String,
+    category: Category?,
 ) {
     Column(
         modifier = Modifier
@@ -83,7 +82,7 @@ fun RecipesListView(
                 .fillMaxWidth(),
         ) {
             GlideImage(
-                model = categoryImageUrl,
+                model = "$API_RECIPE_IMAGE_URL/${category?.imageUrl}",
                 contentDescription = stringResource(id = R.string.content_description_image),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -100,7 +99,7 @@ fun RecipesListView(
                 failure = placeholder(R.drawable.img_error)
             )
             Text(
-                text = categoryName.uppercase(),
+                text = "${category?.title}".uppercase(),
                 color = PurpleColor,
                 style = StyleMontserratAlternatesPurple20,
                 maxLines = MAX_LINES_1,
@@ -135,18 +134,14 @@ fun RecipesListView(
                     .background(WhiteBlueColor)
                     .fillMaxSize()
             ) {
-
                 items(recipesList) { recipe ->
                     RecipeCard(
+                        onRecipeCardClicked = { onRecipeClicked(recipe.id) },
                         title = recipe.title,
                         imageUrl = "$API_RECIPE_IMAGE_URL/${recipe.imageUrl}",
                     )
                 }
             }
-
-            Row(
-                modifier = Modifier.align(Alignment.BottomCenter)
-            ) { NavButton(navigateTo) }
         }
     }
 }
@@ -155,7 +150,7 @@ fun RecipesListView(
 @Composable
 fun RecipesListViewPreview() {
     RecipesListView(
-        navigateTo = { },
+        onRecipeClicked = { },
         recipesList = List(10) {
             Recipe(
                 1,
@@ -167,7 +162,6 @@ fun RecipesListViewPreview() {
                 "burger.png",
             )
         },
-        categoryName = "Бургеры",
-        categoryImageUrl = "burger.png"
+        category = null,
     )
 }

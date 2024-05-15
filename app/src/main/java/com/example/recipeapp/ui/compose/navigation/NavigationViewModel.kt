@@ -6,12 +6,9 @@ import androidx.lifecycle.ViewModel
 
 sealed class Screen {
     data object CategoriesScreen: Screen()
-    class RecipesList(
-        val categoryId: Int,
-        val categoryName: String,
-        val categoryImageUrl: String,
-    ): Screen()
-    data object Favorites: Screen()
+    data object FavoritesScreen: Screen()
+    class RecipesListScreen(val categoryId: Int): Screen()
+    class RecipeScreen(val recipeId: Int): Screen()
 }
 
 data class ScreenState(

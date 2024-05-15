@@ -1,13 +1,11 @@
 package com.example.recipeapp.ui.compose.screens
 
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -35,9 +33,7 @@ import com.example.recipeapp.API_RECIPE_IMAGE_URL
 import com.example.recipeapp.MAX_LINES_1
 import com.example.recipeapp.R
 import com.example.recipeapp.model.Recipe
-import com.example.recipeapp.ui.compose.components.NavButton
 import com.example.recipeapp.ui.compose.components.RecipeCard
-import com.example.recipeapp.ui.compose.navigation.Screen
 import com.example.recipeapp.ui.compose.theme.PurpleColor
 import com.example.recipeapp.ui.compose.theme.StyleMontserratAlternatesPurple20
 import com.example.recipeapp.ui.compose.theme.StyleMontserratNatureGrey16
@@ -47,7 +43,7 @@ import com.example.recipeapp.ui.xmlUi.recipes.favorites.FavoritesViewModel
 
 @Composable
 fun FavoriteScreen(
-    navigateTo: (Screen) -> Unit,
+    onRecipeCardClicked: (Int) -> Unit,
     favoritesViewModel: FavoritesViewModel
 ) {
     val favoritesUiState: FavoritesUiState by favoritesViewModel.uiState.observeAsState(
@@ -56,14 +52,14 @@ fun FavoriteScreen(
     favoritesViewModel.loadFavorites()
 
     FavoriteView(
-        navigateTo = navigateTo,
+        onRecipeCardClicked = onRecipeCardClicked,
         favoritesRecipesList = favoritesUiState.favoritesRecipesList,
     )
 }
 
 @Composable
 fun FavoriteView(
-    navigateTo: (Screen) -> Unit,
+    onRecipeCardClicked: (Int) -> Unit,
     favoritesRecipesList: List<Recipe>,
 ) {
     Column(
@@ -114,7 +110,6 @@ fun FavoriteView(
         ) {
             // Recipe Cards
 
-            Log.d("!!!", "fRL isNotEmpty = ${favoritesRecipesList.isNotEmpty()}")
             if (favoritesRecipesList.isNotEmpty()) {
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(1),
@@ -131,6 +126,7 @@ fun FavoriteView(
 
                     items(favoritesRecipesList) { recipe ->
                         RecipeCard(
+                            onRecipeCardClicked = { onRecipeCardClicked(recipe.id) },
                             title = recipe.title,
                             imageUrl = "$API_RECIPE_IMAGE_URL/${recipe.imageUrl}",
                         )
@@ -145,10 +141,6 @@ fun FavoriteView(
                     style = StyleMontserratNatureGrey16,
                 )
             }
-            Row(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-            ) { NavButton(navigateTo) }
         }
     }
 }
@@ -169,7 +161,7 @@ fun FavoriteViewPreview() {
     }
 
     FavoriteView(
-        navigateTo = { },
+        onRecipeCardClicked = { },
         favoritesRecipesList = recipesList,
     )
 }

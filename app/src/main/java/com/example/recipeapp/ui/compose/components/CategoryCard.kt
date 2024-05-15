@@ -22,7 +22,6 @@ import com.bumptech.glide.integration.compose.placeholder
 import com.example.recipeapp.MAX_LINES_1
 import com.example.recipeapp.MAX_LINES_3
 import com.example.recipeapp.R
-import com.example.recipeapp.ui.compose.navigation.Screen
 import com.example.recipeapp.ui.compose.theme.StyleTitleTextGrey12
 import com.example.recipeapp.ui.compose.theme.StyleMontserratAlternatesPurple14
 import com.example.recipeapp.ui.compose.theme.WhiteBlueColor
@@ -33,23 +32,16 @@ import com.example.recipeapp.ui.compose.theme.WhiteBlueColor
 @Preview
 @Composable
 fun CategoryCard(
-    navigateTo: (Screen) -> Unit = { },
+    // TODO navigateToRecipes() or onCategoryClicked: (categoryId) -> Unit хотя походу он ничего не должен знать о кликах, типа галереи переиспользовать
+    onClick: (Int) -> Unit = { },
     categoryId: Int = 0,
     title: String = "Бургеры",
     description: String = "Вкуснейшие",
     imageUrl: String = "burger.png",
 ) {
 
-    ElevatedCard(
-        onClick = {
-            navigateTo(
-                Screen.RecipesList(
-                    categoryId = categoryId,
-                    categoryName = title,
-                    categoryImageUrl = imageUrl,
-                )
-            )
-        },
+   ElevatedCard(
+        onClick = { onClick(categoryId) },
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         modifier = Modifier
             .heightIn(min = 230.dp, max = 240.dp)
@@ -85,3 +77,11 @@ fun CategoryCard(
         )
     }
 }
+
+//            navigateTo(
+//                Screen.RecipesList(
+//                    categoryId = categoryId,
+//                    categoryName = title,
+//                    categoryImageUrl = imageUrl,
+//                )
+//            )

@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -30,11 +29,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.recipeapp.API_RECIPE_IMAGE_URL
+import com.example.recipeapp.MAX_LINES_1
 import com.example.recipeapp.R
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.ui.compose.components.CategoryCard
-import com.example.recipeapp.ui.compose.components.NavButton
-import com.example.recipeapp.ui.compose.navigation.Screen
 import com.example.recipeapp.ui.compose.theme.PurpleColor
 import com.example.recipeapp.ui.compose.theme.StyleMontserratAlternatesPurple20
 import com.example.recipeapp.ui.compose.theme.WhiteBlueColor
@@ -44,20 +42,20 @@ import com.example.recipeapp.ui.xmlUi.category.CategoriesUiState
 
 @Composable
 fun CategoriesScreen(
-    navigateTo: (Screen) -> Unit,
+    onCategoryCardClicked: (Int) -> Unit = { },
     categoriesListViewModel: CategoriesListViewModel,
 ) {
-    val categoryUiState by categoriesListViewModel.uiState.observeAsState(CategoriesUiState())
+    val categoryUiState by categoriesListViewModel.categoriesListUiState.observeAsState(CategoriesUiState())
     categoriesListViewModel.loadCategories()
     CategoriesView(
-        navigateTo = navigateTo,
+        onCategoryCardClicked = onCategoryCardClicked,
         categoriesList = categoryUiState.categoriesList,
     )
 }
 
 @Composable
 fun CategoriesView(
-    navigateTo: (Screen) -> Unit,
+    onCategoryCardClicked: (Int) -> Unit,
     categoriesList: List<Category>,
 ) {
     Column(
@@ -86,7 +84,7 @@ fun CategoriesView(
                 text = stringResource(id = R.string.title_categories).uppercase(),
                 color = PurpleColor,
                 style = StyleMontserratAlternatesPurple20,
-                maxLines = 1,
+                maxLines = MAX_LINES_1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
                     .padding(16.dp)
@@ -106,7 +104,7 @@ fun CategoriesView(
                 .background(WhiteBlueColor)
         ) {
             // Categories Cards
-            // TODO navigate to
+
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
                 contentPadding = PaddingValues(
@@ -121,20 +119,13 @@ fun CategoriesView(
             ) {
                 items(categoriesList) { category ->
                     CategoryCard(
-                        navigateTo = navigateTo,
+                        onClick = onCategoryCardClicked,
                         categoryId = category.id,
                         title = category.title,
                         description = category.description,
                         imageUrl = "$API_RECIPE_IMAGE_URL/${category.imageUrl}",
                     )
                 }
-            }
-
-            Row(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-            ) {
-                NavButton(navigateTo = navigateTo)
             }
         }
     }
@@ -144,7 +135,7 @@ fun CategoriesView(
 @Composable
 fun CategoriesViewPreview() {
     CategoriesView(
-        navigateTo = { },
+        onCategoryCardClicked = { },
         categoriesList = listOf(
             Category(
                 0,

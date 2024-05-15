@@ -15,26 +15,29 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.recipeapp.R
-import com.example.recipeapp.ui.compose.navigation.Screen
 import com.example.recipeapp.ui.compose.theme.BlueColor
 import com.example.recipeapp.ui.compose.theme.RedColor
 import com.example.recipeapp.ui.compose.theme.StyleMontserratAlternatesWhite14
 
+// TODO 3lvl arch
 @Preview
 @Composable
-fun NavButton(
-    navigateTo: (Screen) -> Unit = { },
+fun RecipeNavButton(
+    modifier: Modifier = Modifier,
+    onCategoryClicked: () -> Unit = { },
+    onFavoritesClicked: () -> Unit = { },
 ) {
 
     Row(
         modifier = Modifier
             .padding(bottom = 8.dp)
             .fillMaxWidth()
+            .then(modifier)
     ) {
 
         // TODO вынести в стиль (отдельный компонент)
         Button(
-            onClick = { navigateTo(Screen.CategoriesScreen) },
+            onClick = { onCategoryClicked() },
             shape = RoundedCornerShape(8.dp),
             colors = ButtonDefaults.buttonColors(BlueColor),
             modifier = Modifier
@@ -48,7 +51,7 @@ fun NavButton(
         }
 
         Button(
-            onClick = { navigateTo(Screen.Favorites) },
+            onClick = { onFavoritesClicked() },
             shape = RoundedCornerShape(8.dp),
             colors = ButtonDefaults.buttonColors(RedColor),
             modifier = Modifier

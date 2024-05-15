@@ -40,7 +40,7 @@ class CategoriesListFragment : Fragment() {
     }
 
     private fun initUi() {
-        categoriesListViewModel.uiState.observe(viewLifecycleOwner) { categoriesListState ->
+        categoriesListViewModel.categoriesListUiState.observe(viewLifecycleOwner) { categoriesListState ->
 
             val recyclerView: RecyclerView = binding.rvCategories
             categoryListAdapter.dataSet = categoriesListState.categoriesList

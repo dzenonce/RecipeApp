@@ -13,6 +13,14 @@ val StyleMontserratAlternatesPurple20 =
         fontWeight = FontWeight.SemiBold,
     )
 
+val StyleMontserratAlternatesDarkBurgundy20 =
+    TextStyle(
+        color = DarkBurgundyColor,
+        fontSize = 20.sp,
+        fontFamily = MontserratAlternatesFont,
+        fontWeight = FontWeight.SemiBold,
+    )
+
 val StyleMontserratAlternatesPurple14 =
     TextStyle(
         color = PurpleColor,
@@ -32,6 +40,14 @@ val StyleMontserratNatureGrey16 =
 val StyleMontserratLiteGrey16 =
     TextStyle(
         color = LightGreyColor,
+        fontSize = 16.sp,
+        fontFamily = MontserratFont,
+        fontWeight = FontWeight.Normal,
+    )
+
+val StyleMontserratGrey14 =
+    TextStyle(
+        color = NatureGreyColor,
         fontSize = 16.sp,
         fontFamily = MontserratFont,
         fontWeight = FontWeight.Normal,
