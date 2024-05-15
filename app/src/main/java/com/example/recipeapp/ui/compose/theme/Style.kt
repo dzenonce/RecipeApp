@@ -42,7 +42,7 @@ val StyleMontserratLiteGrey16 =
         color = LightGreyColor,
         fontSize = 16.sp,
         fontFamily = MontserratFont,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.SemiBold,
     )
 
 val StyleMontserratGrey14 =
