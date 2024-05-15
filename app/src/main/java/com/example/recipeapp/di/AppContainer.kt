@@ -15,7 +15,6 @@ import com.example.recipeapp.di.categories.CategoriesListViewModelFactory
 import com.example.recipeapp.di.recipes.favorites.FavoritesViewModelFactory
 import com.example.recipeapp.di.recipes.recipe.RecipeViewModelFactory
 import com.example.recipeapp.di.recipes.recipesList.RecipesListViewModelFactory
-import com.example.recipeapp.ui.compose.navigation.NavigationViewModelFactory
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
@@ -68,8 +67,6 @@ class AppContainer(context: Context) {
             Toast.LENGTH_SHORT
         ).show()
     }
-
-    fun getNavigationViewModelFactory() = NavigationViewModelFactory()
 
     fun getCategoriesListViewModelFactory() =
         CategoriesListViewModelFactory(
