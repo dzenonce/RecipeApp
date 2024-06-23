@@ -4,7 +4,7 @@
 <img src="https://github.com/dzenonce/RecipeApp/blob/master/preview/recipeMain.png" height="450"> <img src="https://github.com/dzenonce/RecipeApp/blob/master/preview/recipeRecipesList.png" height="450"> <img src="https://github.com/dzenonce/RecipeApp/blob/master/preview/recipeFavorites.png" height="450">
 
 ***Стек кратко:***
-MVVM, ViewModel, Coroutine, OkHttp, Retrofit, Room, Di, Fragment, Glide, RecyclerView
+MVVM, ViewModel, Coroutine, OkHttp, Retrofit, Room, Di - Hilt, Fragment, Glide, RecyclerView, Compose
 
 ***Стек подробнее:***
 - Архитектура
